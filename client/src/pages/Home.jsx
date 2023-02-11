@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import { BsFillInfoCircleFill } from "react-icons/bs";
 import { FiEdit3 } from "react-icons/fi";
 import { TiDeleteOutline } from "react-icons/ti";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [info, setInfo] = useState([]);
@@ -15,6 +16,11 @@ const Home = () => {
       })
       .then((data) => setInfo(data));
   }, []);
+  const handelDetails = (id) => {
+    console.log(id);
+  };
+  const navigate = useNavigate();
+
   return (
     <div>
       <Header />
@@ -33,7 +39,7 @@ const Home = () => {
           <tbody>
             {info.map((singleInfo, index) => {
               return (
-                <tr>
+                <tr key={index}>
                   <th>{index + 1}</th>
                   <td>
                     <div className="flex items-center space-x-3 text-start">
@@ -66,14 +72,17 @@ const Home = () => {
                   </td>
                   <td>{singleInfo.due}</td>
                   <th>
-                    <button className="btn btn-success btn-sm">
+                    <button
+                      className="btn btn-success btn-sm"
+                      onClick={() => handelDetails(singleInfo._id)}
+                    >
                       <BsFillInfoCircleFill color="white" size={25} />
                     </button>
                     <button className="btn btn-warning btn-outline btn-sm mx-2">
                       <FiEdit3 color="text-warning" size={25} />
                     </button>
                     <button className="btn btn-error btn-sm">
-                      <TiDeleteOutline  color="white" size={25}/>
+                      <TiDeleteOutline color="white" size={25} />
                     </button>
                   </th>
                 </tr>
