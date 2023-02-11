@@ -2,6 +2,9 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import Header from "../components/Header";
+import { BsFillInfoCircleFill } from "react-icons/bs";
+import { FiEdit3 } from "react-icons/fi";
+import { TiDeleteOutline } from "react-icons/ti";
 
 const Home = () => {
   const [info, setInfo] = useState([]);
@@ -14,55 +17,64 @@ const Home = () => {
   }, []);
   return (
     <div>
-        <Header/>
-      <div className="overflow-x-auto w-full">
-        <table className="table w-full">
+      <Header />
+      <div className="overflow-x-auto w-full ">
+        <table className="table w-full table-zebra text-center">
           <thead>
             <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Phone</th>
-              <th>Amount</th>
-              <th></th>
+              <th className=" bg-pink-500 text-white text-sm"></th>
+              <th className=" bg-pink-500 text-white text-sm">Name</th>
+              <th className=" bg-pink-500 text-white text-sm">Phone</th>
+              <th className=" bg-pink-500 text-white text-sm">Amount</th>
+              <th className=" bg-pink-500 text-white text-sm">Due</th>
+              <th className=" bg-pink-500 text-white text-sm">Action</th>
             </tr>
           </thead>
           <tbody>
             {info.map((singleInfo, index) => {
               return (
                 <tr>
-                  <th>{index+1}</th>
+                  <th>{index + 1}</th>
                   <td>
-                    <div className="flex items-center space-x-3">
+                    <div className="flex items-center space-x-3 text-start">
                       <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
-                          <img
-                            src={singleInfo.picture}
-                            alt={singleInfo.name}
-                          />
+                          <img src={singleInfo.picture} alt={singleInfo.name} />
                         </div>
                       </div>
                       <div>
                         <div className="font-bold">{singleInfo.name}</div>
-                        <div className="text-sm opacity-50">{singleInfo.address}</div>
+                        <div className="text-sm opacity-50">
+                          {singleInfo.address}
+                        </div>
                       </div>
                     </div>
                   </td>
                   <td>
-                  {singleInfo.phone}
+                    {singleInfo.phone}
                     <br />
                     <span className="badge badge-ghost badge-sm">
-                    {singleInfo.method}
+                      {singleInfo.method}
                     </span>
                   </td>
                   <td>
-                  {singleInfo.balance}
+                    {singleInfo.balance}
                     <br />
                     <span className="badge badge-ghost badge-sm">
-                    Pay: {singleInfo.due}
+                      Pay: {singleInfo.due}
                     </span>
                   </td>
+                  <td>{singleInfo.due}</td>
                   <th>
-                    <button className="btn btn-ghost btn-xs">details</button>
+                    <button className="btn btn-success btn-sm">
+                      <BsFillInfoCircleFill color="white" size={25} />
+                    </button>
+                    <button className="btn btn-warning btn-outline btn-sm mx-2">
+                      <FiEdit3 color="text-warning" size={25} />
+                    </button>
+                    <button className="btn btn-error btn-sm">
+                      <TiDeleteOutline  color="white" size={25}/>
+                    </button>
                   </th>
                 </tr>
               );
@@ -70,11 +82,12 @@ const Home = () => {
           </tbody>
           <tfoot>
             <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Job</th>
-              <th>Favorite Color</th>
-              <th></th>
+              <th className=" bg-pink-500 text-white text-sm"></th>
+              <th className=" bg-pink-500 text-white text-sm">Name</th>
+              <th className=" bg-pink-500 text-white text-sm">Phone</th>
+              <th className=" bg-pink-500 text-white text-sm">Amount</th>
+              <th className=" bg-pink-500 text-white text-sm">Due</th>
+              <th className=" bg-pink-500 text-white text-sm">Action</th>
             </tr>
           </tfoot>
         </table>
