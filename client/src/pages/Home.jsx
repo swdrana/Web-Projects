@@ -17,9 +17,11 @@ const Home = () => {
       })
       .then((data) => setInfo(data));
   }, []);
+  const [hideModal, setHideModal] = useState("");
   const handelDelete = (e) => {
     e.preventDefault();
-    console.log(deleteId)
+    setHideModal("hidden");
+    console.log(deleteId);
   };
 
   return (
@@ -89,7 +91,10 @@ const Home = () => {
                     <label
                       className="btn btn-error btn-sm"
                       htmlFor="delete-modal"
-                      onClick={() => setDeleteID(singleInfo._id)}
+                      onClick={() => {
+                        setHideModal('');
+                        return setDeleteID(singleInfo._id);
+                      }}
                     >
                       <TiDeleteOutline color="white" size={25} />
                     </label>
@@ -100,19 +105,22 @@ const Home = () => {
                     <input
                       type="checkbox"
                       id="delete-modal"
-                      className="modal-toggle"
+                      className="modal-toggle "
                     />
                     <label
                       htmlFor="delete-modal"
-                      className="modal cursor-pointer"
+                      className={`modal cursor-pointer ${hideModal}`}
                     >
-                      <label className="modal-box relative">
+                      <label className="modal-box relative ">
                         <h3 className="text-lg font-bold">
                           Are you sure want to delete?
                         </h3>
-                        <label className=" mt-10 btn btn-error"
-                        htmlFor="delete-modal"
-                        onClick={(e)=>handelDelete(e)}>Yes</label>
+                        <label
+                          className=" mt-10 btn btn-error"
+                          onClick={handelDelete}
+                        >
+                          Yes
+                        </label>
                       </label>
                     </label>
                   </div>
