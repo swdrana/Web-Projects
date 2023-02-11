@@ -5,10 +5,11 @@ import Header from "../components/Header";
 import { BsFillInfoCircleFill } from "react-icons/bs";
 import { FiEdit3 } from "react-icons/fi";
 import { TiDeleteOutline } from "react-icons/ti";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [info, setInfo] = useState([]);
+  const [deleteId, setDeleteID] = useState("");
   useEffect(() => {
     fetch("data/info.json")
       .then((res) => {
@@ -16,10 +17,10 @@ const Home = () => {
       })
       .then((data) => setInfo(data));
   }, []);
-  const handelDetails = (id) => {
-    console.log(id);
+  const handelDelete = (e) => {
+    e.preventDefault();
+    console.log(deleteId)
   };
-  const navigate = useNavigate();
 
   return (
     <div>
@@ -36,6 +37,7 @@ const Home = () => {
               <th className=" bg-pink-500 text-white text-sm">Action</th>
             </tr>
           </thead>
+
           <tbody>
             {info.map((singleInfo, index) => {
               return (
@@ -72,19 +74,48 @@ const Home = () => {
                   </td>
                   <td>{singleInfo.due}</td>
                   <th>
-                    <button
+                    <Link
+                      to={`/details/` + singleInfo._id}
                       className="btn btn-success btn-sm"
-                      onClick={() => handelDetails(singleInfo._id)}
                     >
                       <BsFillInfoCircleFill color="white" size={25} />
-                    </button>
-                    <button className="btn btn-warning btn-outline btn-sm mx-2">
+                    </Link>
+                    <Link
+                      to={`/edit/` + singleInfo._id}
+                      className="btn btn-warning btn-outline btn-sm mx-2"
+                    >
                       <FiEdit3 color="text-warning" size={25} />
-                    </button>
-                    <button className="btn btn-error btn-sm">
+                    </Link>
+                    <label
+                      className="btn btn-error btn-sm"
+                      htmlFor="delete-modal"
+                      onClick={() => setDeleteID(singleInfo._id)}
+                    >
                       <TiDeleteOutline color="white" size={25} />
-                    </button>
+                    </label>
                   </th>
+
+                  <div>
+                    {/* Put this part before </body> tag */}
+                    <input
+                      type="checkbox"
+                      id="delete-modal"
+                      className="modal-toggle"
+                    />
+                    <label
+                      htmlFor="delete-modal"
+                      className="modal cursor-pointer"
+                    >
+                      <label className="modal-box relative">
+                        <h3 className="text-lg font-bold">
+                          Are you sure want to delete?
+                        </h3>
+                        <label className=" mt-10 btn btn-error"
+                        htmlFor="delete-modal"
+                        onClick={(e)=>handelDelete(e)}>Yes</label>
+                      </label>
+                    </label>
+                  </div>
                 </tr>
               );
             })}
