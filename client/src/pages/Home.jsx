@@ -6,17 +6,11 @@ import { BsFillInfoCircleFill } from "react-icons/bs";
 import { FiEdit3 } from "react-icons/fi";
 import { TiDeleteOutline } from "react-icons/ti";
 import { Link } from "react-router-dom";
+import useLoadAllInfo from "../hooks/useLoadAllInfo";
 
 const Home = () => {
-  const [info, setInfo] = useState([]);
+  const [info, setInfo] = useLoadAllInfo([]);
   const [deleteId, setDeleteID] = useState("");
-  useEffect(() => {
-    fetch("data/info.json")
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => setInfo(data));
-  }, []);
   const [hideModal, setHideModal] = useState("");
   const handelDelete = (e) => {
     e.preventDefault();
