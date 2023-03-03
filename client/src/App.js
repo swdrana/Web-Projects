@@ -7,7 +7,7 @@ import Edit from "./pages/Edit";
 function App() {
   return (
     <div className="App">
-      <Nav/>
+      {/* <Nav/> */}
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/details/:id" element={<Details />} />
