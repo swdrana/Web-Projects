@@ -7,6 +7,7 @@ import { FiEdit3 } from "react-icons/fi";
 import { TiDeleteOutline } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import useLoadAllInfo from "../hooks/useLoadAllInfo";
+import AddBtn from "../components/AddBtn";
 
 const Home = () => {
   const [info, setInfo] = useLoadAllInfo([]);
@@ -21,6 +22,7 @@ const Home = () => {
   return (
     <div>
       <Header />
+      <AddBtn/>
       <div className="overflow-x-auto w-full ">
         <table className="table w-full table-zebra text-center">
           <thead>
