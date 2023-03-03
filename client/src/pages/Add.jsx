@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 
 const Add = () => {
-    
+  const navigate = useNavigate();
   var now = new Date();
   function dateFormater(date, separator) {
     var day = date.getDate();
     // add +1 to month because getMonth() returns month from 0 to 11
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
-  
+
     // show date and month in two digits
     // if month is less than 10, add a 0 before it
     if (day < 10) {
-      day = '0' + day;
+      day = "0" + day;
     }
     if (month < 10) {
-      month = '0' + month;
+      month = "0" + month;
     }
-  
+
     // now we have day, month and year
     // use the separator to join them
     return year + separator + month + separator + day;
@@ -27,15 +29,16 @@ const Add = () => {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [photoURL, setPhotoURL] = useState("");
-  const [date, setDate] = useState(dateFormater(now, '-'));
-  const [method, setMethod] = useState("");
+  const [date, setDate] = useState(dateFormater(now, "-"));
+  const [method, setMethod] = useState("Other");
   const [totalAmount, setTotalAmount] = useState(0);
   const [pay, setPay] = useState(0);
   const [due, setDue] = useState(0);
   const [note, setNote] = useState("");
-  const handelSubmit = (e) => {
+  const handelSubmit = async (e) => {
     e.preventDefault();
-    console.log(
+
+    const data = {
       name,
       phone,
       address,
@@ -45,18 +48,26 @@ const Add = () => {
       totalAmount,
       pay,
       due,
-      note
-    );
+      note,
+    };
+
+    try {
+      await axios.post("http://localhost:8080/add", data);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+      alert(err);
+    }
   };
-  useEffect(()=>{
-    setDue(totalAmount-pay)
+  useEffect(() => {
+    setDue(totalAmount - pay);
     if (isNaN(totalAmount)) {
-        setTotalAmount(0)
+      setTotalAmount(0);
     }
     if (isNaN(pay)) {
-        setPay(0)
+      setPay(0);
     }
-  },[totalAmount, pay])
+  }, [totalAmount, pay]);
   return (
     <div>
       <Header />
@@ -78,6 +89,7 @@ const Add = () => {
                     <span className="label-text">Customar Name</span>
                   </label>
                   <input
+                  required
                     type="text"
                     placeholder="Name"
                     onChange={(e) => {
@@ -91,6 +103,7 @@ const Add = () => {
                     <span className="label-text">Phone</span>
                   </label>
                   <input
+                  required
                     type="tel"
                     placeholder="Phone"
                     onChange={(e) => {
@@ -132,7 +145,8 @@ const Add = () => {
                 </label>
                 <input
                   type="date"
-                  onChange={(e) => {console.log(e)
+                  onChange={(e) => {
+                    console.log(e);
                     setDate(e.target.value);
                   }}
                   placeholder="Date"
@@ -144,6 +158,7 @@ const Add = () => {
                   <span className="label-text">Method</span>
                 </label>
                 <select
+                  required
                   className=" select select-secondary w-full"
                   onChange={(e) => {
                     setMethod(e.target.value);
@@ -163,11 +178,11 @@ const Add = () => {
                     <span className="label-text">Total Amount</span>
                   </label>
                   <input
+                  required
                     type="number"
                     onChange={(e) => {
                       setTotalAmount(Number.parseFloat(e.target.value));
                     }}
-                    
                     placeholder="Total Amount"
                     className="input input-bordered input-secondary"
                   />
@@ -177,6 +192,7 @@ const Add = () => {
                     <span className="label-text">Pay</span>
                   </label>
                   <input
+                  required
                     type="number"
                     onChange={(e) => {
                       setPay(Number.parseFloat(e.target.value));

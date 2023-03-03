@@ -73,13 +73,13 @@ const Home = () => {
                   <td>{singleInfo.due}</td>
                   <th>
                     <Link
-                      to={`/details/` + singleInfo._id}
+                      to={`/details/` + singleInfo.id}
                       className="btn btn-success btn-sm"
                     >
                       <BsFillInfoCircleFill color="white" size={25} />
                     </Link>
                     <Link
-                      to={`/edit/` + singleInfo._id}
+                      to={`/edit/` + singleInfo.id}
                       className="btn btn-warning btn-outline btn-sm mx-2"
                     >
                       <FiEdit3 color="text-warning" size={25} />
@@ -89,7 +89,7 @@ const Home = () => {
                       htmlFor="delete-modal"
                       onClick={() => {
                         setHideModal('');
-                        return setDeleteID(singleInfo._id);
+                        return setDeleteID(singleInfo.id);
                       }}
                     >
                       <TiDeleteOutline color="white" size={25} />

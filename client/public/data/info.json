@@ -1,6 +1,6 @@
 [
   {
-    "_id": 0,
+    "id": 0,
     "name": "Russell Phillips",
     "address": "622 Reed Street, Nicholson",
     "picture": "http://placehold.it/32x32",
@@ -24,7 +24,7 @@
     ]
   },
   {
-    "_id": 1,
+    "id": 1,
     "name": "Nielsen Hansen",
     "address": "988 Norman Avenue, Madaket",
     "picture": "http://placehold.it/32x32",
@@ -48,7 +48,7 @@
     ]
   },
   {
-    "_id": 2,
+    "id": 2,
     "name": "Inez Nash",
     "address": "994 Dakota Place, Roeville",
     "picture": "http://placehold.it/32x32",
@@ -72,7 +72,7 @@
     ]
   },
   {
-    "_id": 3,
+    "id": 3,
     "name": "Ferrell Harding",
     "address": "457 Joval Court, Calvary",
     "picture": "http://placehold.it/32x32",
@@ -96,7 +96,7 @@
     ]
   },
   {
-    "_id": 4,
+    "id": 4,
     "name": "Holder Underwood",
     "address": "314 Hubbard Street, Brenton",
     "picture": "http://placehold.it/32x32",
@@ -120,7 +120,7 @@
     ]
   },
   {
-    "_id": 5,
+    "id": 5,
     "name": "Lena Huber",
     "address": "330 Hanson Place, Brecon",
     "picture": "http://placehold.it/32x32",
@@ -144,7 +144,7 @@
     ]
   },
   {
-    "_id": 6,
+    "id": 6,
     "name": "Gross Foster",
     "address": "388 Bartlett Street, Brookfield",
     "picture": "http://placehold.it/32x32",
@@ -168,7 +168,7 @@
     ]
   },
   {
-    "_id": 7,
+    "id": 7,
     "name": "Marguerite Chang",
     "address": "341 Dwight Street, Golconda",
     "picture": "http://placehold.it/32x32",
@@ -192,7 +192,7 @@
     ]
   },
   {
-    "_id": 8,
+    "id": 8,
     "name": "Letitia Lynch",
     "address": "675 Anthony Street, Hoehne",
     "picture": "http://placehold.it/32x32",
@@ -216,7 +216,7 @@
     ]
   },
   {
-    "_id": 9,
+    "id": 9,
     "name": "Morrow Mullen",
     "address": "387 Vista Place, Eggertsville",
     "picture": "http://placehold.it/32x32",

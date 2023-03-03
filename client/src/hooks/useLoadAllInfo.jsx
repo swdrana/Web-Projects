@@ -4,7 +4,7 @@ import { useState } from "react";
 const useLoadAllInfo = () => {
   const [info, setInfo] = useState([]);
   useEffect(() => {
-    fetch("data/info.json")
+    fetch("http://localhost:8080/info")
       .then((res) => res.json())
       .then((data) => setInfo(data));
   }, []);
