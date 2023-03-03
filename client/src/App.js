@@ -5,6 +5,7 @@ import Nav from "./components/Nav";
 import Details from "./pages/Details";
 import Edit from "./pages/Edit";
 import Add from "./pages/Add";
+import Footer from "./components/Footer";
 function App() {
   return (
     <div className="App">
@@ -16,6 +17,7 @@ function App() {
         <Route exact path="/edit/:id" element={<Edit />} />
         <Route exact path="*" element={<NotFound />} />
       </Routes>
+      <Footer/>
     </div>
   );
 }
