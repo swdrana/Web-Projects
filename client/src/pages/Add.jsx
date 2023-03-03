@@ -2,11 +2,32 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 
 const Add = () => {
+    
+  var now = new Date();
+  function dateFormater(date, separator) {
+    var day = date.getDate();
+    // add +1 to month because getMonth() returns month from 0 to 11
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+  
+    // show date and month in two digits
+    // if month is less than 10, add a 0 before it
+    if (day < 10) {
+      day = '0' + day;
+    }
+    if (month < 10) {
+      month = '0' + month;
+    }
+  
+    // now we have day, month and year
+    // use the separator to join them
+    return year + separator + month + separator + day;
+  }
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [photoURL, setPhotoURL] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(dateFormater(now, '-'));
   const [method, setMethod] = useState("");
   const [totalAmount, setTotalAmount] = useState(0);
   const [pay, setPay] = useState(0);
@@ -111,7 +132,7 @@ const Add = () => {
                 </label>
                 <input
                   type="date"
-                  onChange={(e) => {
+                  onChange={(e) => {console.log(e)
                     setDate(e.target.value);
                   }}
                   placeholder="Date"
