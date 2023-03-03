@@ -18,7 +18,6 @@ const Home = () => {
     setHideModal("hidden");
     console.log(deleteId);
   };
-
   return (
     <div>
       <Header />
@@ -38,6 +37,20 @@ const Home = () => {
 
           <tbody>
             {info.map((singleInfo, index) => {
+
+  const {
+    id,
+    name,
+    phone,
+    address,
+    photoURL,
+    date,
+    method,
+    totalAmount,
+    pay,
+    due,
+    note,
+  } = singleInfo;
               return (
                 <tr key={index}>
                   <th>{index + 1}</th>
@@ -45,41 +58,41 @@ const Home = () => {
                     <div className="flex items-center space-x-3 text-start">
                       <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
-                          <img src={singleInfo.picture} alt={singleInfo.name} />
+                          <img src={photoURL} alt={name} />
                         </div>
                       </div>
                       <div>
-                        <div className="font-bold">{singleInfo.name}</div>
+                        <div className="font-bold">{name}</div>
                         <div className="text-sm opacity-50">
-                          {singleInfo.address}
+                          {address}
                         </div>
                       </div>
                     </div>
                   </td>
                   <td>
-                    {singleInfo.phone}
+                    {phone}
                     <br />
                     <span className="badge badge-ghost badge-sm">
-                      {singleInfo.method}
+                      {method}
                     </span>
                   </td>
                   <td>
-                    {singleInfo.balance}
+                    {totalAmount}
                     <br />
                     <span className="badge badge-ghost badge-sm">
-                      Pay: {singleInfo.due}
+                      Pay: {pay}
                     </span>
                   </td>
-                  <td>{singleInfo.due}</td>
+                  <td>{due}</td>
                   <th>
                     <Link
-                      to={`/details/` + singleInfo.id}
+                      to={`/details/` + id}
                       className="btn btn-success btn-sm"
                     >
                       <BsFillInfoCircleFill color="white" size={25} />
                     </Link>
                     <Link
-                      to={`/edit/` + singleInfo.id}
+                      to={`/edit/` +id}
                       className="btn btn-warning btn-outline btn-sm mx-2"
                     >
                       <FiEdit3 color="text-warning" size={25} />
@@ -89,7 +102,7 @@ const Home = () => {
                       htmlFor="delete-modal"
                       onClick={() => {
                         setHideModal('');
-                        return setDeleteID(singleInfo.id);
+                        return setDeleteID(id);
                       }}
                     >
                       <TiDeleteOutline color="white" size={25} />

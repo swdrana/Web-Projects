@@ -74,7 +74,7 @@ const Add = () => {
 
       <div className=" bg-base-200 py-3">
         <div className="text-center">
-          <h1 className="text-5xl font-bold text-pink-600 mb-3">New Entry</h1>
+          <h1 className="text-3xl font-bold text-pink-600 mb-3">New Entry</h1>
         </div>
         <div className="container mx-auto shadow-2xl bg-base-100 rounded-xl p-6">
           <form
