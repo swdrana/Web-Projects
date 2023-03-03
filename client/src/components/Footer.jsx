@@ -24,9 +24,9 @@ const Footer = () => {
               <a
                 target={"_blank"}
                 href="https://facebook.com/swdrana"
-                className="text-red-500"
+                className=" text-gray-500"
               >
-                Rana
+                swdRana
               </a>
             </p>
           </div>
