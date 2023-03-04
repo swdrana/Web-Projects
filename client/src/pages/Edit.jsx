@@ -9,7 +9,6 @@ const Edit = () => {
   //   console.log(id)
   const [singleInfo, setSingleInfo] = useFetchABook(id);
 
-
   const navigate = useNavigate();
   var now = new Date();
   function dateFormater(date, separator) {
@@ -42,11 +41,20 @@ const Edit = () => {
   const [pay, setPay] = useState(0);
   const [due, setDue] = useState(0);
   const [note, setNote] = useState("");
-
-  const handelSubmit =  (e) => {
+  useEffect(() => {
+    setName(singleInfo[0]?.name);
+    setPhone(singleInfo[0]?.phone);
+    setAddress(singleInfo[0]?.address);
+    setPhotoURL(singleInfo[0]?.photoURL);
+    setDate(singleInfo[0]?.data);
+    setMethod(singleInfo[0]?.method);
+    setTotalAmount(singleInfo[0]?.totalAmount);
+    setPay(singleInfo[0]?.pay);
+    setDue(singleInfo[0]?.due);
+    setNote(singleInfo[0]?.note);
+  }, [singleInfo]);
+  const handelSubmit = (e) => {
     e.preventDefault();
-    setName(e.target.name.value);
-    setPhone(e.target.phone.value);
     const data = {
       name,
       phone,
@@ -59,8 +67,7 @@ const Edit = () => {
       due,
       note,
     };
-    console.log(name, phone)
-    console.log(data)
+    console.log(data);
   };
 
   useEffect(() => {
@@ -72,7 +79,7 @@ const Edit = () => {
       setPay(0);
     }
   }, [totalAmount, pay]);
-  
+
   return (
     <div>
       <Header />
@@ -95,9 +102,11 @@ const Edit = () => {
                   </label>
                   <input
                     required
-                    defaultValue={singleInfo[0]?.name}
+                    defaultValue={name}
                     type="text"
-                    id="name"
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
                     placeholder="Name"
                     className="input input-bordered input-secondary"
                   />
@@ -110,8 +119,10 @@ const Edit = () => {
                     required
                     type="tel"
                     placeholder="Phone"
-                    defaultValue={singleInfo[0]?.phone}
-                    id='phone'
+                    defaultValue={phone}
+                    onChange={(e) => {
+                      setPhone(e.target.value);
+                    }}
                     className="input input-bordered input-secondary"
                   />
                 </div>
@@ -123,7 +134,7 @@ const Edit = () => {
                 <input
                   type="text"
                   placeholder="Address"
-                  defaultValue={singleInfo[0]?.address}
+                  defaultValue={address}
                   onChange={(e) => {
                     setAddress(e.target.value);
                   }}
@@ -132,8 +143,8 @@ const Edit = () => {
               </div>
               <img
                 className="mask mask-square my-6 rounded-lg"
-                src={singleInfo[0]?.photoURL}
-                alt={singleInfo[0]?.name}
+                src={photoURL}
+                alt={name}
               />
               <input
                 type="file"
@@ -149,7 +160,7 @@ const Edit = () => {
                   <span className="label-text ">Date</span>
                 </label>
                 <input
-                  defaultValue={singleInfo[0]?.date}
+                  defaultValue={date}
                   type="date"
                   onChange={(e) => {
                     console.log(e);
@@ -165,16 +176,13 @@ const Edit = () => {
                 </label>
                 <select
                   required
-                  
-                  defaultValue={singleInfo[0]?.method}
+                  defaultValue={method}
                   className=" select select-secondary w-full"
                   onChange={(e) => {
                     setMethod(e.target.value);
                   }}
                 >
-                  <option disabled >
-                    Pick your Method
-                  </option>
+                  <option disabled>Pick your Method</option>
                   <option>bKash</option>
                   <option>Nagad</option>
                   <option>Other</option>
@@ -187,7 +195,7 @@ const Edit = () => {
                   </label>
                   <input
                     required
-                    defaultValue={singleInfo[0]?.totalAmount}
+                    defaultValue={totalAmount}
                     type="number"
                     onChange={(e) => {
                       setTotalAmount(Number.parseFloat(e.target.value));
@@ -203,7 +211,7 @@ const Edit = () => {
                   <input
                     required
                     type="number"
-                    defaultValue={singleInfo[0]?.pay}
+                    defaultValue={pay}
                     onChange={(e) => {
                       setPay(Number.parseFloat(e.target.value));
                     }}
@@ -218,7 +226,7 @@ const Edit = () => {
                 </label>
                 <input
                   disabled
-                  value={singleInfo[0]?.due}
+                  value={due}
                   type="text"
                   placeholder="Due"
                   className="input input-bordered"
@@ -231,7 +239,7 @@ const Edit = () => {
                 <input
                   type="text"
                   placeholder="Remark"
-                  defaultValue={singleInfo[0]?.note}
+                  defaultValue={note}
                   onChange={(e) => {
                     setNote(e.target.value);
                   }}
