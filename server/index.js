@@ -49,6 +49,14 @@ app.get("/info", (req, res)=>{
         return res.json(data)
     })
 })
+app.get("/info/:id", (req, res)=>{
+  const id = req.params.id;
+    const q = "SELECT * FROM info WHERE id = ?";
+    db.query(q, [id], (err, data)=>{
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
 
 
 app.listen(8080,()=>{
