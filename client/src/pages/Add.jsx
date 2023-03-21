@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { format } from 'date-fns'
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 
@@ -30,7 +30,7 @@ const Add = () => {
   const [personType, setPersonType] = useState("");
   const [address, setAddress] = useState("");
   // const [photoURL, setPhotoURL] = useState("");
-  const [date, setDate] = useState(dateFormater(now, "-"));
+  const [date, setDate] = useState(new Date());
   const [method, setMethod] = useState("Other");
   const [totalAmount, setTotalAmount] = useState(0);
   const [pay, setPay] = useState(0);
@@ -38,7 +38,6 @@ const Add = () => {
   const [note, setNote] = useState("");
   const handelSubmit = async (e) => {
     e.preventDefault();
-
     const data = {
       name,
       phone,
@@ -52,15 +51,17 @@ const Add = () => {
       due,
       note,
     };
-    console.log(data);
     try {
-      await axios.post("http://localhost:8080/add", data);
-      navigate("/");
+      // await axios.post("http://localhost:8080/add", data);
+      // navigate("/");
     } catch (err) {
       console.log(err);
       alert(err);
     }
   };
+
+  useEffect(()=>{console.log(format(date,"dd/MM/yyyy"))},[date])
+
   useEffect(() => {
     setDue(totalAmount - pay);
     if (isNaN(totalAmount)) {
@@ -166,8 +167,7 @@ const Add = () => {
                 <input
                   type="date"
                   onChange={(e) => {
-                    console.log(e);
-                    setDate(e.target.value);
+                    setDate(e.target.valueAsDate);
                   }}
                   placeholder="Date"
                   className="input input-bordered"
