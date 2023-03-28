@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import Header from "../components/Header";
 import { BsFillInfoCircleFill } from "react-icons/bs";
 import { FiEdit3 } from "react-icons/fi";
 import { TiDeleteOutline } from "react-icons/ti";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import useLoadAllInfo from "../hooks/useLoadAllInfo";
 import AddBtn from "../components/AddBtn";
+import { AuthContext } from "../contexts/AuthProvider";
 
 const Home = () => {
+  const { user, logOut } = useContext(AuthContext);
   const [info, setInfo] = useLoadAllInfo([]);
   const [deleteId, setDeleteID] = useState("");
   const [hideModal, setHideModal] = useState("");
@@ -21,8 +23,20 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <Link to={'/signup'}>SignUP</Link>
-      <AddBtn/>
+      <Link to={"/signup"}>SignUP</Link>
+      <p className="text-red-500">{user?user.email:''}</p>
+      <button
+        onClick={() => {
+          logOut()
+            .then(() => {
+              return <Navigate to={'/signup'}></Navigate>
+            })
+            .catch((err) => console.log(err));
+        }}
+      >
+        LogOut
+      </button>
+      <AddBtn />
       <div className="overflow-x-auto w-full ">
         <table className="table w-full table-zebra text-center">
           <thead>
@@ -38,20 +52,19 @@ const Home = () => {
 
           <tbody>
             {info.map((singleInfo, index) => {
-
-  const {
-    id,
-    name,
-    phone,
-    address,
-    photoURL,
-    date,
-    method,
-    totalAmount,
-    pay,
-    due,
-    note,
-  } = singleInfo;
+              const {
+                id,
+                name,
+                phone,
+                address,
+                photoURL,
+                date,
+                method,
+                totalAmount,
+                pay,
+                due,
+                note,
+              } = singleInfo;
               return (
                 <tr key={index}>
                   <th>{index + 1}</th>
@@ -64,18 +77,14 @@ const Home = () => {
                       </div>
                       <div>
                         <div className="font-bold">{name}</div>
-                        <div className="text-sm opacity-50">
-                          {address}
-                        </div>
+                        <div className="text-sm opacity-50">{address}</div>
                       </div>
                     </div>
                   </td>
                   <td>
                     {phone}
                     <br />
-                    <span className="badge badge-ghost badge-sm">
-                      {method}
-                    </span>
+                    <span className="badge badge-ghost badge-sm">{method}</span>
                   </td>
                   <td>
                     {totalAmount}
@@ -93,7 +102,7 @@ const Home = () => {
                       <BsFillInfoCircleFill color="white" size={25} />
                     </Link>
                     <Link
-                      to={`/edit/` +id}
+                      to={`/edit/` + id}
                       className="btn btn-warning btn-outline btn-sm mx-2"
                     >
                       <FiEdit3 color="text-warning" size={25} />
@@ -102,7 +111,7 @@ const Home = () => {
                       className="btn btn-error btn-sm"
                       htmlFor="delete-modal"
                       onClick={() => {
-                        setHideModal('');
+                        setHideModal("");
                         return setDeleteID(id);
                       }}
                     >

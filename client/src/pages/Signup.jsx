@@ -1,8 +1,13 @@
 import React, { useContext } from "react";
+import { Navigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthProvider";
 
 const Signup = () => {
-  const { googleSignIn } = useContext(AuthContext);
+  const { user, googleSignIn } = useContext(AuthContext);
+  if (user && user.uid) {
+    console.log('from signup page '+user+' :user and uid: '+user.uid);
+    return <Navigate to={"/"}></Navigate>;
+  }
   return (
     <div className="flex justify-center items-center min-h-screen">
       <button
