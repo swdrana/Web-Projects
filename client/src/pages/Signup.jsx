@@ -4,7 +4,7 @@ import { AuthContext } from "../contexts/AuthProvider";
 
 const Signup = () => {
   const { user, googleSignIn } = useContext(AuthContext);
-  if (user && user.uid) {
+  if (user) {
     console.log('from signup page '+user+' :user and uid: '+user.uid);
     return <Navigate to={"/"}></Navigate>;
   }
