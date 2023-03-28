@@ -3,13 +3,14 @@ import { Navigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthProvider";
 
 const Signup = () => {
-  const { user, googleSignIn } = useContext(AuthContext);
+  const { user, googleSignIn, loading } = useContext(AuthContext);
   if (user) {
     console.log('from signup page '+user+' :user and uid: '+user.uid);
     return <Navigate to={"/"}></Navigate>;
   }
   return (
     <div className="flex justify-center items-center min-h-screen">
+    <p>{loading == true ? 'true' : 'false'}</p>
       <button
         className="btn btn-secondary "
         onClick={() => {

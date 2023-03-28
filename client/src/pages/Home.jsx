@@ -11,7 +11,7 @@ import AddBtn from "../components/AddBtn";
 import { AuthContext } from "../contexts/AuthProvider";
 
 const Home = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut, loading } = useContext(AuthContext);
   const [info, setInfo] = useLoadAllInfo([]);
   const [deleteId, setDeleteID] = useState("");
   const [hideModal, setHideModal] = useState("");
@@ -24,7 +24,8 @@ const Home = () => {
     <div>
       <Header />
       <Link to={"/signup"}>SignUP</Link>
-      <p className="text-red-500">{user?user.email:''}</p>
+      <p>{loading == true ? 'true' : 'false'}</p>
+      <p className="text-red-500">{user.email}</p>
       <button
         onClick={() => {
           logOut()
