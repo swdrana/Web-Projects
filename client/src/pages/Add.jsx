@@ -44,11 +44,7 @@ const Add = () => {
       personType,
       address,
       // photoURL,
-      date,
-      method,
-      totalAmount,
-      pay,
-      due,
+      info:[{date,method,totalAmount,pay,due}],
       note,
     };
     try {
