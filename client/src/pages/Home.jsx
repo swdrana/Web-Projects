@@ -9,6 +9,7 @@ import { Link, Navigate } from "react-router-dom";
 import useLoadAllInfo from "../hooks/useLoadAllInfo";
 import AddBtn from "../components/AddBtn";
 import { AuthContext } from "../contexts/AuthProvider";
+import Loading from "../components/Loading";
 
 const Home = () => {
   const { user, logOut, loading } = useContext(AuthContext);
@@ -20,23 +21,13 @@ const Home = () => {
     setHideModal("hidden");
     console.log(deleteId);
   };
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div>
       <Header />
-      <Link to={"/signup"}>SignUP</Link>
-      <p>{loading == true ? 'true' : 'false'}</p>
-      <p className="text-red-500">{user.email}</p>
-      <button
-        onClick={() => {
-          logOut()
-            .then(() => {
-              return <Navigate to={'/signup'}></Navigate>
-            })
-            .catch((err) => console.log(err));
-        }}
-      >
-        LogOut
-      </button>
+      {/* <p className="text-red-500">{user.email}</p> */}
       <AddBtn />
       <div className="overflow-x-auto w-full ">
         <table className="table w-full table-zebra text-center">
@@ -159,6 +150,19 @@ const Home = () => {
             </tr>
           </tfoot>
         </table>
+      </div>
+      <div className="flex justify-center">
+        <button className="btn btn-warning btn-outline my-5 print:hidden"
+          onClick={() => {
+            logOut()
+              .then(() => {
+                return <Navigate to={"/signup"}></Navigate>;
+              })
+              .catch((err) => console.log(err));
+          }}
+        >
+          LogOut
+        </button>
       </div>
     </div>
   );
