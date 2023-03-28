@@ -21,6 +21,7 @@ const Home = () => {
   return (
     <div>
       <Header />
+      <Link to={'/signup'}>SignUP</Link>
       <AddBtn/>
       <div className="overflow-x-auto w-full ">
         <table className="table w-full table-zebra text-center">
