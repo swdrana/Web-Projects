@@ -9,15 +9,21 @@ server/node_modules
 server/.pnp
 server/.pnp.js
 
+serverWithMySQL/node_modules
+serverWithMySQL/.pnp
+serverWithMySQL/.pnp.js
+
 # testing
 client/coverage
 
 server/coverage
+serverWithMySQL/coverage
 
 # production
 client/build
 
 server/build
+serverWithMySQL/build
 
 # misc
 client/.DS_Store
@@ -39,3 +45,14 @@ server/.env.production.local
 server/npm-debug.log*
 server/yarn-debug.log*
 server/yarn-error.log*
+
+
+serverWithMySQL/.DS_Store
+serverWithMySQL/.env.local
+serverWithMySQL/.env.development.local
+serverWithMySQL/.env.test.local
+serverWithMySQL/.env.production.local
+
+serverWithMySQL/npm-debug.log*
+serverWithMySQL/yarn-debug.log*
+serverWithMySQL/yarn-error.log*
