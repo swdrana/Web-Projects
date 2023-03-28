@@ -44,10 +44,10 @@ const Add = () => {
       personType,
       address,
       // photoURL,
-      info:[{date,method,totalAmount,pay,due}],
-      note,
+      info:[{date,method,totalAmount,pay,due,note}],
     };
     try {
+      console.log(data)
       // await axios.post("http://localhost:8080/add", data);
       // navigate("/");
     } catch (err) {
