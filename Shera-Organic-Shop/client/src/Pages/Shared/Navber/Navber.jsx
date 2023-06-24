@@ -179,7 +179,7 @@ const Navber = () => {
       </div>
 
       {/* Bottom Nav */}
-      <div className=" border-t-[1px] fixed bottom-0 bg-gray-200 backdrop-filter backdrop-blur bg-opacity-20  lg:hidden w-full h-[45px] sm:h-[64px] grid grid-cols-4 text-xs">
+      <div className=" z-10 border-t-[1px] fixed bottom-0 bg-gray-200 backdrop-filter backdrop-blur bg-opacity-20  lg:hidden w-full h-[45px] sm:h-[64px] grid grid-cols-4 text-xs">
         <div className="flex flex-col justify-center items-center border-r-[1px]">
           <Link className="flex flex-col justify-center items-center">
             <FiMenu size={20} />
