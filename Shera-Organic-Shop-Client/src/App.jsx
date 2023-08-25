@@ -25,6 +25,7 @@ function App() {
             <li>- Update Website Security. Now, this website is
           secure so, you can use happily.</li>
             <li>- Now the website develop with the most popular <b className=" text-blue-500">React JS</b> Web Technology</li>
+            <li>- Website icon {'(Feb icon'} added in the title bar</li>
           </ul>
         </p>
         <p>
