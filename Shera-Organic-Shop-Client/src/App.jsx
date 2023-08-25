@@ -6,16 +6,17 @@ function App() {
       </h1>
       <div className="my-6">
         <p>
-          বর্তমানে আমাদের website এর কাজ চলছে, খুব তাড়াতাড়ি এখানে update পাবেন। 
+          বর্তমানে আমাদের website এর কাজ চলছে, খুব তাড়াতাড়ি এখানে update পাবেন।
         </p>
         <p>
-          এখন আমাদের ফেসবুক পেজ থেকে অর্ডার করতে পারেন, আগামী <b>শুক্রবারের</b> মধ্যে আমাদের এই website এর নতুন আপডেট আসবে ইনশাল্লাহ। 
+          এখন আমাদের ফেসবুক পেজ থেকে অর্ডার করতে পারেন, আগামী <b>শুক্রবারের</b>{" "}
+          মধ্যে আমাদের এই website এর নতুন আপডেট আসবে ইনশাল্লাহ।
         </p>
       </div>
       <div>
         <h3 className=" text-2xl underline text-teal-900">Update History</h3>
         <p>
-          1st Create: 21 Aug 2023 (Lunch Website & give Massege about our
+          1st Create: 21 Aug 2023 (Lunch Website & give Massege about our
           Website.)
         </p>
         <p>
