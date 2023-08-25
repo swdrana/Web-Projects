@@ -13,15 +13,28 @@ function App() {
           মধ্যে আমাদের এই website এর নতুন আপডেট আসবে ইনশাল্লাহ।
         </p>
       </div>
-      <div>
-        <h3 className=" text-2xl underline text-teal-900">Update History</h3>
+      <div className=" text-left mx-auto w-1/2">
+        <h3 className=" text-2xl underline text-teal-900 text-center">Update History</h3>
         <p>
-          1st Create: 21 Aug 2023 (Lunch Website & give Massege about our
-          Website.)
+          <b>1st Create: 21 Aug 2023</b> Lunch Website & give Massege about our
+          Website.
         </p>
         <p>
-          25 Aug 2023: Update Website Security. Now, this website is secure so,
-          you can use happily.
+          <b>25 Aug 2023:</b> 
+          <ul className=" ml-5">
+            <li>- Update Website Security. Now, this website is
+          secure so, you can use happily.</li>
+            <li>- Now the website develop with the most popular <b className=" text-blue-500">React JS</b> Web Technology</li>
+          </ul>
+        </p>
+        <p>
+          <b>26 Aug 2023:</b> 
+          <ul className=" ml-5">
+            <li>- Header Added</li>
+            <li>- Now you can go Login Page without Loading the page.</li>
+            <li>- No valuable information available in the Login Page.</li>
+            <li>- Dark Mode Feature Added {'('}if your device set dark mode it automatically use dark mode option{')'}.</li>
+          </ul>
         </p>
       </div>
       <table className=" mx-auto border my-6 text-green-700">
@@ -45,7 +58,8 @@ function App() {
       <hr />
       <div className="text-sm">
         <h5>Developer: Rana</h5>
-        <p>Whatsapp: 01772651051 Last Update: 25 Aug 20123.</p>
+        <p>Whatsapp: 01772651051</p>
+        <a className=" link-primary" href="http://fb.com/swdrana">Facebook</a>
       </div>
     </div>
   );
