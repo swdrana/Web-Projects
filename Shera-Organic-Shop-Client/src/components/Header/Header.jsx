@@ -1,4 +1,3 @@
-import React from 'react';
 import NavBer from './NavBer/NavBer';
 
 const Header = () => {
