@@ -13,7 +13,7 @@ function App() {
           মধ্যে আমাদের এই website এর নতুন আপডেট আসবে ইনশাল্লাহ।
         </p>
       </div>
-      <div className=" text-left mx-auto w-1/2">
+      {/* <div className=" text-left mx-auto w-1/2">
         <h3 className=" text-2xl underline text-teal-900 text-center">Update History</h3>
         <p>
           <b>1st Create: 21 Aug 2023</b> Lunch Website & give Massege about our
@@ -37,7 +37,7 @@ function App() {
             <li>- Dark Mode Feature Added {'('}if your device set dark mode it automatically use dark mode option{')'}.</li>
           </ul>
         </p>
-      </div>
+      </div> */}
       <table className=" mx-auto border my-6 text-green-700">
         <tr className=" border">
           <th>CEO:</th>
