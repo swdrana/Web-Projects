@@ -59,24 +59,32 @@ const CatBorder = styled.div`
 
 const OurTopCategory = () => {
   return (
-    <div className="container w-11/12 sm:w-full mx-auto relative my-5">
-      <h2 className="text-center text-2xl absolute -top-4 left-1/2 -translate-x-1/2 bg-base-100 font-bold px-2">
-        Our Top Categories
-      </h2>
-      <CatBorder className=" flex flex-wrap justify-center gap-5">
-        {topCategory.map((s) => {
-          return (
-            <TopCategoryCard
-              key={s.catName}
-              dotcolor={s.dotColor}
-              caticon={s.catIcon}
-              catname={s.catName}
-              catitemno={s.catItemNo}
-              categoryLink={s.categoryLink}
-            />
-          );
-        })}
-      </CatBorder>
+    <div className=" relative">
+      <div className="container w-11/12 sm:w-full mx-auto relative bg-base-100">
+        <h2 className="text-center text-2xl md:text-3xl absolute -top-4 left-1/2 -translate-x-1/2 bg-base-100 font-bold">
+          Our Top Categories
+        </h2>
+        <CatBorder className=" flex flex-wrap justify-center gap-5">
+          {topCategory.map((s) => {
+            return (
+              <TopCategoryCard
+                key={s.catName}
+                dotcolor={s.dotColor}
+                caticon={s.catIcon}
+                catname={s.catName}
+                catitemno={s.catItemNo}
+                categoryLink={s.categoryLink}
+              />
+            );
+          })}
+        </CatBorder>
+      </div>
+
+      <img
+        className="absolute bottom-0 -z-10"
+        src="https://grostore.themetags.com/public/frontend/default/assets/img/shapes/bg-shape.png"
+        alt=""
+      />
     </div>
   );
 };

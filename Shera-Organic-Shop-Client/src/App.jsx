@@ -38,24 +38,24 @@ function App() {
           </ul>
         </p>
       </div> */}
-      <table className=" mx-auto border my-6 text-green-700">
-        <tr className=" border">
-          <th>CEO:</th>
-          <td>Md. Mehedi Hasan</td>
-        </tr>
-        <tr className="border">
-          <th>Phone/ WhatsApp:</th>
-          <td>+8801793143054</td>
-        </tr>
-        <tr className=" border">
-          <th>Facebook:</th>
-          <td>
+      <div className=" mx-auto border my-6 text-green-700">
+        <div className=" border">
+          <b>CEO:</b>
+          <p>Md. Mehedi Hasan</p>
+        </div>
+        <div className="border">
+          <b>Phone/ WhatsApp:</b>
+          <p>+8801793143054</p>
+        </div>
+        <div className=" border">
+          <b>Facebook:</b>
+          <p>
             <a href="https://www.facebook.com/sheraorganicshop">
               https://www.facebook.com/sheraorganicshop
             </a>
-          </td>
-        </tr>
-      </table>
+          </p>
+        </div>
+      </div>
       <hr />
       <div className="text-sm">
         <h5>Developer: Rana</h5>
