@@ -4,7 +4,7 @@ import TopCategoryCard from "./TopCategoryCart/TopCategoryCard";
 const topCategory = [
   {
     catName: "Ghee",
-    categoryLink:'ghee',
+    categoryLink: "ghee",
     catItemNo: 3,
     catIcon:
       "https://grostore.themetags.com/public/uploads/media/5oephm2sfLrK3ISeqQThhR9rA5FKcCsDnRsOezBZ.png",
@@ -12,7 +12,7 @@ const topCategory = [
   },
   {
     catName: "Grocery",
-    categoryLink:'grocery',
+    categoryLink: "grocery",
     catItemNo: 7,
     catIcon:
       "https://grostore.themetags.com/public/uploads/media/WQJjaqXZXNnUHaubvRhHh5c3m4knHkCSwHWCIPWd.png",
@@ -20,7 +20,7 @@ const topCategory = [
   },
   {
     catName: "Honey",
-    categoryLink:'honey',
+    categoryLink: "honey",
     catItemNo: 9,
     catIcon:
       "https://grostore.themetags.com/public/uploads/media/B1w5t5CWLo5OtLqvM332UQfsWzIarG9qiyEVUNb0.png",
@@ -28,7 +28,7 @@ const topCategory = [
   },
   {
     catName: "Nuts",
-    categoryLink:'nuts',
+    categoryLink: "nuts",
     catItemNo: 4,
     catIcon:
       "https://grostore.themetags.com/public/uploads/media/wUmBSdLhhuyiPqNrzJJbxdtFemrBtwS2lDcfecbf.png",
@@ -36,7 +36,7 @@ const topCategory = [
   },
   {
     catName: "Oil",
-    categoryLink:'oil',
+    categoryLink: "oil",
     catItemNo: 8,
     catIcon:
       "https://grostore.themetags.com/public/uploads/media/TMmhA1bTP1CTsrU3FpNspex6S3WNdqKy2xZR9aM8.png",
@@ -44,7 +44,7 @@ const topCategory = [
   },
   {
     catName: "Tea & Snacks",
-    categoryLink:'tea-and-snacks',
+    categoryLink: "tea-and-snacks",
     catItemNo: 5,
     catIcon:
       "https://grostore.themetags.com/public/uploads/media/OfNXzapZlaGqPdd3IcLP4D4bp8BkwDEjlRGhGbfh.png",
@@ -59,9 +59,11 @@ const CatBorder = styled.div`
 
 const OurTopCategory = () => {
   return (
-    <div className=" container mx-auto relative my-5">
-      <h2 className=" text-center text-2xl">Our Top Categories</h2>
-      <CatBorder className=" grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-5 md:gap-2 overflow-scroll">
+    <div className="container w-11/12 sm:w-full mx-auto relative my-5">
+      <h2 className="text-center text-2xl absolute -top-4 left-1/2 -translate-x-1/2 bg-base-100 font-bold px-2">
+        Our Top Categories
+      </h2>
+      <CatBorder className=" flex flex-wrap justify-center gap-5">
         {topCategory.map((s) => {
           return (
             <TopCategoryCard

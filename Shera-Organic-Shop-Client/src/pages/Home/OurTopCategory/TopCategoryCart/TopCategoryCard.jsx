@@ -47,7 +47,7 @@ const ItemNo = styled.p`
 const TopCategoryCard = ({dotcolor, caticon, catname, catitemno, categoryLink}) => {
   return (
     <Link to={categoryLink}>
-      <div className=" w-44 h-52 border rounded-lg flex items-center justify-center flex-col">
+      <div className=" w-72 sm:w-44 h-52 border rounded-lg flex items-center justify-center flex-col">
         <Div dotcolor={dotcolor}>
           <Img src={caticon} alt={caticon} dotcolor={dotcolor} className=" image-full"></Img>
         </Div>
