@@ -75,7 +75,7 @@ const NavBer = () => {
               >
                 sheraorganicshop@gmail.com
               </a>
-              <p className="">Dark</p>
+              <p className="">DL</p>
             </div>
           </div>
           {/* Main Nav  */}

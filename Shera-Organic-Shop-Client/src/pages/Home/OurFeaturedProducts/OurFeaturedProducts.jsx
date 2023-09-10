@@ -1,4 +1,5 @@
-import FeaturedProductCard from "./FeaturedProductCard/FeaturedProductCard";
+import ProductCard from "../../../components/ProductCard/ProductCard";
+
 
 const OurFeaturedProducts = () => {
   return (
@@ -12,21 +13,23 @@ const OurFeaturedProducts = () => {
           implement.
         </p>
       </div>
-        <div className=" px-8 pt-3 mx-auto">
-            <div className=" flex flex-col md:flex-row justify-between">
-                <div className=" flex flex-col gap-2 p-3 justify-center items-center rounded border border-orange-400 border-dashed w-full m-5 ">
-                    <FeaturedProductCard></FeaturedProductCard>
-                    <FeaturedProductCard></FeaturedProductCard>
-                    <FeaturedProductCard></FeaturedProductCard>
+        <div className=" container pt-8 mx-auto">
+            <div className=" flex flex-col lg:flex-row justify-center gap-0 lg:gap-4">
+                <div className=" flex flex-1 flex-col gap-4 items-center p-3 md:px-10 lg:p-0">
+                    <ProductCard></ProductCard>
+                    <ProductCard></ProductCard>
+                    <ProductCard></ProductCard>
+                    <ProductCard></ProductCard>
                 </div>
-                <div className=" hidden sm:block  p-3 items-center rounded border border-orange-400 border-dashed w-full m-5 ">
+                <div className="hidden xl:flex flex-1 flex-col  items-center justify-center bg-base-100 rounded-md">
                     <img src="https://grostore.themetags.com/public/uploads/media/4XLlX5B52ESQ9DQW7D79aNa6OUooSX4Y13F9lMp9.png" alt="" />
                 </div>
                 
-                <div className=" flex flex-col gap-2 p-3 justify-center items-center rounded border border-orange-400 border-dashed w-full m-5 ">
-                    <FeaturedProductCard></FeaturedProductCard>
-                    <FeaturedProductCard></FeaturedProductCard>
-                    <FeaturedProductCard></FeaturedProductCard>
+                <div className=" flex flex-1 flex-col gap-4 items-center mt-5 md:mt-0 p-3 md:px-10 lg:p-0">
+                    <ProductCard></ProductCard>
+                    <ProductCard></ProductCard>
+                    <ProductCard></ProductCard>
+                    <ProductCard></ProductCard>
                 </div>
             </div>
         </div>
