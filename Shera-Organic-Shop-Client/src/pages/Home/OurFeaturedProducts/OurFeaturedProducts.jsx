@@ -1,3 +1,5 @@
+import FeaturedProductCard from "./FeaturedProductCard/FeaturedProductCard";
+
 const OurFeaturedProducts = () => {
   return (
     <div className=" bg-[#eef6eb] py-24 md:py-32 relative">
@@ -10,11 +12,22 @@ const OurFeaturedProducts = () => {
           implement.
         </p>
       </div>
-        <div className=" container pt-3 mx-auto">
-            <div className=" flex justify-between">
-                <div className=" flex justify-center items-center rounded border border-orange-400 border-dashed w-full h-96 m-5 ">Products</div>
-                <div className=" flex justify-center items-center rounded border border-orange-400 border-dashed w-full h-96 m-5 ">Image</div>
-                <div className=" flex justify-center items-center rounded border border-orange-400 border-dashed w-full h-96 m-5 ">Products</div>
+        <div className=" px-8 pt-3 mx-auto">
+            <div className=" flex flex-col md:flex-row justify-between">
+                <div className=" flex flex-col gap-2 p-3 justify-center items-center rounded border border-orange-400 border-dashed w-full m-5 ">
+                    <FeaturedProductCard></FeaturedProductCard>
+                    <FeaturedProductCard></FeaturedProductCard>
+                    <FeaturedProductCard></FeaturedProductCard>
+                </div>
+                <div className=" hidden sm:block  p-3 items-center rounded border border-orange-400 border-dashed w-full m-5 ">
+                    <img src="https://grostore.themetags.com/public/uploads/media/4XLlX5B52ESQ9DQW7D79aNa6OUooSX4Y13F9lMp9.png" alt="" />
+                </div>
+                
+                <div className=" flex flex-col gap-2 p-3 justify-center items-center rounded border border-orange-400 border-dashed w-full m-5 ">
+                    <FeaturedProductCard></FeaturedProductCard>
+                    <FeaturedProductCard></FeaturedProductCard>
+                    <FeaturedProductCard></FeaturedProductCard>
+                </div>
             </div>
         </div>
       <img
