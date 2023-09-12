@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { BsArrowRightShort } from "react-icons/bs";
-import { FaRegEye, FaRegHeart } from "react-icons/fa";
+import { FaRegEye } from "react-icons/fa";
 function ProductCardSmall() {
   return (
     <div className=" group">
