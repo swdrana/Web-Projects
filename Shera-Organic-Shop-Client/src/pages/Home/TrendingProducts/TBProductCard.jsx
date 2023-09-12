@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import { FaRegEye } from "react-icons/fa";
-import './TrendingProducts';
 const OfferBatch = styled.span`
   &before {
     content: "";
