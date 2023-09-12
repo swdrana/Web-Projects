@@ -45,7 +45,7 @@ const ItemNo = styled.p`
   }
 `;
 // eslint-disable-next-line react/prop-types
-const TopCategoryCard = ({dotcolor, caticon, catname, catitemno, categoryLink,
+const TopCategoryCard = ({dotcolor,caticon, catname, catitemno, categoryLink,
 }) => {
   return (
     <Link to={categoryLink} className=" w-full  sm:w-44 relative group  overflow-hidden hover:shadow-md transition-all duration-200 hover:-translate-y-1">
