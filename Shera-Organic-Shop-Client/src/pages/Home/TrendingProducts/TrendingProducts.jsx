@@ -1,4 +1,4 @@
-import TBProductCard from "./TBProductCard";
+import ProductCardBig from "../../../components/ProductCard/ProductCardBig";
 
 const TrendingProducts = () => {
   return (
@@ -19,15 +19,15 @@ const TrendingProducts = () => {
         </ul>
       </header>
       <section className=" flex flex-wrap justify-center sm:justify-between">
-        <TBProductCard></TBProductCard>
-        <TBProductCard></TBProductCard>
-        <TBProductCard></TBProductCard>
-        <TBProductCard></TBProductCard>
+        <ProductCardBig></ProductCardBig>
+        <ProductCardBig></ProductCardBig>
+        <ProductCardBig></ProductCardBig>
+        <ProductCardBig></ProductCardBig>
 
-        <TBProductCard></TBProductCard>
-        <TBProductCard></TBProductCard>
-        <TBProductCard></TBProductCard>
-        <TBProductCard></TBProductCard>
+        <ProductCardBig></ProductCardBig>
+        <ProductCardBig></ProductCardBig>
+        <ProductCardBig></ProductCardBig>
+        <ProductCardBig></ProductCardBig>
       </section>
     </div>
     </div>

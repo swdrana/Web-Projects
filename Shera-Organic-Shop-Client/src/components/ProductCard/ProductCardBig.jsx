@@ -15,7 +15,7 @@ const OfferBatch = styled.span`
   }
 `;
 
-const TBProductCard = () => {
+const ProductCardBig = () => {
   return (
     <div className=" w-full sm:w-[300px] mb-6 border border-[#f4f4f4] rounded-md hover:shadow-2xl  transition-all duration-100 hover:border-white">
       <div className=" group ">
@@ -110,4 +110,4 @@ const TBProductCard = () => {
   );
 };
 
-export default TBProductCard;
+export default ProductCardBig;
