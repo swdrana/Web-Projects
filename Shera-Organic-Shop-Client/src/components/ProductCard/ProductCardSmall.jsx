@@ -3,7 +3,7 @@ import { BsArrowRightShort } from "react-icons/bs";
 import { FaRegEye, FaRegHeart } from "react-icons/fa";
 function ProductCardSmall() {
   return (
-    <div className=" group transition-all duration-300">
+    <div className=" group">
       <div className=" w-full  h-full md:h-[154px] flex flex-col md:flex-row p-4 md:items-center bg-base-100 rounded-md gap-7">
         <div className="relative flex justify-center items-center">
         <img
@@ -12,7 +12,7 @@ function ProductCardSmall() {
           alt=""
         />
 
-      <div className=" bg-[#00000065] rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-200 absolute  w-full h-full flex justify-center items-center">
+      <div className=" bg-[#00000065] rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-700 absolute  w-full h-full flex justify-center items-center">
         <button className=" rounded-full p-2 group  hover:bg-primary transition-all duration-200 bg-white opacity-100 absolute hover:text-white">
           <FaRegEye></FaRegEye>
         </button>
