@@ -1,4 +1,4 @@
-import ProductCard from "../../../components/ProductCard/ProductCard";
+import ProductCardSmall from "../../../components/ProductCard/ProductCardSmall";
 
 
 const OurFeaturedProducts = () => {
@@ -16,20 +16,20 @@ const OurFeaturedProducts = () => {
         <div className=" container pt-8 mx-auto">
             <div className=" flex flex-col lg:flex-row justify-center gap-0 lg:gap-4">
                 <div className=" flex flex-1 flex-col gap-4 items-center p-3 md:px-8 lg:p-0">
-                    <ProductCard></ProductCard>
-                    <ProductCard></ProductCard>
-                    <ProductCard></ProductCard>
-                    <ProductCard></ProductCard>
+                    <ProductCardSmall></ProductCardSmall>
+                    <ProductCardSmall></ProductCardSmall>
+                    <ProductCardSmall></ProductCardSmall>
+                    <ProductCardSmall></ProductCardSmall>
                 </div>
                 <div className="hidden xl:flex flex-1 flex-col  items-center justify-center bg-base-100 rounded-md">
                     <img src="https://grostore.themetags.com/public/uploads/media/4XLlX5B52ESQ9DQW7D79aNa6OUooSX4Y13F9lMp9.png" alt="" />
                 </div>
                 
                 <div className=" flex flex-1 flex-col gap-4 items-center mt-5 md:mt-0 p-3 md:px-10 lg:p-0">
-                    <ProductCard></ProductCard>
-                    <ProductCard></ProductCard>
-                    <ProductCard></ProductCard>
-                    <ProductCard></ProductCard>
+                    <ProductCardSmall></ProductCardSmall>
+                    <ProductCardSmall></ProductCardSmall>
+                    <ProductCardSmall></ProductCardSmall>
+                    <ProductCardSmall></ProductCardSmall>
                 </div>
             </div>
         </div>

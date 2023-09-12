@@ -95,7 +95,7 @@ const ProductCardBig = () => {
               </span>
             </div>
             <h6 className=" font-bold ">
-              <span className="text-md  text-error">₹1,440.00 </span>
+              <span className="text-md  text-error">৳1,440.00 </span>
               <small>/kg</small>
             </h6>
           </div>
