@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
-
+import { FaRegEye } from "react-icons/fa";
+import './TrendingProducts';
 const OfferBatch = styled.span`
   &before {
     content: "";
@@ -14,10 +15,11 @@ const OfferBatch = styled.span`
     clip-path: polygon(100% 0, 0 50%, 100% 100%); */
   }
 `;
+
 const TBProductCard = () => {
   return (
-    <div className=" w-[321px] border border-[#f4f4f4] rounded-md hover:shadow-xl  transition-all duration-1000 hover:border-white">
-      <div className=" group w-80">
+    <div className=" w-[300px] mb-6 border border-[#f4f4f4] rounded-md hover:shadow-xl  transition-all duration-1000 hover:border-white">
+      <div className=" group ">
         <div className=" rounded-2 relative">
           <OfferBatch className="  bg-error p-1 rounded-tl-xl rounded-br-xl text-white absolute top-1 left-1">
             -10% <span className="text-uppercase">Off</span>
@@ -29,15 +31,9 @@ const TBProductCard = () => {
               alt="Dalim (Pomegranate)"
               className="img-fluid"
             />
-            <div className="absolute top-0 right-0 flex gap-2  flex-col">
-              <button
-                href="javascript:void(0);"
-                className="rounded-btn"
-                onClick="showProductDetailsModal(21)"
-              >
-                Eye<i className="fa-regular fa-eye"></i>
-              </button>
-            </div>
+            <button className=" hover:text-white eye absolute opacity-0  top-7 right-4 group-hover:opacity-100 flex gap-2  flex-col border rounded-full p-2 group  hover:bg-primary transition-all duration-500 hover:border-white">
+                <FaRegEye></FaRegEye>
+            </button>
           </div>
 
           <div className="px-8  py-6">
@@ -99,7 +95,7 @@ const TBProductCard = () => {
               <small>/kg</small>
             </h6>
           </div>
-          <div className="px-8 pb-6 rounded-b-md duration-1000 transition-all border-2 border-white bg-white absolute w-full group-hover:shadow-xl -bottom-full  group-hover:bottom-auto">
+          <div className="px-8 z-20 pb-6 rounded-b-md duration-1000 transition-all border-2 border-white bg-white absolute w-full group-hover:shadow-xl hidden group-hover:block">
             <button className="btn btn-secondary w-full text-white hover:btn-primary hover:text-white">
               Add to Cart
             </button>

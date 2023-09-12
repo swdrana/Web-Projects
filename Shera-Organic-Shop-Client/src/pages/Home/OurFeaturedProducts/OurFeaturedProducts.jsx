@@ -15,7 +15,7 @@ const OurFeaturedProducts = () => {
       </div>
         <div className=" container pt-8 mx-auto">
             <div className=" flex flex-col lg:flex-row justify-center gap-0 lg:gap-4">
-                <div className=" flex flex-1 flex-col gap-4 items-center p-3 md:px-10 lg:p-0">
+                <div className=" flex flex-1 flex-col gap-4 items-center p-3 md:px-8 lg:p-0">
                     <ProductCard></ProductCard>
                     <ProductCard></ProductCard>
                     <ProductCard></ProductCard>
