@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import TopCategoryCard from "./TopCategoryCart/TopCategoryCard";
+import TopCategoryCard from "./TopCategoryCard";
 
 const topCategory = [
   {
@@ -61,7 +61,7 @@ const OurTopCategory = () => {
   return (
     <div className=" relative">
       <div className="container w-11/12 sm:w-full mx-auto relative bg-base-100">
-        <h2 className="text-center text-2xl md:text-3xl absolute -top-4 left-1/2 -translate-x-1/2 bg-base-100 font-bold">
+        <h2 className="text-center text-xl md:text-3xl absolute -top-4 left-1/2 -translate-x-1/2 bg-base-100 font-bold">
           Our Top Categories
         </h2>
         <CatBorder className=" flex flex-wrap justify-center gap-5">
