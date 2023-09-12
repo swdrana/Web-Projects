@@ -6,6 +6,7 @@ export default {
       colors: {
         'gray-light': "var(--gray-light)",
         'gray-deep': "var(--gray-dark)",
+        'gray-white': "var(--gray-white)",
       }
     },
   },
@@ -25,6 +26,7 @@ export default {
           "error": "#ff0406",
           '--gray-light': '#9b9bb4',
           "--gray-deep": "#5d6374",
+          "--gray-white": "#f8fafc",
         },
       },
     ],
