@@ -1,4 +1,5 @@
 import App from '../../App';
+import CustomerReview from './CustomerReview/CustomerReview';
 import OurFeaturedProducts from './OurFeaturedProducts/OurFeaturedProducts';
 import OurTopCategory from './OurTopCategory/OurTopCategory';
 import ThreeFeatureImg from './ThreeFeatureImg/ThreeFeatureImg';
@@ -8,13 +9,14 @@ import WeeklyBestDeals from './WeeklyBestDeals/WeeklyBestDeals';
 const Home = () => {
     return (
         <div>
-            <App></App>
+            {/* <App></App>
             <OurTopCategory></OurTopCategory>
             <OurFeaturedProducts></OurFeaturedProducts>
             <TrendingProducts></TrendingProducts>
             <ThreeFeatureImg></ThreeFeatureImg>
             <WeeklyBestDeals></WeeklyBestDeals>
-            <TwoFeatureImg></TwoFeatureImg>
+            <TwoFeatureImg></TwoFeatureImg> */}
+            <CustomerReview></CustomerReview>
         </div>
     );
 };

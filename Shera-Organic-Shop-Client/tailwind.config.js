@@ -7,6 +7,7 @@ export default {
         'gray-light': "var(--gray-light)",
         'gray-deep': "var(--gray-dark)",
         'gray-white': "var(--gray-white)",
+        'lime': "var(--lime)",
       }
     },
   },
@@ -27,6 +28,7 @@ export default {
           '--gray-light': '#9b9bb4',
           "--gray-deep": "#5d6374",
           "--gray-white": "#f8fafc",
+          "--lime": "#eef6eb",
         },
       },
     ],
