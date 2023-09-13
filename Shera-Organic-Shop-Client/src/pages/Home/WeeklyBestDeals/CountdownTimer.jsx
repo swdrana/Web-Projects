@@ -43,7 +43,7 @@ function CountdownTimer(){
     }
      
     useEffect(() => {
-        countdownTimer();
+        // countdownTimer();
     });
    
     return(
