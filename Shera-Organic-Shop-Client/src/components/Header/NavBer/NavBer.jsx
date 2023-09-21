@@ -62,7 +62,7 @@ const NavBer = () => {
   );
   return (
     <>
-      <div className="h-28">
+      <div className=" h-14 md:h-28">
         <div className=" bg-[#6eb356] md:h-[75px] h-0 relative ">
           {/* Top Info Nav  */}
           <div className="container mx-auto py-2 text-white flex justify-between">

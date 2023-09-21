@@ -87,7 +87,7 @@ const ProductCardBig = () => {
                   type="radio"
                   name="rating-6"
                   className="mask mask-star-2 bg-orange-400"
-                  checked
+                  checked readOnly
                 />
               </div>
               <span className="flex-shrink-0  text-gray-deep text-[12px]">

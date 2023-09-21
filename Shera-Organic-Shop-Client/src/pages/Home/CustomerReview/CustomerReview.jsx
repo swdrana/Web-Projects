@@ -54,7 +54,7 @@ export default function CustomerReview() {
                   <input type="radio" name="rating-6" className="mask mask-star-2 bg-orange-400"  />
                   <input type="radio" name="rating-6" className="mask mask-star-2 bg-orange-400" />
                   <input type="radio" name="rating-6" className="mask mask-star-2 bg-orange-400" />
-                  <input checked type="radio" name="rating-6" className="mask mask-star-2 bg-orange-400" />
+                  <input checked readOnly type="radio" name="rating-6" className="mask mask-star-2 bg-orange-400" />
                 </div>
               </div>
 
@@ -73,7 +73,7 @@ export default function CustomerReview() {
                   <input type="radio" name="rating-6" className="mask mask-star-2 bg-orange-400"  />
                   <input type="radio" name="rating-6" className="mask mask-star-2 bg-orange-400" />
                   <input type="radio" name="rating-6" className="mask mask-star-2 bg-orange-400" />
-                  <input checked type="radio" name="rating-6" className="mask mask-star-2 bg-orange-400" />
+                  <input checked readOnly type="radio" name="rating-6" className="mask mask-star-2 bg-orange-400" />
                 </div>
               </div>
 

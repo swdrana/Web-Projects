@@ -8,7 +8,21 @@ export default {
         'gray-deep': "var(--gray-dark)",
         'gray-white': "var(--gray-white)",
         'lime': "var(--lime)",
-      }
+      },
+      keyframes: {
+        "bounce-slow": {
+          "0%, 100%": {
+            transform: "translateY(10px)",
+          },
+          "50%": {
+            transform: "translateY(-60px)",
+          },
+        },
+      },
+      animation: {
+        "spin-slow": "spin 22s linear infinite",
+        "bounce-slow": "bounce-slow 7s linear infinite",
+      },
     },
   },
   plugins: [require("daisyui")],
