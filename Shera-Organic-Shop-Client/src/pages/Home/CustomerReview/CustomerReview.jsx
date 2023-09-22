@@ -6,7 +6,7 @@ import leap from '../../../assets/images/bg/leap.png'
 import copi from '../../../assets/images/bg/copi.png'
 import sosa from '../../../assets/images/bg/sosa.png'
 import frute from '../../../assets/images/bg/frute.png'
-import bgShape5 from '../../../assets/images/bg/bg-shape-5.png'
+import bgShape5 from '../../../assets/images/bg/bg-curve-bottom-white.png'
 import mapBG from '../../../assets/images/bg/map-bg.png'
 import avata2 from '../../../assets/images/bg/avata1.jpg'
 // Import Swiper styles

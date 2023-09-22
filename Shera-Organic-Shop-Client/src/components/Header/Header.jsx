@@ -18,8 +18,8 @@ const Header = () => {
     };
   }, []);
   return (
-    <div className={`${isScrolled? 'sticky top-0 z-50':''}`}>
-      <NavBer></NavBer>
+    <div className={`relative z-50 ${isScrolled? 'sticky top-0':''}`}>
+      <NavBer isScrolled={isScrolled}></NavBer>
     </div>
   );
 };

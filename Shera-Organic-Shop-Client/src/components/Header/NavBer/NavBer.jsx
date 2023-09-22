@@ -5,9 +5,12 @@ import { BsSearch } from "react-icons/bs";
 import { FiMenu } from "react-icons/fi";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { BsCartPlus } from "react-icons/bs";
-const NavBer = () => {
+const NavBer = ({ isScrolled }) => {
   const [haveUser, setHaveUser] = useState(false);
   //   const [hiddenMenu, setHiddenMenu] = useState("hidden");
+  //for sidebar
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   const navOptions = (
     <>
       <li tabIndex={0}>
@@ -15,16 +18,19 @@ const NavBer = () => {
           <summary>Categories</summary>
           <ul className="p-2">
             <li>
-              <Link to={"/biscuits"}>Biscuits</Link>
+              <Link to={"/categories"}>All</Link>
             </li>
             <li>
-              <Link to={"breakfast"}>Breakfast</Link>
+              <Link to={"categories/biscuits"}>Biscuits</Link>
             </li>
             <li>
-              <Link to={"baby"}>Baby</Link>
+              <Link to={"categories/breakfast"}>Breakfast</Link>
             </li>
             <li>
-              <Link to={"organic"}>Organic</Link>
+              <Link to={"categories/baby"}>Baby</Link>
+            </li>
+            <li>
+              <Link to={"categories/organic"}>Organic</Link>
             </li>
           </ul>
         </details>
@@ -60,12 +66,21 @@ const NavBer = () => {
       </li>
     </>
   );
+
   return (
     <>
       <div className=" h-14 md:h-28">
-        <div className=" bg-[#6eb356] md:h-[75px] h-0 relative ">
+        <div
+          className={` ${
+            isScrolled ? "" : "bg-[#6eb356]"
+          }   md:h-[75px]  h-0 relative `}
+        >
           {/* Top Info Nav  */}
-          <div className="container mx-auto py-2 text-white flex justify-between">
+          <div
+            className={`container mx-auto py-2 text-white flex justify-between ${
+              isScrolled ? "hidden" : ""
+            } `}
+          >
             <p className="">Welcome to Shera Organic Shop</p>
             <div className="flex gap-6">
               <a
@@ -79,7 +94,13 @@ const NavBer = () => {
             </div>
           </div>
           {/* Main Nav  */}
-          <div className="navbar bg-base-100 max-w-screen-xl shadow-md absolute md:top-10 top-0 left-1/2 -translate-x-1/2 rounded-lg">
+          <div
+            className={` navbar bg-base-100  shadow-md  md:top-10 top-0  rounded-lg ${
+              isScrolled
+                ? " mx-auto w-full px-0 lg:px-24 rounded-none"
+                : "absolute left-1/2 -translate-x-1/2 max-w-screen-xl"
+            }`}
+          >
             <div className="navbar-start">
               <Link to={"/"} className="btn btn-ghost">
                 <img
@@ -105,7 +126,7 @@ const NavBer = () => {
                 </label>
                 <div
                   tabIndex={0}
-                  className={`card card-compact dropdown-content  bg-sky-400 shadow`}
+                  className={`card card-compact dropdown-content  shadow`}
                 >
                   <div className="card-body flex flex-row">
                     <input
@@ -122,7 +143,7 @@ const NavBer = () => {
               </div>
 
               {/* desktop cart start here  */}
-              {haveUser && (
+              {true && (
                 <div className="dropdown dropdown-end">
                   <label tabIndex={0} className="btn btn-ghost btn-circle">
                     <div className="indicator">
@@ -140,7 +161,7 @@ const NavBer = () => {
                           d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                         />
                       </svg>
-                      <span className="badge badge-sm indicator-item">8</span>
+                      <span className="badge badge-sm indicator-item">0</span>
                     </div>
                   </label>
 
@@ -162,53 +183,71 @@ const NavBer = () => {
               )}
 
               {/* user profile icon and functionality start here  */}
-              {haveUser && (
+              {true && (
                 <div className="dropdown dropdown-end">
                   <label
                     tabIndex={0}
                     className="btn btn-ghost btn-circle avatar"
                   >
                     <div className="w-10 rounded-full">
-                      <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                      <img src={'https://www.citypng.com/public/uploads/small/11639594360nclmllzpmer2dvmrgsojcin90qmnuloytwrcohikyurvuyfzvhxeeaveigoiajks5w2nytyfpix678beyh4ykhgvmhkv3r3yj5hi.png'} />
                     </div>
                   </label>
                   <ul
                     tabIndex={0}
-                    className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+                    className="menu menu-md dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
                   >
-                    <li>
-                      <a className="justify-between">
-                        Profile
-                        <span className="badge">New</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>Settings</a>
-                    </li>
-                    <li>
-                      <a>Logout</a>
-                    </li>
+                    {/* Login & Register Button */}
+                    {!haveUser && (<>
+                        <li>
+                          <Link to={"/login"}>Login</Link>
+                        </li>
+                        <li>
+                          <Link to={"/signup"}>Register</Link>
+                        </li></>
+                    )}
+                    {
+                      haveUser && <>
+                      <li>
+                        <a className="justify-between">
+                          Profile
+                          <span className="badge">New</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a>Settings</a>
+                      </li>
+                      <li>
+                        <a>Logout</a>
+                      </li>
+                      </>
+                    }
                   </ul>
                 </div>
               )}
-              {/* Login & Register Button */}
-              {!haveUser && (
-                <ul className="flex gap-3">
-                  <li>
-                    <Link  to={"/login"}>Login</Link>
-                  </li>
-                  <li>
-                    <Link to={"/signup"}>Register</Link>
-                  </li>
-                </ul>
-              )}
-              {/* Search Cart Profile End */}
-              <BsGrid3X3GapFill size={25} color="green" className=" ms-2"></BsGrid3X3GapFill>
+
+              {/* Search Cart End */}
+              <div className="dropdown dropdown-end">
+                <label tabIndex={0} className="btn btn-ghost px-1 ">
+                  <BsGrid3X3GapFill
+                    size={35}
+                    color="green"
+                  ></BsGrid3X3GapFill>
+                </label>
+
+                <div
+                  tabIndex={0}
+                  className={`mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow`}
+                >
+                  <div className="card-body">
+                    <ul className="menu  px-1">{navOptions}</ul>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
       {/* Bottom Nav */}
       <div className=" z-10 border-t-[1px] fixed bottom-0 bg-gray-200 backdrop-filter backdrop-blur bg-opacity-20  lg:hidden w-full h-[45px] sm:h-[64px] grid grid-cols-4 text-xs">
         <div className="flex flex-col justify-center items-center border-r-[1px]">
