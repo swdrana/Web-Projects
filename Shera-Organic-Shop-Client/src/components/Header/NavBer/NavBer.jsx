@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { BsGrid3X3GapFill } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { FiMenu } from "react-icons/fi";
 import { HiOutlineUserCircle } from "react-icons/hi";

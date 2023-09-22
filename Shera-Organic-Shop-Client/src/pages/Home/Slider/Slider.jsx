@@ -18,13 +18,13 @@ const Slider = () => {
           delay: 2500,
           disableOnInteraction: false,
         }}
-        direction={"vertical"}
+        direction={"horizontal"}
         slidesPerView={1}
         spaceBetween={30}
         pagination={{
           clickable: true,
         }}
-        modules={[Mousewheel, Autoplay, Pagination]}
+        modules={[ Autoplay, Pagination]}
         className="mySwiper"
       >
         <SwiperSlide>
