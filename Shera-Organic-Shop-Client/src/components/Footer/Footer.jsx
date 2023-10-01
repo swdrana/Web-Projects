@@ -13,8 +13,8 @@ const AnimationBG = styled.div`
 
 const Footer = () => {
   return (
-    <div className=" pb-8 md:pb-14 lg:pb-0 relative">
-      <AnimationBG></AnimationBG>
+    <div className=" pb-8 md:pb-14 lg:pb-0 relative bg-gray-white">
+      <AnimationBG className=""></AnimationBG>
       <footer className="footer justify-between p-10 bg-[#191D28] text-white">
         <div>
           <span className="footer-title">Category</span>

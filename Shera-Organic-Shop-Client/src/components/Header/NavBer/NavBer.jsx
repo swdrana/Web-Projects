@@ -173,9 +173,9 @@ const NavBer = ({ isScrolled }) => {
                       <span className="font-bold text-lg">8 Items</span>
                       <span className="text-info">Subtotal: $999</span>
                       <div className="card-actions">
-                        <button className="btn btn-primary btn-block">
+                        <Link to='carts' className="btn btn-primary btn-block">
                           View cart
-                        </button>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -269,7 +269,7 @@ const NavBer = ({ isScrolled }) => {
           </Link>
         </div>
         <div className="flex flex-col justify-center items-center border-r-[1px]">
-          <Link className="flex flex-col justify-center items-center">
+          <Link to='carts' className="flex flex-col justify-center items-center">
             <BsCartPlus size={20} />
             <p className=" text-gray-500">54985</p>{" "}
           </Link>

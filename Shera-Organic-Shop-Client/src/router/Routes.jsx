@@ -11,6 +11,8 @@ import Blog from "../pages/Blog/Blog";
 import AboutUs from "../pages/AboutUs/AboutUs";
 import ContactUs from "../pages/ContactUs/ContactUs";
 import TermsConditions from "../pages/TermsConditions/TermsConditions";
+import Carts from "../pages/Carts/Carts";
+import Checkout from "../pages/Checkout/Checkout";
 
 
 export const router = createBrowserRouter([
@@ -55,6 +57,14 @@ export const router = createBrowserRouter([
         {
           path:'products',
           element:<Products/>
+        },
+        {
+          path:'carts',
+          element:<Carts/>
+        },
+        {
+          path:'checkout',
+          element:<Checkout/>
         },
         {
           path:'campaigns',
