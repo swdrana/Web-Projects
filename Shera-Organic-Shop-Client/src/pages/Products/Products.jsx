@@ -1,19 +1,11 @@
-import bgShape5 from "./../../assets/images/bg/bg-shape-6-curve-bottom-white.png";
+import SectionTitle from "../../components/Pages/SectionTitle";
 import ProductCardBig from "./../../components/ProductCard/ProductCardBig";
 import {FaSearch} from 'react-icons/fa'
 function Products() {
   return (
     <>
       {/* Title Section */}
-      <div>
-        <div className=" bg-[rgba(110,179,86,.13)] h-full w-full py-16">
-          <h1 className=" text-3xl font-bold text-center">Products</h1>
-        </div>
-        <div
-          className="bg-[rgba(110,179,86,.13)]  h-[89px] bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${bgShape5})` }}
-        ></div>
-      </div>
+      <SectionTitle title={"Products"}/>
       {/* Products Container */}
       <div className=" bg-gray-white">
         <div className="container mx-auto py-20">
