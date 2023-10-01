@@ -12,6 +12,9 @@ function App() {
           এখন আমাদের ফেসবুক পেজ থেকে অর্ডার করতে পারেন, আগামী <b>শুক্রবারের</b>{" "}
           মধ্যে আমাদের এই website এর নতুন আপডেট আসবে ইনশাল্লাহ।
         </p>
+        <p>
+          বর্তমানে Product Page ও Login এর কাজ চলছে।
+        </p>
       </div>
       {/* <div className=" text-left mx-auto w-1/2">
         <h3 className=" text-2xl underline text-teal-900 text-center">Update History</h3>

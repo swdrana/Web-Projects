@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
-import paymentImg from './../../assets/images/all/payment-logo.png'
 const AnimationBG = styled.div`
   height: 120px;
   background: url("https://grostore.themetags.com/public/frontend/default/assets/img/shapes/section-curve.png")
@@ -56,7 +55,7 @@ const Footer = () => {
           <Link className="flex items-center w-[100%]"><img className=" w-16" src=" https://i.ibb.co/8xhhZQk/Shera-Organic-Shop-logo.png" alt="" /></Link>
         </div>
         <div className="md:place-self-center md:justify-self-end">
-          <img src={paymentImg} className=" w-96" alt="" />
+          <img src='https://i.ibb.co/nb2WyYQ/payment-logo.png' className=" w-96" alt="" />
         </div>
       </footer>
     </div>

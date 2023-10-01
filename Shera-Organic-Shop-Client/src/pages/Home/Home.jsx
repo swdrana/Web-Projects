@@ -11,6 +11,7 @@ import WeeklyBestDeals from './WeeklyBestDeals/WeeklyBestDeals';
 const Home = () => {
     return (
         <div>
+            <App></App>
             <Slider></Slider>
             <OurTopCategory></OurTopCategory>
             <OurFeaturedProducts></OurFeaturedProducts>

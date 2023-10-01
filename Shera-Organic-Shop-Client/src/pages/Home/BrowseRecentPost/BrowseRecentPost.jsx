@@ -11,9 +11,9 @@ function BrowseRecentPost() {
           </p>
         </header>
         <section className="flex flex-wrap gap-5 justify-center sm:justify-between">
-          <BlogCard></BlogCard>
-          <BlogCard></BlogCard>
-          <BlogCard></BlogCard>
+          <BlogCard img='https://i.ibb.co/jy2Wh05/blog-thumb-1.jpg'></BlogCard>
+          <BlogCard img='https://i.ibb.co/ByFJSrk/2.png'></BlogCard>
+          <BlogCard img='https://i.ibb.co/qxKKHMF/3.png'></BlogCard>
         </section>
       </div>
     </div>

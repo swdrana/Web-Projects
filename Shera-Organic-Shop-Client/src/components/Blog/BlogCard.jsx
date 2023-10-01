@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
-import blog1 from "./../../assets/images/blog-img/blog-thumb-1.jpg";
 
 import {FaArrowRightLong, FaTags, FaClock} from "react-icons/fa6";
-function BlogCard() {
+function BlogCard({img}) {
   return (
     <section className=" w-[400px] bg-base-100 rounded-lg overflow-hidden">
       <section className="">
         <div className="">
-          <img src={blog1} alt="" />
+          <img src={img} alt="" />
         </div>
         <div className=" p-6">
           <div className=" flex gap-3">

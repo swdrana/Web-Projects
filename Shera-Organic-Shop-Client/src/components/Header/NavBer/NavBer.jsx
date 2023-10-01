@@ -118,7 +118,7 @@ const NavBer = ({ isScrolled }) => {
 
             <div className="navbar-end">
               {/* Search Cart Profile Start Here */}
-              <div className="dropdown dropdown-end">
+              <div className="dropdown dropdown-end hidden md:block">
                 <label tabIndex={0} className="btn btn-ghost btn-circle">
                   <div className="indicator">
                     <BsSearch size={20} />
