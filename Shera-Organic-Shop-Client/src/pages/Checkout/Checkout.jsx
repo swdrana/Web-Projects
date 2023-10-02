@@ -4,14 +4,11 @@ import SectionTitle from "../../components/Pages/SectionTitle";
 function Checkout() {
     const [districts, setDistricts] = useState([]);
     const [thanas, setThanas] = useState([]);
-    const [postOffices, setpostOffices] = useState([]);
     const [selectedDistrict, setSelectedDistrict] = useState(null);
     const [selectedThana, setSelectedThana] = useState(null);
-    const [selectedPost, setSelectedPost] = useState(null);
     useEffect(()=>{
         fetch('bd-districts.json').then(res=>res.json()).then(data=>setDistricts(data.districts))
         fetch('bd-upazilas.json').then(res=>res.json()).then(data=>setThanas(data.upazilas))
-        fetch('bd-postcodes.json').then(res=>res.json()).then(data=>setpostOffices(data.postcodes))
     },[])
     // console.log(districts)
     return (
