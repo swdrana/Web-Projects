@@ -12,8 +12,11 @@ function App() {
           এখন আমাদের ফেসবুক পেজ থেকে অর্ডার করতে পারেন, আগামী <b>শুক্রবারের</b>{" "}
           মধ্যে আমাদের এই website এর নতুন আপডেট আসবে ইনশাল্লাহ।
         </p>
-        <p>
-          বর্তমানে Product Page ও Login এর কাজ চলছে।
+        <p className=" text-primary font-bold underline mt-5">
+          Last Update: 3 Oct 2023
+        </p>
+        <p className=" text-secondary font-bold text-xl">
+          এখন আপনি Login ও নতুন Account তৈরি করতে পারবেন। 
         </p>
       </div>
       {/* <div className=" text-left mx-auto w-1/2">

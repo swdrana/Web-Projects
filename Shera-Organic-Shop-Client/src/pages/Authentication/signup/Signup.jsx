@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
 import { useContext } from "react";
 
 const Signup = () => {
-  const { createUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const {user, createUser } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -17,6 +18,9 @@ const Signup = () => {
       console.log(user);
     });
   };
+  if (user) {
+    return navigate("/");
+  }
   return (
     <div>
       <div className="hero min-h-screen bg-base-200">
@@ -41,12 +45,16 @@ const Signup = () => {
                   </span>
                 </label>
                 <input
-                  {...register("name",{required:true})}
+                  {...register("name", { required: true })}
                   type="text"
                   placeholder="your name"
                   className="input input-bordered input-secondary"
                 />
-                {errors.name && <span className=" text-error text-xs">This field is required</span>}
+                {errors.name && (
+                  <span className=" text-error text-xs">
+                    This field is required
+                  </span>
+                )}
               </div>
               <div className="form-control">
                 <label className="label">
@@ -66,7 +74,7 @@ const Signup = () => {
                   </span>
                 </label>
                 <input
-                  {...register("email",{required:true})}
+                  {...register("email", { required: true })}
                   type="text"
                   placeholder="youremail@gmail.com"
                   className="input input-bordered input-secondary"
@@ -84,19 +92,28 @@ const Signup = () => {
                   </span>
                 </label>
                 <input
-                  {...register("password", { required: true, minLength:6, maxLength:20 })}
+                  {...register("password", {
+                    required: true,
+                    minLength: 6,
+                    maxLength: 20,
+                  })}
                   type="text"
                   placeholder="password"
                   className="input input-bordered input-secondary"
                 />
-                {errors.password?.type==='required' && (
+                {errors.password?.type === "required" && (
                   <span className=" text-error text-xs">
                     This field is required
                   </span>
                 )}
-                {errors.password?.type==='minLength' && (
+                {errors.password?.type === "minLength" && (
                   <span className=" text-error text-xs">
                     Password must be 6 characters
+                  </span>
+                )}
+                {errors.password?.type === "maxLength" && (
+                  <span className=" text-error text-xs">
+                    Password must be less then 20 characters
                   </span>
                 )}
                 <label className="label">

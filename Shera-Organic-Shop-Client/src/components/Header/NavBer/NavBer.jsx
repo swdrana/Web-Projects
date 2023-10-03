@@ -1,11 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsGrid3X3GapFill } from "react-icons/bs";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { FiMenu } from "react-icons/fi";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { BsCartPlus } from "react-icons/bs";
+import { AuthContext } from "../../../provider/AuthProvider";
 const NavBer = ({ isScrolled }) => {
+  const { user, logOut } = useContext(AuthContext);
   const [haveUser, setHaveUser] = useState(false);
   //   const [hiddenMenu, setHiddenMenu] = useState("hidden");
   //for sidebar
@@ -173,7 +175,7 @@ const NavBer = ({ isScrolled }) => {
                       <span className="font-bold text-lg">8 Items</span>
                       <span className="text-info">Subtotal: $999</span>
                       <div className="card-actions">
-                        <Link to='carts' className="btn btn-primary btn-block">
+                        <Link to="carts" className="btn btn-primary btn-block">
                           View cart
                         </Link>
                       </div>
@@ -190,7 +192,11 @@ const NavBer = ({ isScrolled }) => {
                     className="btn btn-ghost btn-circle avatar"
                   >
                     <div className="w-10 rounded-full">
-                      <img src={'https://www.citypng.com/public/uploads/small/11639594360nclmllzpmer2dvmrgsojcin90qmnuloytwrcohikyurvuyfzvhxeeaveigoiajks5w2nytyfpix678beyh4ykhgvmhkv3r3yj5hi.png'} />
+                      <img
+                        src={
+                          "https://www.citypng.com/public/uploads/small/11639594360nclmllzpmer2dvmrgsojcin90qmnuloytwrcohikyurvuyfzvhxeeaveigoiajks5w2nytyfpix678beyh4ykhgvmhkv3r3yj5hi.png"
+                        }
+                      />
                     </div>
                   </label>
                   <ul
@@ -198,16 +204,8 @@ const NavBer = ({ isScrolled }) => {
                     className="menu menu-md dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
                   >
                     {/* Login & Register Button */}
-                    {!haveUser && (<>
-                        <li>
-                          <Link to={"/login"}>Login</Link>
-                        </li>
-                        <li>
-                          <Link to={"/signup"}>Register</Link>
-                        </li></>
-                    )}
-                    {
-                      haveUser && <>
+                    {user ? (
+                    <>
                       <li>
                         <a className="justify-between">
                           Profile
@@ -218,10 +216,22 @@ const NavBer = ({ isScrolled }) => {
                         <a>Settings</a>
                       </li>
                       <li>
-                        <a>Logout</a>
+                        <button onClick={()=>{
+                          logOut().then(()=>{}).catch(err=>console.log(err))
+
+                        }}>Logout</button>
                       </li>
+                    </>
+                    ) : (
+                      <>
+                        <li>
+                          <Link to={"/login"}>Login</Link>
+                        </li>
+                        <li>
+                          <Link to={"/signup"}>Register</Link>
+                        </li>
                       </>
-                    }
+                    )}
                   </ul>
                 </div>
               )}
@@ -229,10 +239,7 @@ const NavBer = ({ isScrolled }) => {
               {/* Search Cart End */}
               <div className="dropdown dropdown-end">
                 <label tabIndex={0} className="btn btn-ghost px-1 ">
-                  <BsGrid3X3GapFill
-                    size={35}
-                    color="green"
-                  ></BsGrid3X3GapFill>
+                  <BsGrid3X3GapFill size={35} color="green"></BsGrid3X3GapFill>
                 </label>
 
                 <div
@@ -269,7 +276,10 @@ const NavBer = ({ isScrolled }) => {
           </Link>
         </div>
         <div className="flex flex-col justify-center items-center border-r-[1px]">
-          <Link to='carts' className="flex flex-col justify-center items-center">
+          <Link
+            to="carts"
+            className="flex flex-col justify-center items-center"
+          >
             <BsCartPlus size={20} />
             <p className=" text-gray-500">54985</p>{" "}
           </Link>
