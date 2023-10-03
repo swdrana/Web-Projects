@@ -1,9 +1,19 @@
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../provider/AuthProvider";
 
 const Login = () => {
+  const {signIn} = useContext(AuthContext)
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data.email, data.password)
+    signIn(data.email, data.password)
+    .then( result =>{
+      const user = result.user;
+      console.log(user)
+    })
+  };
     return (
         <div>
             <div className="hero min-h-screen bg-base-200">
@@ -19,24 +29,24 @@ const Login = () => {
             <div className="card-body">
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Email</span>
+                  <span className="label-text">Email<span className=" text-red-500">*</span></span>
                 </label>
                 <input
                   {...register("email")}
                   type="text"
                   placeholder="youremail@gmail.com"
-                  className="input input-bordered"
+                  className="input input-bordered input-primary"
                 />
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Password</span>
+                  <span className="label-text">Password<span className=" text-red-500">*</span></span>
                 </label>
                 <input
                   {...register("password")}
                   type="text"
                   placeholder="password"
-                  className="input input-bordered"
+                  className="input input-bordered input-primary"
                 />
                 <label className="label">
                   <a href="#" className="label-text-alt link link-hover">

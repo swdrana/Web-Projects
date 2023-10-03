@@ -1,9 +1,22 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../provider/AuthProvider";
+import { useContext } from "react";
 
 const Signup = () => {
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const { createUser } = useContext(AuthContext);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    console.log(data.email, data.password);
+    createUser(data.email, data.password).then((result) => {
+      const user = result.user;
+      console.log(user);
+    });
+  };
   return (
     <div>
       <div className="hero min-h-screen bg-base-200">
@@ -23,14 +36,17 @@ const Signup = () => {
             <div className="card-body">
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Full Name</span>
+                  <span className="label-text">
+                    Full Name<span className=" text-red-500">*</span>
+                  </span>
                 </label>
                 <input
-                  {...register("fullName")}
+                  {...register("name",{required:true})}
                   type="text"
                   placeholder="your name"
-                  className="input input-bordered"
+                  className="input input-bordered input-secondary"
                 />
+                {errors.name && <span className=" text-error text-xs">This field is required</span>}
               </div>
               <div className="form-control">
                 <label className="label">
@@ -45,25 +61,44 @@ const Signup = () => {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Email</span>
+                  <span className="label-text">
+                    Email<span className=" text-red-500">*</span>
+                  </span>
                 </label>
                 <input
-                  {...register("email")}
+                  {...register("email",{required:true})}
                   type="text"
                   placeholder="youremail@gmail.com"
-                  className="input input-bordered"
+                  className="input input-bordered input-secondary"
                 />
+                {errors.email && (
+                  <span className=" text-error text-xs">
+                    This field is required
+                  </span>
+                )}
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Password</span>
+                  <span className="label-text">
+                    Password<span className=" text-red-500">*</span>
+                  </span>
                 </label>
                 <input
-                  {...register("password")}
+                  {...register("password", { required: true, minLength:6, maxLength:20 })}
                   type="text"
                   placeholder="password"
-                  className="input input-bordered"
+                  className="input input-bordered input-secondary"
                 />
+                {errors.password?.type==='required' && (
+                  <span className=" text-error text-xs">
+                    This field is required
+                  </span>
+                )}
+                {errors.password?.type==='minLength' && (
+                  <span className=" text-error text-xs">
+                    Password must be 6 characters
+                  </span>
+                )}
                 <label className="label">
                   <a href="#" className="label-text-alt link link-hover">
                     Forgot password?
@@ -71,10 +106,17 @@ const Signup = () => {
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-secondary text-white">Create Account</button>
+                <button className="btn btn-secondary text-white">
+                  Create Account
+                </button>
               </div>
               <div className="form-control mt-6">
-                <Link to='/login' className=" text-sm underline hover:no-underline">Have an Account? Please Login.</Link>
+                <Link
+                  to="/login"
+                  className=" text-sm underline hover:no-underline"
+                >
+                  Have an Account? Please Login.
+                </Link>
               </div>
             </div>
           </form>
