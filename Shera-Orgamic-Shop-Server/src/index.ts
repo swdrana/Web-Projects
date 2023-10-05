@@ -9,7 +9,11 @@ dotenv.config();
 const upload = multer();
 const app = express();
 const port = process.env.PORT || 3000;
+// Serve static files from the 'uploads' directory
+app.use('/uploads', express.static('uploads'));
 
+// app.use('/uploads', express.static('uploads'));
+// app.use('/dashboard/uploads', express.static('uploads'));
 // Use express.json middleware to parse JSON requests into JS objects.
 app.use(express.json());
 

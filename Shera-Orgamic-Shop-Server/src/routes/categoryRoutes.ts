@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 import { Category } from '../models/category';
+import fs from 'fs'; 
 
 const router: Router = Router();
 
@@ -37,7 +38,9 @@ router.post('/', upload.single('categoryImage'), async (req, res) => {
   try {
     // Log file info
     console.log(req.file);
-
+    if (!req.file) {
+      return res.status(400).send('No file uploaded.');
+    }
     // Create a new category using the Category model and request body.
     const category = new Category({
       ...req.body,
@@ -66,16 +69,28 @@ router.get('/', async (_req, res) => {
 });
 
 // PUT endpoint to update a category by ID.
-router.put('/:id', async (req, res) => {
+router.put('/:id', upload.single('categoryImage'), async (req, res) => {
   try {
-    // Update the category and return the new category document.
-    const category = await Category.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!category) {
+    const oldCategory = await Category.findById(req.params.id);
+
+    if (!oldCategory) {
       return res.status(404).send('Category not found');
     }
-    res.send(category);
+
+    // If a new file is uploaded, delete the old one and update with the new one
+    if (req.file) {
+      fs.unlinkSync(oldCategory.categoryImage); // Synchronously delete the old file
+
+      oldCategory.categoryImage = req.file.path;
+    }
+
+    // Update other properties
+    oldCategory.categoryName = req.body.categoryName || oldCategory.categoryName;
+    // Add other fields to update as needed...
+
+    await oldCategory.save();  // Save the updated category
+    res.send(oldCategory);  // Send back the updated category
   } catch (error) {
-    // Handle error (e.g. validation or database error)
     res.status(500).send(error);
   }
 });
@@ -83,14 +98,25 @@ router.put('/:id', async (req, res) => {
 // DELETE endpoint to remove a category by ID.
 router.delete('/:id', async (req, res) => {
   try {
-    // Delete the category and return the deleted document.
-    const category = await Category.findByIdAndDelete(req.params.id);
+    const category = await Category.findById(req.params.id);
+
     if (!category) {
       return res.status(404).send('Category not found');
     }
-    res.send(category);
+
+    // If an image file path exists, try to remove it from the filesystem.
+    if (category.categoryImage) {
+      fs.unlink(category.categoryImage, (err) => {
+        if (err) {
+          console.error("Error deleting the file:", err);
+        }
+      });
+    }
+
+    // await category.remove();
+    await Category.findByIdAndDelete(req.params.id);
+    res.send(category);  // Send back the deleted category
   } catch (error) {
-    // Handle error (e.g. database error)
     res.status(500).send(error);
   }
 });
