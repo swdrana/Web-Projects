@@ -13,6 +13,10 @@ import ContactUs from "../pages/ContactUs/ContactUs";
 import TermsConditions from "../pages/TermsConditions/TermsConditions";
 import Carts from "../pages/Carts/Carts";
 import Checkout from "../pages/Checkout/Checkout";
+import DashboardLayout from "../layout/DashboardLayout";
+import Dashboard from "../pages/Dashboard/Dashboard";
+import AddProduct from "../pages/Dashboard/AddProduct";
+import AddCategory from "../pages/Dashboard/AddCategory";
 
 
 export const router = createBrowserRouter([
@@ -33,6 +37,7 @@ export const router = createBrowserRouter([
           element: <Signup/>,
         },
         {
+          // TODO: Need to change here
           path:"categories",
           element:<LayoutCategories/>,
           children:[
@@ -89,7 +94,25 @@ export const router = createBrowserRouter([
         {
           path:'terms-conditions',
           element:<TermsConditions/>
-        },
+        }
       ],
+    },
+    {
+      path:"dashboard",
+      element:<DashboardLayout/>,
+      children:[
+        {
+          path:'',
+          element: <Dashboard/>,
+        },
+        {
+          path:'addCategory',
+          element: <AddCategory/>,
+        },
+        {
+          path:'addProduct',
+          element: <AddProduct/>,
+        }
+      ]
     },
   ]);

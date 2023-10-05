@@ -15,6 +15,9 @@ const NavBer = ({ isScrolled }) => {
 
   const navOptions = (
     <>
+      <li>
+        <Link to={"/dashboard"}>Dashboard</Link>
+      </li>
       <li tabIndex={0}>
         <details>
           <summary>Categories</summary>
@@ -205,23 +208,28 @@ const NavBer = ({ isScrolled }) => {
                   >
                     {/* Login & Register Button */}
                     {user ? (
-                    <>
-                      <li>
-                        <a className="justify-between">
-                          Profile
-                          <span className="badge">New</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a>Settings</a>
-                      </li>
-                      <li>
-                        <button onClick={()=>{
-                          logOut().then(()=>{}).catch(err=>console.log(err))
-
-                        }}>Logout</button>
-                      </li>
-                    </>
+                      <>
+                        <li>
+                          <a className="justify-between">
+                            Profile
+                            <span className="badge">New</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a>Settings</a>
+                        </li>
+                        <li>
+                          <button
+                            onClick={() => {
+                              logOut()
+                                .then(() => {})
+                                .catch((err) => console.log(err));
+                            }}
+                          >
+                            Logout
+                          </button>
+                        </li>
+                      </>
                     ) : (
                       <>
                         <li>
