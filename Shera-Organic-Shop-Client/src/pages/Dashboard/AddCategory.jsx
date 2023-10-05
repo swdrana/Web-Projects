@@ -1,23 +1,23 @@
-import { useEffect, useState } from "react";
 import instance from "./../../provider/axios";
 import { useForm } from "react-hook-form";
+import useCategory from "../../../hooks/useCategory";
 
 
 function AddCategory() {
-  const [categories, setCategories] = useState([]);
-  useEffect(() => {
-    // Make an HTTP GET request to fetch category data
-    const fetchData = async () => {
-      try {
-        const response = await instance.get('/categories'); // Replace with your endpoint
-        setCategories(response.data);
-      } catch (error) {
-        console.error('Error fetching category data:', error);
-      }
-    };
+  const [categories, isLoading, refetch] = useCategory();
+  // useEffect(() => {
+  //   // Make an HTTP GET request to fetch category data
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await instance.get('/categories'); // Replace with your endpoint
+  //       setCategories(response.data);
+  //     } catch (error) {
+  //       console.error('Error fetching category data:', error);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
   console.log(categories)
   const {
     register,
@@ -36,6 +36,7 @@ function AddCategory() {
       // Now you can omit the base URL and just provide the endpoint path.
       await instance.post('/categories', formData);
       console.log('Category successfully added');
+      refetch();
     } catch (error) {
       console.error('Error adding category:', error);
       if (error.response) {
@@ -48,6 +49,7 @@ function AddCategory() {
     try {
       // Send a DELETE request to your server's delete endpoint
       await instance.delete(`/categories/${categoryId}`);
+      refetch();
       console.log('Category deleted successfully');
       // Optionally, you can update your component's state or perform other actions as needed.
     } catch (error) {
