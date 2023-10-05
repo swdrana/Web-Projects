@@ -1,13 +1,49 @@
 import { Router } from 'express';
+import multer from 'multer';
 import { Category } from '../models/category';
 
 const router: Router = Router();
 
+// Setup Multer and specify the storage strategy
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, new Date().toISOString() + file.originalname);
+  },
+});
+
+// Filter files based on type
+const fileFilter = (req: any, file: any, cb: any) => {
+  // Accept images only
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5, // Allow up to 5MB
+  },
+  fileFilter: fileFilter,
+});
+
 // POST endpoint to create a new category.
-router.post('/', async (req, res) => {
+router.post('/', upload.single('categoryImage'), async (req, res) => {
   try {
-    // Creating a new category using the Category model and request body.
-    const category = new Category(req.body);
+    // Log file info
+    console.log(req.file);
+
+    // Create a new category using the Category model and request body.
+    const category = new Category({
+      ...req.body,
+      categoryImage: req.file.path  // Add image path to the database
+    });
+
     await category.save();
     res.status(201).send(category); // Send back the new category.
   } catch (error) {
@@ -15,6 +51,8 @@ router.post('/', async (req, res) => {
     res.status(400).send(error);
   }
 });
+
+// [Other routes remain unchanged]
 
 // GET endpoint to retrieve all categories.
 router.get('/', async (_req, res) => {
