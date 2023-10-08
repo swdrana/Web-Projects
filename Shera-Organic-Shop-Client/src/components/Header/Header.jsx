@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import NavBer from "./NavBer/NavBer";
 
-const Header = () => {
+const Header = (props) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const handleScroll = () => {
+    if (props?.isFixed) {
+      return setIsScrolled(false);
+    }
     const offset = window.scrollY;
     if (offset > 100) {
       setIsScrolled(true);

@@ -3,8 +3,22 @@ import useCategory from "../../../hooks/useCategory";
 import { Controller, useForm } from "react-hook-form";
 import JoditEditor from 'jodit-react';
 function AddProduct() {
+    const fileInputRef = useRef();
+    const [galleryImages, setGalleryImages] = useState([]);
+    const [galleryPreviews, setGalleryPreviews] = useState([]);
+    const handleGalleryChange = (e) => {
+        const file = e.target.files[0];  // Selecting the first file from the input
+        if (file) {
+            setGalleryImages([...galleryImages, file]);  // Appending new image File to the state
+            setGalleryPreviews([...galleryPreviews, URL.createObjectURL(file)]);  // Appending new preview URL to the state
+        }
+    };
+    const handleRemoveImage = (removeIndex) => {
+        // Filter out the image from the states based on the index
+        setGalleryImages(galleryImages.filter((_, index) => index !== removeIndex));
+        setGalleryPreviews(galleryPreviews.filter((_, index) => index !== removeIndex));
+    };
     const [categories, isLoading, refetch] = useCategory();
-    const [hasVariants, setHasVariants] = useState(false);
     const [variants, setVariants] = useState([{ size: '', price: '' }]);
     const {register,control, handleSubmit, formState: { errors },} = useForm();
 
@@ -20,16 +34,24 @@ function AddProduct() {
         setVariants(newVariants);
     };
     const onSubmit = async (data) => {
-        // Consider including variant data in the submission
-        const productData = {
-            ...data
-        };
-        console.log(data);
+        // bellow for multiple img upload 
+        const formData = new FormData();
+        // Append gallery images
+        galleryImages.forEach((imageFile, index) => {
+                formData.append(`productGallery${index}`, imageFile);
+                });
+        // above for multiple form image 
+        // Append other form data
+        // ... append other non-file inputs
+        formData.append('productName', data.productName);
+        formData.append('isPublished', data.isPublished);
+        console.log(data, variants, galleryImages)
 
         // Implement API submission as per requirement...
     };
-
-  // Function to handle input changes
+    if (isLoading) {
+        return <>Loading...</>
+    }
     return (
         <div className=" ">
         <form
@@ -102,6 +124,7 @@ function AddProduct() {
                 <span className="text-error text-xs">This field is required</span>
                 )}
             </div>
+            {/* Thumbnail Images */}
             <div className="form-control">
                 <label className="label">
                 <span className="label-text">
@@ -118,22 +141,70 @@ function AddProduct() {
                 <span className="text-error text-xs">This field is required</span>
                 )}
             </div>
+
+
+
+
+
+            {/* Gallery */}
             <div className="form-control">
                 <label className="label">
                 <span className="label-text">
                 Gallery<span className="text-red-500">*</span>
                 </span>
                 </label>
-                <input
+                {/* <input
                 {...register("productGallery", { required: false })}
                 type="file"
                 placeholder="Image Link"
                 className="file-input file-input-bordered file-input-secondary"
-                />
+                /> */}
+                
+{/* Gallery Previews */}
+<div className="grid grid-cols-3 gap-4 mt-4">
+    {galleryPreviews.map((preview, index) => (
+        <div key={index} className="relative">
+            <img
+                src={preview}
+                alt={`preview ${index + 1}`}
+                className="h-24 w-24 object-cover"
+            />
+            {/* Optional: Delete Button on Each Image */}
+            <button
+                className="absolute top-0 right-0 bg-red-500 text-white p-1"
+                onClick={() => handleRemoveImage(index)}
+            >
+                X
+            </button>
+        </div>
+    ))}
+</div>
+
+
+                {/* Custom Button for Image Upload */}
+<button 
+    type="button" 
+    onClick={() => fileInputRef.current.click()} 
+    className="btn btn-secondary text-white mt-4"
+>
+    Add Another Image
+</button>
+
+{/* Hidden File Input for Image Upload */}
+<input 
+    {...register("productGallery", { required: false })}
+    type="file"
+    onChange={handleGalleryChange}
+    className="hidden" 
+    ref={fileInputRef}
+/>
+
+
                 {errors.productGallery && (
                 <span className="text-error text-xs">This field is required</span>
                 )}
             </div>
+            {/* Product Categories */}
             <div className="form-control">
                 <label className="label">
                 <span className="label-text">
@@ -157,11 +228,17 @@ function AddProduct() {
                 <span className="text-error text-xs">This field is required</span>
                 )}
             </div>
+
+
+
+
+
+
+
+            {/* Product Variant & Price */}
             <div className="form-control">
-                <label className="label">
-                <span className="label-text">
-                Product Variant & Price<span className="text-red-500">*</span>
-                </span>
+                <label className="label"><p className="label-text">
+                    Product Variant & Price<span className="text-red-500">*</span></p>
                 </label>
 
                 {/* Dynamic Variant Inputs */}
@@ -198,11 +275,30 @@ function AddProduct() {
                 <span className="text-error text-xs">This field is required</span>
                 )}
             </div>
-            <div className="form-control mt-6">
-                <button className="btn btn-secondary text-white">
-                Add Category
-                </button>
+
+
+
+
+
+
+
+            {/* Publish Product */}
+            <div className="form-control">
+    <label className="label">
+        <span className="label-text">Publish Product</span>
+    </label>
+    <input 
+        {...register("isPublished", { required: false })} 
+        type="checkbox" 
+        className="checkbox checkbox-secondary" 
+    />
+    {errors.isPublished && (
+        <span className="text-error text-xs">This field is required</span>
+    )}
             </div>
+                <div className="form-control mt-6">
+                    <button className="btn btn-secondary text-white">Add Product</button>
+                </div>
             </div>
         </form>
         </div>

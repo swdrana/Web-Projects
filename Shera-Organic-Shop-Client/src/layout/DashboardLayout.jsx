@@ -4,8 +4,8 @@ import Header from "../components/Header/Header";
 function DashboardLayout() {
   return (
     <div className="">
-        <Header/>
-      <div className="drawer lg:drawer-open z-[100]">
+        <Header isFixed={true}/>
+      <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col ">
           {/* Page content here */}
