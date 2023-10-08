@@ -11,6 +11,9 @@ function AddProduct() {
     const addVariant = () => {
         setVariants([...variants, { size: '', price: '' }]);
     };
+    const removeVariant = (indexToRemove) => {
+        setVariants(variants.filter((_, index) => index !== indexToRemove));
+    };
     const updateVariant = (index, field, value) => {
         const newVariants = [...variants];
         newVariants[index][field] = value;
@@ -19,9 +22,7 @@ function AddProduct() {
     const onSubmit = async (data) => {
         // Consider including variant data in the submission
         const productData = {
-            ...data,
-            hasVariants,
-            variants
+            ...data
         };
         console.log(data);
 
@@ -159,28 +160,17 @@ function AddProduct() {
             <div className="form-control">
                 <label className="label">
                 <span className="label-text">
-                Product Price<span className="text-red-500">*</span>
+                Product Variant & Price<span className="text-red-500">*</span>
                 </span>
                 </label>
-                {/* Variant Management */}
-                <div className="form-control flex">
-                    <label className="label">
-                        <span className="label-text">Has Variants?</span>
-                    </label>
-                    <input
-                        type="checkbox"
-                        checked={hasVariants}
-                        onChange={() => setHasVariants(!hasVariants)}
-                    />
-                </div>
 
                 {/* Dynamic Variant Inputs */}
-                {hasVariants && variants.map((variant, index) => (
-                    <div key={index} className="form-control border">
+                {variants.map((variant, index) => (
+                    <div key={index} className="form-control border border-secondary rounded-lg mb-8 py-3">
+                        <div className="flex flex-col md:flex-row gap-5 justify-between">
                         <label className="label">
                             <span className="label-text">Variant {index + 1}</span>
                         </label>
-                        <div className="flex">
                         <input
                             className="input input-secondary"
                             type="text"
@@ -194,15 +184,16 @@ function AddProduct() {
                             placeholder="Price"
                             value={variant.price}
                             onChange={(e) => updateVariant(index, 'price', e.target.value)}
-                        /></div>
+                        />
+                        <button className="btn btn-error w-10 me-5 text-white" type="button" onClick={()=>removeVariant(index)}>X</button>
+                        </div>
                     </div>
                 ))}
                 {/* Add Variant Button */}
-                {hasVariants && (
-                    <button className="btn btn-secondary text-white" type="button" onClick={addVariant}>
-                        Add Another Variant
-                    </button>
-                )}
+                <button className="btn btn-secondary w-40 text-white" type="button" onClick=    {addVariant}>
+                        Another Variant
+                </button>
+                
                 {errors.productGallery && (
                 <span className="text-error text-xs">This field is required</span>
                 )}
