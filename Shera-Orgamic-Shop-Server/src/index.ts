@@ -2,12 +2,18 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import categoryRoutes from './routes/categoryRoutes';
+import productRoutes from './routes/productRoutes'; 
 import cors from 'cors';  // <-- Import cors here
 import multer from 'multer';
+import bodyParser from 'body-parser';
+
+
 dotenv.config();
 
 const upload = multer();
 const app = express();
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 const port = process.env.PORT || 3000;
 // Serve static files from the 'uploads' directory
 app.use('/uploads', express.static('uploads'));
@@ -35,7 +41,7 @@ connectDB();
 
 // Use the category router for paths starting with '/categories'.
 app.use('/api/categories', categoryRoutes);
-
+app.use('/api/products', productRoutes);
 // Start the server and listen on the given port.
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
