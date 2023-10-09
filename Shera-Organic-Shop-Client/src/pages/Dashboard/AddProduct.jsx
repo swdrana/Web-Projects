@@ -2,7 +2,10 @@ import { useState, useRef } from "react";
 import useCategory from "../../../hooks/useCategory";
 import { Controller, useForm } from "react-hook-form";
 import JoditEditor from 'jodit-react';
+import instance from "../../provider/axios";
 function AddProduct() {
+    const {register,control, handleSubmit, formState: { errors },} = useForm();
+    // ============================== galleryImages ==============================
     const fileInputRef = useRef();
     const [galleryImages, setGalleryImages] = useState([]);
     const [galleryPreviews, setGalleryPreviews] = useState([]);
@@ -19,9 +22,9 @@ function AddProduct() {
         setGalleryPreviews(galleryPreviews.filter((_, index) => index !== removeIndex));
     };
     const [categories, isLoading, refetch] = useCategory();
-    const [variants, setVariants] = useState([{ size: '', price: '' }]);
-    const {register,control, handleSubmit, formState: { errors },} = useForm();
 
+    // ============================== Price and Variants ==============================
+    const [variants, setVariants] = useState([{ size: '', price: '' }]);
     const addVariant = () => {
         setVariants([...variants, { size: '', price: '' }]);
     };
@@ -33,22 +36,79 @@ function AddProduct() {
         newVariants[index][field] = value;
         setVariants(newVariants);
     };
-    const onSubmit = async (data) => {
-        // bellow for multiple img upload 
-        const formData = new FormData();
-        // Append gallery images
-        galleryImages.forEach((imageFile, index) => {
-                formData.append(`productGallery${index}`, imageFile);
-                });
-        // above for multiple form image 
-        // Append other form data
-        // ... append other non-file inputs
-        formData.append('productName', data.productName);
-        formData.append('isPublished', data.isPublished);
-        console.log(data, variants, galleryImages)
 
+    const onSubmit = async (data) => {
+        // Create a new FormData object to store your form data
+        const formData = new FormData();
+      
+        // Append form fields to the FormData object
+        formData.append('productName', data.productName);
+        formData.append('shortDescription', data.shortDescription);
+        formData.append('description', data.description);
+        formData.append('productCategory', data.productCategory);
+        formData.append('variants', JSON.stringify(variants));
+        formData.append('isPublished', data.isPublished);
+      
+        // Append the productThumbnail as a single file
+        formData.append('productThumbnail', data.productThumbnail[0]);
+      
+        // Append each item in the galleryImages array
+        galleryImages.forEach((imageFile, index) => {
+            formData.append('productGallery', imageFile);
+          });
+      
+        console.log([...formData]);
+        console.log(galleryImages);
+      
         // Implement API submission as per requirement...
-    };
+        try {
+          // Now you can omit the base URL and just provide the endpoint path.
+          const response = await instance.post('/products', formData);
+          console.log('Products successfully added');
+          console.log('Response Data:', response.data);
+        } catch (error) {
+          console.error('Error adding Products:', error);
+          if (error.response) {
+            // Log the server response for more details
+            console.error('Server Response:', error.response.data);
+          }
+        }
+      };
+      
+    // const onSubmit = async (data) => {
+    //     // bellow for multiple img upload 
+    //     const formData = new FormData();
+    //     formData.append('productName', data.productName);
+    //     formData.append('shortDescription', data.shortDescription);
+    //     formData.append('description', data.description);
+    //     formData.append('productThumbnail', data.productThumbnail[0]);
+    //     // formData.append('productGallery', galleryImages);
+    //     formData.append('productCategory', data.productCategory);
+    //     formData.append('variants', JSON.stringify(variants));
+    //     formData.append('isPublished', data.isPublished);
+    //     // Append gallery images
+    //     galleryImages.forEach((imageFile, index) => {
+    //             formData.append(`productGallery`, imageFile);
+    //             });
+        
+    //     console.log([...formData])
+    //     console.log(galleryImages)
+
+
+    //     // Implement API submission as per requirement...
+    //     try {
+    //         // Now you can omit the base URL and just provide the endpoint path.
+    //         const response = await instance.post('/products', formData);
+    //         console.log('Products successfully added');
+    //         console.log('Response Data:', response.data);
+    //       } catch (error) {
+    //         console.error('Error adding Products:', error);
+    //         if (error.response) {
+    //           // Log the server response for more details
+    //           console.error('Server Response:', error.response.data);
+    //         }}
+
+    // };
     if (isLoading) {
         return <>Loading...</>
     }
@@ -218,13 +278,14 @@ function AddProduct() {
                         //     setSelectedThana(foundThana);
                         // }}  
                         defaultValue={'Select Category'}
+                        {...register("productCategory", { required: true })}
                     >
                         <option  disabled>Select Category</option>
                         {categories.sort((a, b) => a.categoryName.localeCompare(b.categoryName)).map(cat=>{
                             return <option key={cat._id}>{cat.categoryName}</option>
                         })}
                     </select>
-                {errors.productGallery && (
+                {errors.productCategory && (
                 <span className="text-error text-xs">This field is required</span>
                 )}
             </div>

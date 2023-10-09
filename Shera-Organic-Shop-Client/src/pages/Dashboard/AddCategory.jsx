@@ -31,7 +31,7 @@ function AddCategory() {
     const formData = new FormData();
     formData.append('categoryName', data.categoryName);
     formData.append('categoryImage', data.categoryImage[0]);
-  
+  console.log(formData)
     try {
       // Now you can omit the base URL and just provide the endpoint path.
       await instance.post('/categories', formData);
