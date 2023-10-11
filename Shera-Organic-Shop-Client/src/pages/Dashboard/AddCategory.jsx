@@ -1,7 +1,7 @@
 import instance from "./../../provider/axios";
 import { useForm } from "react-hook-form";
 import useCategory from "../../../hooks/useCategory";
-
+import { toast } from "react-toastify";
 
 function AddCategory() {
   const [categories, isLoading, refetch] = useCategory();
@@ -31,13 +31,15 @@ function AddCategory() {
     const formData = new FormData();
     formData.append('categoryName', data.categoryName);
     formData.append('categoryImage', data.categoryImage[0]);
-  console.log(formData)
+    console.log(formData)
     try {
       // Now you can omit the base URL and just provide the endpoint path.
       await instance.post('/categories', formData);
+      toast.success("Category Added");
       console.log('Category successfully added');
       refetch();
     } catch (error) {
+      toast.error("Please Change Something");
       console.error('Error adding category:', error);
       if (error.response) {
         // Log the server response for more details
@@ -49,6 +51,7 @@ function AddCategory() {
     try {
       // Send a DELETE request to your server's delete endpoint
       await instance.delete(`/categories/${categoryId}`);
+      toast.info("Category Deleted")
       refetch();
       console.log('Category deleted successfully');
       // Optionally, you can update your component's state or perform other actions as needed.

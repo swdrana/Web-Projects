@@ -3,7 +3,6 @@ import useCategory from "../../../hooks/useCategory";
 import { Controller, useForm } from "react-hook-form";
 import JoditEditor from 'jodit-react';
 import instance from "../../provider/axios";
-import ProductsDetails from "./products/ProductsDetails";
 function AddProduct() {
     const {register,control, handleSubmit, formState: { errors },} = useForm();
     // ============================== galleryImages ==============================
@@ -327,7 +326,6 @@ function AddProduct() {
                 </div>
             </div>
         </form>
-        <ProductsDetails/>
         </div>
   );
 }

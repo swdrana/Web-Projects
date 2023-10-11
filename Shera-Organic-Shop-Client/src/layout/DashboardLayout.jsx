@@ -31,6 +31,9 @@ function DashboardLayout() {
             <li>
                 <Link to='addProduct'>Add Product</Link>
             </li>
+            <li>
+                <Link to='products'>All Products</Link>
+            </li>
           </ul>
         </div>
       </div>
