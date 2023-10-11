@@ -3,6 +3,7 @@ import useCategory from "../../../hooks/useCategory";
 import { Controller, useForm } from "react-hook-form";
 import JoditEditor from 'jodit-react';
 import instance from "../../provider/axios";
+import ProductsDetails from "./products/ProductsDetails";
 function AddProduct() {
     const {register,control, handleSubmit, formState: { errors },} = useForm();
     // ============================== galleryImages ==============================
@@ -38,10 +39,8 @@ function AddProduct() {
     };
 
     const onSubmit = async (data) => {
-        // Create a new FormData object to store your form data
         const formData = new FormData();
-      
-        // Append form fields to the FormData object
+        
         formData.append('productName', data.productName);
         formData.append('shortDescription', data.shortDescription);
         formData.append('description', data.description);
@@ -57,15 +56,14 @@ function AddProduct() {
             formData.append('productGallery', imageFile);
           });
       
-        console.log([...formData]);
-        console.log(galleryImages);
+        // console.log([...formData]);
+        // console.log(galleryImages);
       
         // Implement API submission as per requirement...
         try {
           // Now you can omit the base URL and just provide the endpoint path.
           const response = await instance.post('/products', formData);
-          console.log('Products successfully added');
-          console.log('Response Data:', response.data);
+          console.log('Products added, Response Data:', response.data);
         } catch (error) {
           console.error('Error adding Products:', error);
           if (error.response) {
@@ -75,40 +73,7 @@ function AddProduct() {
         }
       };
       
-    // const onSubmit = async (data) => {
-    //     // bellow for multiple img upload 
-    //     const formData = new FormData();
-    //     formData.append('productName', data.productName);
-    //     formData.append('shortDescription', data.shortDescription);
-    //     formData.append('description', data.description);
-    //     formData.append('productThumbnail', data.productThumbnail[0]);
-    //     // formData.append('productGallery', galleryImages);
-    //     formData.append('productCategory', data.productCategory);
-    //     formData.append('variants', JSON.stringify(variants));
-    //     formData.append('isPublished', data.isPublished);
-    //     // Append gallery images
-    //     galleryImages.forEach((imageFile, index) => {
-    //             formData.append(`productGallery`, imageFile);
-    //             });
-        
-    //     console.log([...formData])
-    //     console.log(galleryImages)
 
-
-    //     // Implement API submission as per requirement...
-    //     try {
-    //         // Now you can omit the base URL and just provide the endpoint path.
-    //         const response = await instance.post('/products', formData);
-    //         console.log('Products successfully added');
-    //         console.log('Response Data:', response.data);
-    //       } catch (error) {
-    //         console.error('Error adding Products:', error);
-    //         if (error.response) {
-    //           // Log the server response for more details
-    //           console.error('Server Response:', error.response.data);
-    //         }}
-
-    // };
     if (isLoading) {
         return <>Loading...</>
     }
@@ -362,6 +327,7 @@ function AddProduct() {
                 </div>
             </div>
         </form>
+        <ProductsDetails/>
         </div>
   );
 }

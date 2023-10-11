@@ -110,6 +110,7 @@ function AddCategory() {
               <div className="flex items-center justify-center">
                 <div className="avatar">
                   <div className="mask mask-squircle w-16 h-16">
+                    {/* {TODO: change url} */}
                     <img src={`http://localhost:3000/${category.categoryImage}`} alt="Product" />
                   </div>
                 </div>
