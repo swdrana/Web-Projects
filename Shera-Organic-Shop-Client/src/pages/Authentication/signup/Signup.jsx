@@ -2,22 +2,34 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
 import { useContext } from "react";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const navigate = useNavigate();
-  const {user, createUser } = useContext(AuthContext);
+  const {user, createUser, updateUserName, sendPasswordReset } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
+    getValues
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data.email, data.password);
+    console.log(data.email, data.password, data.name);
     createUser(data.email, data.password).then((result) => {
+      updateUserName(data.name);
       const user = result.user;
       console.log(user);
     });
   };
+  const handelPasswordReset=()=>{
+    const email = getValues('email');
+    if (!email) {
+      toast.error('Please Provide Your Email');
+    }
+    sendPasswordReset(email);
+    toast.success("Email sent, check your inbox.")
+    console.log(email);
+  }
   if (user) {
     return navigate("/");
   }
@@ -117,9 +129,9 @@ const Signup = () => {
                   </span>
                 )}
                 <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
+                  <span onClick={handelPasswordReset} className="label-text-alt link link-hover">
                     Forgot password?
-                  </a>
+                  </span>
                 </label>
               </div>
               <div className="form-control mt-6">

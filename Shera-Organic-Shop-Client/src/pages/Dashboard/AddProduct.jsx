@@ -3,6 +3,7 @@ import useCategory from "../../../hooks/useCategory";
 import { Controller, useForm } from "react-hook-form";
 import JoditEditor from 'jodit-react';
 import instance from "../../provider/axios";
+import { toast } from "react-toastify";
 function AddProduct() {
     const {register,control, handleSubmit, formState: { errors },} = useForm();
     // ============================== galleryImages ==============================
@@ -62,9 +63,11 @@ function AddProduct() {
         try {
           // Now you can omit the base URL and just provide the endpoint path.
           const response = await instance.post('/products', formData);
-          console.log('Products added, Response Data:', response.data);
+          toast.success("Product Added")
+          console.log('Product added, Response Data:', response.data);
         } catch (error) {
           console.error('Error adding Products:', error);
+          toast.error("Error adding Product")
           if (error.response) {
             // Log the server response for more details
             console.error('Server Response:', error.response.data);

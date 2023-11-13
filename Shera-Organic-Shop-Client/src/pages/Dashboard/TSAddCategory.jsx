@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import useCategory from "../../../hooks/useCategory";
 import { toast } from "react-toastify";
 
-function AddCategory() {
+function TSAddCategory() {
   const [categories, isLoading, refetch] = useCategory();
   // useEffect(() => {
   //   // Make an HTTP GET request to fetch category data
@@ -131,4 +131,4 @@ function AddCategory() {
   );
 }
 
-export default AddCategory;
+export default TSAddCategory;

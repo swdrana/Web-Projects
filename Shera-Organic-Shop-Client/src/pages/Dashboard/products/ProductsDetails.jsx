@@ -1,5 +1,7 @@
+import { toast } from "react-toastify";
 import useProducts from "../../../../hooks/useProducts"
 import instance from "../../../provider/axios";
+import { Link } from "react-router-dom";
 
 function ProductsDetails() {
     const [products, isLoading, refetch, isError, error] = useProducts();
@@ -10,11 +12,13 @@ function ProductsDetails() {
         try {
           // Send a DELETE request to your server's delete endpoint
           await instance.delete(`/products/${productId}`);
+          toast.info("Product Deleted!")
           refetch();
           console.log('Product deleted successfully');
           // Optionally, you can update your component's state or perform other actions as needed.
         } catch (error) {
-          console.error('Error deleting category:', error);
+          toast.warning("Error deleting product")
+          console.error('Error deleting product:', error);
         }
       };
     return (
@@ -66,7 +70,7 @@ function ProductsDetails() {
                 <td>
                     <input type="checkbox" className="checkbox"  checked={product.isPublished}/> </td>
                 <th>
-                    <button className="btn btn-ghost btn-xs">Edit</button>
+                    <Link to={product._id} className="btn btn-ghost btn-xs">Edit</Link>
                 </th>
                 <th><button onClick={() => handleDelete(product._id)} className="btn btn-error btn-xs">X</button></th>
                 </tr>

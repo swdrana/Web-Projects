@@ -18,6 +18,7 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import AddProduct from "../pages/Dashboard/AddProduct";
 import AddCategory from "../pages/Dashboard/AddCategory";
 import ProductsDetails from "../pages/Dashboard/products/ProductsDetails";
+import EditProduct from "../pages/Dashboard/products/editProduct";
 
 
 export const router = createBrowserRouter([
@@ -117,6 +118,10 @@ export const router = createBrowserRouter([
         {
           path:'products',
           element: <ProductsDetails/>,
+        },
+        {
+          path:'products/:id',
+          element: <EditProduct/>,
         }
       ]
     },
