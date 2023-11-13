@@ -1,0 +1,5 @@
+{
+    "version": 2,
+    "rbuilds": [{"src": "/dist/index.js", "use": "@vercel/node"}],
+    "rroutes": [{"src": "/(.*)","dest": "index.js"}]
+}
