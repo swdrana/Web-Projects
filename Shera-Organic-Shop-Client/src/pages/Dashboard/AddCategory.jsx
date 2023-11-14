@@ -2,6 +2,7 @@ import instance from "./../../provider/axios";
 import { useForm } from "react-hook-form";
 import useCategory from "../../../hooks/useCategory";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 function AddCategory() {
   const [categories, isLoading, refetch] = useCategory();
@@ -25,41 +26,123 @@ function AddCategory() {
     formState: { errors },
   } = useForm();
 
+  const uploadImageToImgBB = async (image) => {
+    const formData = new FormData();
+    formData.append("image", image);
+
+    const response = await axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB}`, formData);
+
+    // Extract the image URL from the ImgBB API response
+    return response.data.data.url;
+  };
   const onSubmit = async (data) => {
     console.log(data.categoryName, data.categoryImage);
   
-    const formData = new FormData();
-    formData.append('categoryName', data.categoryName);
-    formData.append('categoryImage', data.categoryImage[0]);
-    console.log(formData)
     try {
-      // Now you can omit the base URL and just provide the endpoint path.
+      let formData = {
+        categoryName: data.categoryName,
+      };
+  
+      // Check if an image is selected
+      if (data.categoryImage && data.categoryImage[0]) {
+        const imageUrl = await uploadImageToImgBB(data.categoryImage[0]);
+        formData = {
+          ...formData,
+          categoryImage: imageUrl,
+        };
+      }
+  
       await instance.post('/categories', formData);
-      toast.success("Category Added");
+      toast.success('Category Added');
       console.log('Category successfully added');
       refetch();
     } catch (error) {
-      toast.error("Please Change Something");
+      toast.error('Please Change Something');
       console.error('Error adding category:', error);
       if (error.response) {
-        // Log the server response for more details
         console.error('Server Response:', error.response.data);
       }
     }
   };
-  const handleDelete = async (categoryId) => {
+  
+
+  // bellow code is for previous: without imgbb direc upload to the server ts node server code
+
+  // const onSubmit = async (data) => {
+  //   console.log(data.categoryName, data.categoryImage);
+  
+  //   const formData = new FormData();
+  //   formData.append('categoryName', data.categoryName);
+  //   formData.append('categoryImage', data.categoryImage[0]);
+  //   console.log(formData)
+  //   try {
+  //     // Now you can omit the base URL and just provide the endpoint path.
+  //     await instance.post('/categories', formData);
+  //     toast.success("Category Added");
+  //     console.log('Category successfully added');
+  //     refetch();
+  //   } catch (error) {
+  //     toast.error("Please Change Something");
+  //     console.error('Error adding category:', error);
+  //     if (error.response) {
+  //       // Log the server response for more details
+  //       console.error('Server Response:', error.response.data);
+  //     }
+  //   }
+  // };
+
+
+  // const handleDelete = async (categoryId) => {
+  //   try {
+  //     // Send a DELETE request to your server's delete endpoint
+  //     await instance.delete(`/categories/${categoryId}`);
+  //     toast.info("Category Deleted")
+  //     refetch();
+  //     console.log('Category deleted successfully');
+  //     // Optionally, you can update your component's state or perform other actions as needed.
+  //   } catch (error) {
+  //     toast.info("Error deleting category")
+  //     console.error('Error deleting category:', error);
+  //   }
+  // };
+
+  const handleDelete = async (categoryId, categoryImage) => {
     try {
-      // Send a DELETE request to your server's delete endpoint
+      // Delete the category from your server
       await instance.delete(`/categories/${categoryId}`);
-      toast.info("Category Deleted")
-      refetch();
+      toast.info("Category Deleted");
+  
+      // Delete the image from ImgBB
+      const imageId = getImageIdFromUrl(categoryImage);
+      if (imageId) {
+        await deleteImageFromImgBB(imageId);
+      }
+  
+      // Use the callback version of refetch
+      refetch((data) => [...data.filter((category) => category._id !== categoryId)]);
       console.log('Category deleted successfully');
-      // Optionally, you can update your component's state or perform other actions as needed.
     } catch (error) {
-      toast.info("Error deleting category")
+      refetch((data) => [...data.filter((category) => category._id !== categoryId)]);
+      toast.info("Error deleting category");
       console.error('Error deleting category:', error);
     }
   };
+  
+
+const getImageIdFromUrl = (imageUrl) => {
+  const match = imageUrl.match(/\/([^/]+)$/);
+  return match ? match[1] : null;
+};
+
+const deleteImageFromImgBB = async (imageId) => {
+  try {
+    await axios.delete(`https://api.imgbb.com/1/image/${imageId}?key=${import.meta.env.VITE_IMGBB}`);
+    console.log('Image deleted from ImgBB');
+  } catch (error) {
+    console.error('Error deleting image from ImgBB:', error);
+  }
+};
+
 
   return (
     <div>
@@ -79,15 +162,14 @@ function AddCategory() {
           </div>
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Category Image<span className="text-red-500">*</span></span>
+              <span className="label-text">Category Image (Optional)</span>
             </label>
             <input
-              {...register("categoryImage", { required: true })}
+              {...register("categoryImage", { required: false })}
               type="file"
               placeholder="Image Link"
               className="file-input file-input-bordered file-input-secondary"
             />
-            {errors.categoryImage && <span className="text-error text-xs">This field is required</span>}
           </div>
           <div className="form-control mt-6">
             <button className="btn btn-secondary text-white">Add Category</button>
@@ -115,7 +197,7 @@ function AddCategory() {
                 <div className="avatar">
                   <div className="mask mask-squircle w-16 h-16">
                     {/* {TODO: change url} */}
-                    <img src={`http://localhost:3000/${category.categoryImage}`} alt="Product" />
+                    <img src={category.categoryImage} alt="Product" />
                   </div>
                 </div>
               </div>

@@ -7,6 +7,7 @@ import { HiOutlineUserCircle } from "react-icons/hi";
 import { BsCartPlus } from "react-icons/bs";
 import { AuthContext } from "../../../provider/AuthProvider";
 const NavBer = ({ isScrolled }) => {
+  const navigate = useNavigate();
   const { user, logOut } = useContext(AuthContext);
   const [haveUser, setHaveUser] = useState(false);
   //   const [hiddenMenu, setHiddenMenu] = useState("hidden");
@@ -222,7 +223,9 @@ const NavBer = ({ isScrolled }) => {
                           <button
                             onClick={() => {
                               logOut()
-                                .then(() => {})
+                                .then(() => {
+                                  navigate('/login');
+                                })
                                 .catch((err) => console.log(err));
                             }}
                           >

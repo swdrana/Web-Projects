@@ -19,6 +19,7 @@ import AddProduct from "../pages/Dashboard/AddProduct";
 import AddCategory from "../pages/Dashboard/AddCategory";
 import ProductsDetails from "../pages/Dashboard/products/ProductsDetails";
 import EditProduct from "../pages/Dashboard/products/editProduct";
+import AdminManagement from "../pages/Dashboard/AdminManagement";
 
 
 export const router = createBrowserRouter([
@@ -122,7 +123,11 @@ export const router = createBrowserRouter([
         {
           path:'products/:id',
           element: <EditProduct/>,
-        }
+        },
+        {
+          path:'manage-admin',
+          element: <AdminManagement/>,
+        },
       ]
     },
   ]);

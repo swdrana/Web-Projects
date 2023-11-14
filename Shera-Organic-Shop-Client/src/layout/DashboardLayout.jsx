@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import Header from "../components/Header/Header";
 
 function DashboardLayout() {
@@ -33,6 +33,9 @@ function DashboardLayout() {
             </li>
             <li>
                 <Link to='products'>All Products</Link>
+            </li>
+            <li>
+                <Link to='manage-admin'>Manage Admin</Link>
             </li>
           </ul>
         </div>
