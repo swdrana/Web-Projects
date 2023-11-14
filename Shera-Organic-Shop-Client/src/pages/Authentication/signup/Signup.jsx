@@ -2,34 +2,43 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
 import { useContext } from "react";
-import { toast } from "react-toastify";
-
+import axiosInstance from '../../../provider/axios'
 const Signup = () => {
   const navigate = useNavigate();
-  const {user, createUser, updateUserName, sendPasswordReset } = useContext(AuthContext);
+  const {user, createUser, updateUserName } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    getValues
+    formState: { errors }
   } = useForm();
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data.email, data.password, data.name);
-    createUser(data.email, data.password).then((result) => {
-      updateUserName(data.name);
+    try {
+      const result = await createUser(data.email, data.password);
+      await updateUserName(data.name);
+  
       const user = result.user;
       console.log(user);
-    });
-  };
-  const handelPasswordReset=()=>{
-    const email = getValues('email');
-    if (!email) {
-      toast.error('Please Provide Your Email');
+  
+      // Now that the user profile is updated, send the user info to the server
+      await sendUserInfoToServer(user);
+    } catch (error) {
+      console.error('Error:', error.message);
     }
-    sendPasswordReset(email);
-    toast.success("Email sent, check your inbox.")
-    console.log(email);
-  }
+  };
+
+  const sendUserInfoToServer = (user) => {
+    axiosInstance.post("/users", user)
+      .then(response => {
+        console.log("User information sent to the server:", response.data);
+        // Optionally handle any additional logic after a successful request
+        navigate("/"); // Redirect or perform other actions after successful registration
+      })
+      .catch(error => {
+        console.error("Error sending user information:", error);
+        // Optionally handle errors or show error messages
+      });
+  };
   if (user) {
     return navigate("/");
   }
@@ -128,11 +137,6 @@ const Signup = () => {
                     Password must be less then 20 characters
                   </span>
                 )}
-                <label className="label">
-                  <span onClick={handelPasswordReset} className="label-text-alt link link-hover">
-                    Forgot password?
-                  </span>
-                </label>
               </div>
               <div className="form-control mt-6">
                 <button className="btn btn-secondary text-white">

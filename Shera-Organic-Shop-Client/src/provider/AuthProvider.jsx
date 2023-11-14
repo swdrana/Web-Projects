@@ -14,6 +14,7 @@ function AuthProvider({ children }) {
     return createUserWithEmailAndPassword(auth, email, password);
   }
   const updateUserName = (name)=>{
+    setLoading(true);
     return updateProfile(auth.currentUser, {
       displayName:name
     }).then(()=>{
@@ -24,6 +25,7 @@ function AuthProvider({ children }) {
   }
 
   const sendPasswordReset = (email)=>{
+    setLoading(true);
     return sendPasswordResetEmail(auth, email)
     .then(() => {
       console.log('Password reset email sent!')

@@ -2,13 +2,14 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
+import { toast } from "react-toastify";
 
 const Login = () => {
-  const { user, signIn } = useContext(AuthContext);
+  const { user, signIn, sendPasswordReset } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation()
   const from = location.state?.from?.pathname || '/';
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, getValues } = useForm();
   const onSubmit = (data) => {
     console.log(data.email, data.password);
     signIn(data.email, data.password).then((result) => {
@@ -16,6 +17,16 @@ const Login = () => {
       console.log(user);
     });
   };
+  const handelPasswordReset=()=>{
+    const email = getValues('email');
+    if (!email) {
+      toast.error('Please Provide Your Email');
+    }else{
+      sendPasswordReset(email);
+      toast.success("Email sent, check your inbox.")
+      console.log(email);
+    }
+  }
   if (user) {
     return navigate(from, {replace:true});
   }
@@ -62,9 +73,9 @@ const Login = () => {
                   className="input input-bordered input-primary"
                 />
                 <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
+                  <span onClick={handelPasswordReset} className="label-text-alt link link-hover">
                     Forgot password?
-                  </a>
+                  </span>
                 </label>
               </div>
               <div className="form-control mt-6">
@@ -75,7 +86,7 @@ const Login = () => {
                   to="/signup"
                   className=" text-sm underline hover:no-underline"
                 >
-                  Don't Have an Account? Please Register.
+                  Don&apos;t Have an Account? Please Register.
                 </Link>
               </div>
             </div>
