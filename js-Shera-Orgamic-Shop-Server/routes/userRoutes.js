@@ -20,24 +20,23 @@ router.get("/", async (_req, res) => {
 });
 
 // Get a specific user by ID
-router.get("/:id", async (req, res) => {
-  const userId = req.params.id;
-  await connectMongoClient();
-  const usersCollection = client.db('sheraorganicshopdb').collection('users');
-  const user = await usersCollection.findOne({ _id: new ObjectId(userId) });
-  res.send(user);
-});
+// router.get("/:id", async (req, res) => {
+//   const userId = req.params.id;
+//   await connectMongoClient();
+//   const usersCollection = client.db('sheraorganicshopdb').collection('users');
+//   const user = await usersCollection.findOne({ _id: new ObjectId(userId) });
+//   res.send(user);
+// });
 
 // Get a specific user by email
 router.get("/:email", async (req, res) => {
   const userEmail = req.params.email;
-
   try {
     await connectMongoClient();
     const usersCollection = client.db('sheraorganicshopdb').collection('users');
 
     const user = await usersCollection.findOne({ email: userEmail });
-
+    // console.log(req)
     if (user) {
       res.send(user);
     } else {
@@ -49,7 +48,32 @@ router.get("/:email", async (req, res) => {
     res.status(500).send(`Internal Server Error: ${error.message}`);
   }
 });
-
+// Get a specific user by email
+router.get("/byEmail", async (req, res) => {
+    try {
+      // Get the currently authenticated user's email from headers
+      const userEmail = req.headers['user-email'];
+  
+      if (!userEmail) {
+        return res.status(401).send("Unauthorized: User not logged in");
+      }
+  
+      await connectMongoClient();
+      const usersCollection = client.db('sheraorganicshopdb').collection('users');
+  
+      const user = await usersCollection.findOne({ email: userEmail });
+  
+      if (user) {
+        res.send(user);
+      } else {
+        console.error('User not found');
+        res.status(404).send('User not found');
+      }
+    } catch (error) {
+      console.error("Error finding user:", error);
+      res.status(500).send(`Internal Server Error: ${error.message}`);
+    }
+  });
 
 // Create a new user
 // Create a new user

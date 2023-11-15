@@ -1,14 +1,29 @@
 // isAdminMiddleware.js
 
-const isAdmin = (req, res, next) => {
-    // Check if the user is an admin based on your authentication logic
-    // For example, you might have a 'role' property in your user object
-    if (req.user && req.user.role === 'admin') {
-      return next(); // User is admin, proceed to the next middleware or route handler
+const { connectMongoClient, getClient } = require("../db/mongoDB");
+
+const isAdminMiddleware = async (req, res, next) => {
+  try {
+    const userEmail = req.headers.email;
+console.log(userEmail)
+    await connectMongoClient();
+    const usersCollection = getClient()
+      .db("sheraorganicshopdb")
+      .collection("users");
+
+    // Fetch the user's information from the database using the email
+    const user = await usersCollection.findOne({ email: userEmail });
+
+    // Check if the user is an admin
+    if (user && user.role === "admin") {
+      next(); // User is an admin, proceed to the next middleware or route handler
     } else {
-      return res.status(403).send('Forbidden: Only admin users can access this resource.');
+      res.status(403).send("Forbidden: Access denied. User is not an admin.");
     }
-  };
-  
-  module.exports = isAdmin;
-  
+  } catch (error) {
+    console.error("Error checking admin status:", error);
+    res.status(500).send(`Internal Server Error: ${error.message}`);
+  }
+};
+
+module.exports = isAdminMiddleware;

@@ -36,10 +36,11 @@ router.get("/:id", async (req, res) => {
 });
 
 // Create a new category
-router.post("/", async (req, res) => {
+router.post("/",isAdminMiddleware, async (req, res) => {
     try {
       const categoryData = req.body;
-      console.log('Received category data:', categoryData);
+      const email = req.headers.email;
+      console.log('Received category data:', email);
       
       await connectMongoClient();
       const categoriesCollection = client.db('sheraorganicshopdb').collection('categories');
@@ -91,7 +92,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // Delete a category by ID
-router.delete("/:id", async (req, res) => {
+router.delete("/:id",isAdminMiddleware, async (req, res) => {
   const categoryId = req.params.id;
   await connectMongoClient();
   const categoriesCollection = client.db('sheraorganicshopdb').collection('categories');
