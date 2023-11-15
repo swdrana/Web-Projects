@@ -2,16 +2,29 @@ import { toast } from "react-toastify";
 import useProducts from "../../../../hooks/useProducts"
 import instance from "../../../provider/axios";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../../provider/AuthProvider";
 
-function ProductsDetails() {
-    const [products, isLoading, refetch, isError, error] = useProducts();
-    console.log(products)
+function AllProducts() {
+  const { user, loading } = useContext(AuthContext);
+  const [products, isLoading, refetch, isError, error] = useProducts();
+
+  if(loading || isLoading){
+    return <p>Loading.... form add product page</p>
+  }
+  console.log(products)
    
     
-      const handleDelete = async (productId) => {
+  const handleDelete = async (productId) => {
         try {
+          // Configuration object with headers
+          const config = {
+            headers: {
+              email: user.email, // Replace with the actual user's email
+            },
+          };
           // Send a DELETE request to your server's delete endpoint
-          await instance.delete(`/products/${productId}`);
+          await instance.delete(`/products/${productId}`, config);
           toast.info("Product Deleted!")
           refetch();
           console.log('Product deleted successfully');
@@ -20,7 +33,7 @@ function ProductsDetails() {
           toast.warning("Error deleting product")
           console.error('Error deleting product:', error);
         }
-      };
+  };
     return (
         <div>
           {/* A static table that could potentially display data dynamically fetched from an API */}
@@ -28,8 +41,8 @@ function ProductsDetails() {
             <thead>
               <tr>
                 <th>S/L</th>
-                <th>Product Image</th>
-                <th>Name</th>
+                <th>Product</th>
+                <th>Price</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -47,7 +60,7 @@ function ProductsDetails() {
                     <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
                             {/* {TODO: Change URL} */}
-                        <img src={`http://localhost:3000/${product.productThumbnail}`} alt={product.productThumbnail} />
+                        <img src={product.productThumbnail} alt={product.productThumbnail} />
                         </div>
                     </div>
                     <div>
@@ -57,16 +70,13 @@ function ProductsDetails() {
                     </div>
                 </td>
                 <td>
-                    {/* {products[8].variants[0].size} */}
-                    {product.variants.map(v=>{
-                        <div key={v._id}>
-                            {v?.size}
-                            {v?.price}
+                    {product.variants.map((v, index) => (
+                        <div key={index}>
+                            Size: {v.size}, Price: {v.price}
                         </div>
-                    })}
-                    <br/>
-                    <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
+                    ))}
                 </td>
+
                 <td>
                     <input type="checkbox" className="checkbox"  checked={product.isPublished}/> </td>
                 <th>
@@ -81,4 +91,4 @@ function ProductsDetails() {
     )
 }
 
-export default ProductsDetails
+export default AllProducts

@@ -1,7 +1,25 @@
+import { useContext } from "react";
+import { AuthContext } from "../../provider/AuthProvider";
+import instance from "../../provider/axios";
+import useCurrentUser from "../../../hooks/useCurrentUser";
+
 function Campaigns() {
-  return (
-    <div>Campaigns</div>
-  )
+  const { isLoading, isError, userInfo, error, refetch } = useCurrentUser();
+  console.log(userInfo)
+  // const { user, setUser } = useContext(AuthContext);
+  // console.log(user);
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await instance.get(`/users/${user.email}`);
+  //     console.log(response.data)
+  //     // setUser(response.data)
+  //   } catch (error) {
+  //     console.error("Error fetching category data:", error);
+  //   }
+  // };
+
+  // fetchData();
+  return <div>Campaigns</div>;
 }
 
-export default Campaigns
+export default Campaigns;

@@ -12,7 +12,12 @@ const instance = axios.create({
 
 // Function to determine the content type based on data type
 const getContentType = (data) => {
-  return data instanceof FormData ? 'multipart/form-data' : 'application/json';
+  // If data is FormData, let Axios set the content type automatically
+  if (data instanceof FormData) {
+    return undefined;
+  }
+
+  return 'application/json';
 };
 
 // Interceptor to set content type based on data type
@@ -22,6 +27,7 @@ instance.interceptors.request.use((config) => {
 });
 
 export default instance;
+
 
 
 

@@ -1,15 +1,10 @@
-import { useState, useRef, useContext } from "react";
+import { useState, useRef } from "react";
 import useCategory from "../../../hooks/useCategory";
 import { Controller, useForm } from "react-hook-form";
 import JoditEditor from 'jodit-react';
 import instance from "../../provider/axios";
 import { toast } from "react-toastify";
-import { AuthContext } from "../../provider/AuthProvider";
-function AddProduct() {
-    const { user, loading } = useContext(AuthContext);
-    if(loading){
-        return <p>Loading.... form add product page</p>
-    }
+function AddProduct_OLD_FormData_Format_using_TS_node() {
     const {register,control, handleSubmit, formState: { errors },} = useForm();
     // ============================== galleryImages ==============================
     const fileInputRef = useRef();
@@ -44,67 +39,41 @@ function AddProduct() {
     };
 
     const onSubmit = async (data) => {
+        const formData = new FormData();
+        
+        formData.append('productName', data.productName);
+        formData.append('shortDescription', data.shortDescription);
+        formData.append('description', data.description);
+        formData.append('productCategory', data.productCategory);
+        formData.append('variants', JSON.stringify(variants));
+        formData.append('isPublished', data.isPublished);
+      
+        // Append the productThumbnail as a single file
+        formData.append('productThumbnail', data.productThumbnail[0]);
+      
+        // Append each item in the galleryImages array
+        galleryImages.forEach((imageFile, index) => {
+            formData.append('productGallery', imageFile);
+          });
+      
+        // console.log([...formData]);
+        // console.log(galleryImages);
+      
+        // Implement API submission as per requirement...
         try {
-          // Upload thumbnail image to ImgBB
-          const thumbnailUrl = await uploadImageToImgBB(data.productThumbnail[0]);
-      
-          // Upload each image in galleryImages to ImgBB
-          const imgbbUrls = await Promise.all(galleryImages.map(uploadImageToImgBB));
-      
-          // Prepare product data
-          const productData = {
-            productName: data.productName,
-            shortDescription: data.shortDescription,
-            description: data.description,
-            productCategory: data.productCategory,
-            variants: variants,
-            isPublished: data.isPublished,
-            productThumbnail: thumbnailUrl,
-            productGallery: imgbbUrls,
-          };
-      
-          // Configuration object with headers
-          const config = {
-            headers: {
-              email: user.email, // Replace with the actual user's email
-            },
-          };
-      
           // Now you can omit the base URL and just provide the endpoint path.
-          console.log('Product Data:', productData);
-          const response = await instance.post('/products', productData, config);
-          toast.success('Product Added');
+          const response = await instance.post('/products', formData);
+          toast.success("Product Added")
           console.log('Product added, Response Data:', response.data);
         } catch (error) {
           console.error('Error adding Products:', error);
-          toast.error('Error adding Product');
+          toast.error("Error adding Product")
           if (error.response) {
             // Log the server response for more details
             console.error('Server Response:', error.response.data);
           }
         }
       };
-      
-    
-    
-    const uploadImageToImgBB = async (imageFile) => {
-        try {
-            const imgbbFormData = new FormData();
-            imgbbFormData.append('image', imageFile);
-    
-            // Replace 'imgbb-upload-endpoint' with the actual ImgBB API endpoint
-            const imgbbResponse = await instance.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB}`, imgbbFormData);
-    
-            // Return only the URL
-            return imgbbResponse.data.data.url;
-        } catch (error) {
-            console.error('Error uploading image to ImgBB:', error);
-            throw error;
-        }
-    };
-    
-        
-      
       
 
     if (isLoading) {
@@ -364,4 +333,4 @@ function AddProduct() {
   );
 }
 
-export default AddProduct;
+export default AddProduct_OLD_FormData_Format_using_TS_node;

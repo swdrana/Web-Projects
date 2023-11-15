@@ -17,9 +17,11 @@ import DashboardLayout from "../layout/DashboardLayout";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import AddProduct from "../pages/Dashboard/AddProduct";
 import AddCategory from "../pages/Dashboard/AddCategory";
-import ProductsDetails from "../pages/Dashboard/products/ProductsDetails";
+import ProductsDetails from "../pages/Dashboard/products/AllProducts";
 import EditProduct from "../pages/Dashboard/products/editProduct";
 import AdminManagement from "../pages/Dashboard/AdminManagement";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 
 
 export const router = createBrowserRouter([
@@ -102,7 +104,7 @@ export const router = createBrowserRouter([
     },
     {
       path:"dashboard",
-      element:<DashboardLayout/>,
+      element:<AdminRoute><DashboardLayout/></AdminRoute>,
       children:[
         {
           path:'',

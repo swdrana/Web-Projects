@@ -15,7 +15,9 @@ const OfferBatch = styled.span`
   }
 `;
 
-const ProductCardBig = () => {
+const ProductCardBig = ({product}) => {
+  console.log(product)
+  const {productName,shortDescription, description, productCategory,variants, isPublished, productThumbnail, productGallery} = product;
   return (
     <div className=" w-full sm:w-[300px] mb-6 border border-[#f4f4f4] rounded-md hover:shadow-2xl  transition-all duration-100 hover:border-white">
       <div className=" group ">
@@ -26,8 +28,8 @@ const ProductCardBig = () => {
 
           <div className="relative text-center p-4">
             <img
-              src="https://grostore.themetags.com/public/uploads/media/QRrqV5dcT0zLMPR7wNbRGGkSk9f16V3amjaKk4R8.png"
-              alt="Dalim (Pomegranate)"
+              src={productThumbnail}
+              alt={productThumbnail}
               className="img-fluid"
             />
             <div className="flex gap-2  flex-col absolute opacity-0 group-hover:opacity-100 top-7 right-4 transition-all duration-500">
@@ -44,22 +46,13 @@ const ProductCardBig = () => {
             {/* <!--product category start--> */}
             <div className="  text-gray-light text-[12px] mb-2">
               <a href="" className="d-inline-block text-muted fs-xxs">
-                Breakfast ,
-              </a>
-              <a href="" className="d-inline-block text-muted fs-xxs">
-                Fresh Organic ,
-              </a>
-              <a href="" className="d-inline-block text-muted fs-xxs">
-                Fresh Fruits ,
-              </a>
-              <a href="" className="d-inline-block text-muted fs-xxs">
-                Vegetables
+                {productCategory}
               </a>
             </div>
             {/* <!--product category end--> */}
 
             <Link to="" className=" font-bold mb-2">
-              Dalim (Pomegranate)
+              {productName}
             </Link>
             <div className="flex  items-center flex-nowrap mb-2">
               <div className="rating rating-xs me-2">
@@ -95,8 +88,8 @@ const ProductCardBig = () => {
               </span>
             </div>
             <h6 className=" font-bold ">
-              <span className="text-md  text-error">৳1,440.00 </span>
-              <small>/kg</small>
+              <span className="text-md  text-error">৳{variants[0].price} </span>
+              <small>/{variants[0].size}</small>
             </h6>
           </div>
           <div className="px-8 z-20 pb-6 rounded-b-md duration-1000 transition-all border-2 border-white bg-white absolute w-full group-hover:shadow-2xl hidden group-hover:block">

@@ -1,7 +1,13 @@
+import useProducts from "../../../hooks/useProducts";
 import SectionTitle from "../../components/Pages/SectionTitle";
 import ProductCardBig from "./../../components/ProductCard/ProductCardBig";
 import {FaSearch} from 'react-icons/fa'
 function Products() {
+  const [products, isLoading] = useProducts();
+
+  if (isLoading) {
+    return <p>Loading....</p>;
+  }
   return (
     <>
       {/* Title Section */}
@@ -75,13 +81,10 @@ function Products() {
                   </div>
                   
                     <div className="flex flex-wrap gap-5">
-                    <ProductCardBig/>
-                    <ProductCardBig/>
-                    <ProductCardBig/>
-                    <ProductCardBig/>
-                    <ProductCardBig/>
-                    <ProductCardBig/>
-                    </div>
+                  {products.map((product) => (
+                    <ProductCardBig key={product._id} product={product} />
+                  ))}
+                </div>
                     <div className="join  justify-center w-full py-10">
                         <button className="join-item btn">1</button>
                         <button className="join-item btn">2</button>

@@ -3,9 +3,17 @@ import { useForm } from "react-hook-form";
 import useCategory from "../../../hooks/useCategory";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from "../../provider/AuthProvider";
 
 function AddCategory() {
   const [categories, isLoading, refetch] = useCategory();
+
+  // Use the useContext hook to access the AuthContext
+  const authContext = useContext(AuthContext);
+
+  // Now you can access the user and other authentication-related functions
+  const { user, userInfo, loading, createUser, updateUserName, signIn, logOut, sendPasswordReset } = authContext;
   // useEffect(() => {
   //   // Make an HTTP GET request to fetch category data
   //   const fetchData = async () => {
@@ -19,7 +27,7 @@ function AddCategory() {
 
   //   fetchData();
   // }, []);
-  console.log(categories)
+  // console.log(categories)
   const {
     register,
     handleSubmit,
@@ -52,6 +60,12 @@ function AddCategory() {
         };
       }
   
+      // Make sure authContext and authContext.user are defined
+      if (authContext && authContext.user) {
+        // Set the user's email as a header
+        instance.defaults.headers.common['email'] = authContext.user.email;
+      }
+  
       await instance.post('/categories', formData);
       toast.success('Category Added');
       console.log('Category successfully added');
@@ -62,8 +76,12 @@ function AddCategory() {
       if (error.response) {
         console.error('Server Response:', error.response.data);
       }
+    } finally {
+      // Reset the X-User-Email header after the request is made
+      instance.defaults.headers.common['email'] = undefined;
     }
   };
+  
   
 
   // bellow code is for previous: without imgbb direc upload to the server ts node server code
@@ -109,6 +127,11 @@ function AddCategory() {
   const handleDelete = async (categoryId, categoryImage) => {
     try {
       // Delete the category from your server
+      // Make sure authContext and authContext.user are defined
+      if (authContext && authContext.user) {
+        // Set the user's email as a header
+        instance.defaults.headers.common['email'] = authContext.user.email;
+      }
       await instance.delete(`/categories/${categoryId}`);
       toast.info("Category Deleted");
   
