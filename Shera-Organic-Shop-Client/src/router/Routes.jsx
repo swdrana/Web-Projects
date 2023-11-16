@@ -17,11 +17,12 @@ import DashboardLayout from "../layout/DashboardLayout";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import AddProduct from "../pages/Dashboard/AddProduct";
 import AddCategory from "../pages/Dashboard/AddCategory";
-import ProductsDetails from "../pages/Dashboard/products/AllProducts";
+import AllProducts from "../pages/Dashboard/products/AllProducts";
 import EditProduct from "../pages/Dashboard/products/editProduct";
 import AdminManagement from "../pages/Dashboard/AdminManagement";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
+import ProductDetails from "../components/ProductCard/ProductDetails";
 
 
 export const router = createBrowserRouter([
@@ -67,6 +68,10 @@ export const router = createBrowserRouter([
         {
           path:'products',
           element:<Products/>
+        },
+        {
+          path:'products/details/:id',
+          element:<ProductDetails/>
         },
         {
           path:'carts',
@@ -120,7 +125,7 @@ export const router = createBrowserRouter([
         },
         {
           path:'products',
-          element: <ProductsDetails/>,
+          element: <AllProducts/>,
         },
         {
           path:'products/:id',

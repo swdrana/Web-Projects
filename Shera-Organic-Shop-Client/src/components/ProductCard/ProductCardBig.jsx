@@ -17,7 +17,7 @@ const OfferBatch = styled.span`
 
 const ProductCardBig = ({product}) => {
   console.log(product)
-  const {productName,shortDescription, description, productCategory,variants, isPublished, productThumbnail, productGallery} = product;
+  const {_id, productName,shortDescription, description, productCategory,variants, isPublished, productThumbnail, productGallery} = product;
   return (
     <div className=" w-full sm:w-[300px] mb-6 border border-[#f4f4f4] rounded-md hover:shadow-2xl  transition-all duration-100 hover:border-white">
       <div className=" group ">
@@ -93,9 +93,9 @@ const ProductCardBig = ({product}) => {
             </h6>
           </div>
           <div className="px-8 z-20 pb-6 rounded-b-md duration-1000 transition-all border-2 border-white bg-white absolute w-full group-hover:shadow-2xl hidden group-hover:block">
-            <button className="btn btn-secondary w-full text-white hover:btn-primary hover:text-white">
-              Add to Cart
-            </button>
+            <Link to={`details/${_id}`} className="btn btn-secondary w-full text-white hover:btn-primary hover:text-white">
+              Show Details
+            </Link>
           </div>
         </div>
       </div>

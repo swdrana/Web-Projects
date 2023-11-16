@@ -1,6 +1,8 @@
+import useProducts from "../../../../hooks/useProducts";
 import ProductCardBig from "../../../components/ProductCard/ProductCardBig";
 
 const TrendingProducts = () => {
+  const [products, isLoading] = useProducts();
   return (
     <div className="container mx-auto mb-16">
 
@@ -19,15 +21,9 @@ const TrendingProducts = () => {
         </ul>
       </header>
       <section className=" flex flex-wrap justify-center sm:justify-between">
-        <ProductCardBig></ProductCardBig>
-        <ProductCardBig></ProductCardBig>
-        <ProductCardBig></ProductCardBig>
-        <ProductCardBig></ProductCardBig>
-
-        <ProductCardBig></ProductCardBig>
-        <ProductCardBig></ProductCardBig>
-        <ProductCardBig></ProductCardBig>
-        <ProductCardBig></ProductCardBig>
+      {products.map((product) => (
+                    <ProductCardBig key={product._id} product={product} />
+                  ))}
       </section>
     </div>
     </div>
