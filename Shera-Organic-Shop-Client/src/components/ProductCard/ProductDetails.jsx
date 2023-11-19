@@ -4,13 +4,16 @@ import { FaCheckCircle, FaCartArrowDown } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import ProductDetailsCard from "./ProductDetailsCard";
 // import { MdShoppingCartCheckout } from "react-icons/md";
-
-
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 
 function ProductDetails() {
   const { id } = useParams();
   const { product, loading, error } = useProductDetails(id);
-
+  if(loading){
+    return <>Loading...</>
+  }
+  const { productName,shortDescription, description, productCategory,variants, isPublished, productThumbnail, productGallery} = product;
   if (loading) {
     return <p>Loading product details...</p>;
   }
@@ -25,104 +28,62 @@ function ProductDetails() {
 
   return (
     <div className="bg-base-100">
-
-    
       <div className=" container mx-auto ">
         <section className="flex flex-col lg:flex-row gap-5">
-          <div className="py-6 px-4">
-            <ProductDetailsCard/>
-            <div className="product-info-tab  rounded-lg bg-red-300 shadow-lg  overflow-hidden pt-6 mt-4">
-              <ul
-                className="nav nav-tabs border-bottom justify-content-center gap-5 pt-info-tab-nav"
-                role="tablist"
-              >
-                <li>
-                  <a
-                    href="#description"
-                    className="active"
-                    data-bs-toggle="tab"
-                    aria-selected="true"
-                    role="tab"
-                  >
-                    Description
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#info"
-                    data-bs-toggle="tab"
-                    aria-selected="false"
-                    tabIndex="-1"
-                    role="tab"
-                  >
-                    Additional Information
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#review"
-                    data-bs-toggle="tab"
-                    aria-selected="false"
-                    tabIndex="-1"
-                    role="tab"
-                  >
-                    Reviews(02)
-                  </a>
-                </li>
-              </ul>
-              <div className="tab-content">
-                <div
-                  className="tab-pane fade show active px-4 py-5"
-                  id="description"
-                  role="tabpanel"
-                >
-                  <h6 className="mb-2">Details:</h6>
-                  <p className="mb-4">Italy's best, reimagined...</p>
-                  <ul className="list-disc mb-4">{/* List items go here */}</ul>
-                  <h6 className="mb-2">Ingredients:</h6>
-                  <p className="mb-0">
-                    Italian Plum Tomatoes From Italy's San Marzano Region, Extra
-                    Virgin Olive Oil, Fresh Garlic, Fresh Onions, Sea Salt,
-                    Fresh Basil, Spices, Citric Acid.
-                  </p>
+          <div className="py-6 px-4 w-full">
+            <ProductDetailsCard product={product} />
+            <div className="product-info-tab rounded-lg shadow-lg overflow-hidden pt-6 mt-4">
+              <Tabs>
+                <TabList className="flex border-b justify-center gap-5 pt-info-tab-nav">
+                  <Tab>
+                    <a className="active">Description</a>
+                  </Tab>
+                  {/* <Tab>
+                    <a>Additional Information</a>
+                  </Tab>
+                  <Tab>
+                    <a>Reviews(02)</a>
+                  </Tab> */}
+                </TabList>
+
+                <div className="tab-content">
+                  <TabPanel className="w-full">
+                    {description ? (
+                      <div className="px-4 py-5" dangerouslySetInnerHTML={{ __html: description }}>
+                        {/* Ensure that yourHtmlData is the HTML content retrieved from your database */}
+                      </div>
+                    ) : (
+                      <p>Loading HTML content...</p>
+                    )}
+                  </TabPanel>
+                  {/* <TabPanel className="w-full">
+                    <div className="px-4 py-5">
+                      <h6 className="mb-2">Additional Information:</h6>
+                      <table className="w-full product-info-table">
+                        <tbody>
+                          <tr>
+                            <td className="text-dark font-bold">Colors</td>
+                            <td>Black, Green, Orange, Red</td>
+                          </tr>
+                          <tr>
+                            <td className="text-dark font-bold">Weight</td>
+                            <td>0.5Kg, 1Kg, 2Kg, 5Kg</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </TabPanel> */}
+                  {/* <TabPanel className="w-full">
+                    <div className="px-4 py-5">
+                      <div className="review-tab-box bg-white rounded pt-30 pb-40 px-4">
+                         Reviews content goes here
+                      </div>
+                    </div>
+                  </TabPanel> */}
                 </div>
-                <div
-                  className="tab-pane fade px-4 py-5"
-                  id="info"
-                  role="tabpanel"
-                >
-                  <h6 className="mb-2">Additional Information:</h6>
-                  <table className="w-100 product-info-table">
-                    <tbody>
-                      <tr>
-                        <td className="text-dark font-bold">Colors</td>
-                        <td>Black, Green, Orange, Red</td>
-                      </tr>
-                      <tr>
-                        <td className="text-dark font-bold">Weight</td>
-                        <td>0.5Kg, 1Kg, 2Kg, 5Kg</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div
-                  className="tab-pane fade px-4 py-5"
-                  id="review"
-                  role="tabpanel"
-                >
-                  <div className="review-tab-box bg-white rounded pt-30 pb-40 px-4">
-                    {/* Reviews content goes here */}
-                  </div>
-                </div>
-              </div>
+              </Tabs>
             </div>
           </div>
-
-
-
-
-
-
 
           <div className="">
             <div className="">
@@ -137,11 +98,14 @@ function ProductDetails() {
                     />
                   </span>
                   <div className="info-right">
-                    <h6 className="mb-1 font-bold">Free Shipping</h6>
-                    <span className=" text-sm">For orders from ৳5000</span>
+                    {/* <h6 className="mb-1 font-bold">Free Shipping</h6> */}
+                    <h6 className="mb-1 font-bold">Fast Shipping</h6>
+                    <span className=" text-sm">
+                      We will try to fast shipping
+                    </span>
                   </div>
                 </div>
-                <hr/>
+                <hr />
                 <div className="flex items-center gap-3 p-4">
                   <span className=" h-14  w-14 bg-[#ddf4d3] rounded-full inline-flex items-center justify-center">
                     <img
@@ -152,10 +116,12 @@ function ProductDetails() {
                   </span>
                   <div className="info-right">
                     <h6 className="mb-1 font-bold">100% Money Back</h6>
-                    <span className=" text-sm">Guaranteed Product Warranty</span>
+                    <span className=" text-sm">
+                      Guaranteed Product Warranty
+                    </span>
                   </div>
                 </div>
-                <hr/>
+                <hr />
                 <div className="flex items-center gap-3 p-4">
                   <span className=" h-14  w-14 bg-[#ddf4d3] rounded-full inline-flex items-center justify-center">
                     <img
