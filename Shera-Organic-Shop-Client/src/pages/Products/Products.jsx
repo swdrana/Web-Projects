@@ -1,4 +1,5 @@
 import useProducts from "../../../hooks/useProducts";
+import LoadingProgress from "../../components/LoadingProgress/LoadingProgress";
 import SectionTitle from "../../components/Pages/SectionTitle";
 import ProductCardBig from "./../../components/ProductCard/ProductCardBig";
 import {FaSearch} from 'react-icons/fa'
@@ -6,7 +7,7 @@ function Products() {
   const [products, isLoading] = useProducts();
 
   if (isLoading) {
-    return <p>Loading....</p>;
+    return <LoadingProgress/>
   }
   return (
     <>

@@ -5,6 +5,7 @@ import JoditEditor from 'jodit-react';
 import instance from "../../provider/axios";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../provider/AuthProvider";
+import LoadingProgress from "../../components/LoadingProgress/LoadingProgress";
 function AddProduct() {
     const { user, loading } = useContext(AuthContext);
     if(loading){
@@ -108,7 +109,7 @@ function AddProduct() {
       
 
     if (isLoading) {
-        return <>Loading...</>
+        return <LoadingProgress/>
     }
     return (
         <div className=" ">

@@ -1,12 +1,13 @@
 import { Navigate, useLocation } from "react-router-dom";
 import useCurrentUser from "../../hooks/useCurrentUser";
+import LoadingProgress from "../components/LoadingProgress/LoadingProgress";
 
 function AdminRoute({ children }) {
   const { isLoading, isError, userInfo, error, refetch } = useCurrentUser();
   const location = useLocation();
 
   if (isLoading) {
-    return <progress className="progress w-56"></progress>;
+    return <LoadingProgress/>
   }
 
   // Check if the user exists and has admin role

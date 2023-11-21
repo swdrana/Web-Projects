@@ -22,9 +22,9 @@ const ProductCardBig = ({product}) => {
     <div className=" w-full sm:w-[300px] mb-6 border border-[#f4f4f4] rounded-md hover:shadow-2xl  transition-all duration-100 hover:border-white">
       <div className=" group ">
         <div className=" rounded-2 relative">
-          <OfferBatch className="  bg-error p-1 rounded-tl-xl rounded-br-xl text-white absolute top-1 left-1">
+          {/* <OfferBatch className="  bg-error p-1 rounded-tl-xl rounded-br-xl text-white absolute top-1 left-1">
             -10% <span className="text-uppercase">Off</span>
-          </OfferBatch>
+          </OfferBatch> */}
 
           <div className="relative text-center p-4">
             <img

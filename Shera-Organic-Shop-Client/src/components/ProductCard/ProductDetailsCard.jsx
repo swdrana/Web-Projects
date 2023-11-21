@@ -19,7 +19,7 @@ function ProductDetailsCard({ product }) {
   const [selectedVariant, setSelectedVariant] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const handleIncrement = () => {
-    if (quantity < 5) {
+    if (quantity < 10) {
       setQuantity((prevQuantity) => prevQuantity + 1);
     }
   };

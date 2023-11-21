@@ -4,13 +4,14 @@ import instance from "../../../provider/axios";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../../provider/AuthProvider";
+import LoadingProgress from "../../../components/LoadingProgress/LoadingProgress";
 
 function AllProducts() {
   const { user, loading } = useContext(AuthContext);
   const [products, isLoading, refetch, isError, error] = useProducts();
 
   if(loading || isLoading){
-    return <p>Loading.... form add product page</p>
+    return <LoadingProgress/>
   }
   console.log(products)
    

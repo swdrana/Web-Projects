@@ -4,7 +4,7 @@ function useProducts() {
         {
         queryKey:'products',
         queryFn: async ()=>{
-            const response = await fetch(`http://localhost:3000/api/products`)
+            const response = await fetch('https://js-shera-orgamic-shop-server.vercel.app/api/products')
             if (!response.ok) {
                 throw new Error('Network response was not ok Rana')
             }

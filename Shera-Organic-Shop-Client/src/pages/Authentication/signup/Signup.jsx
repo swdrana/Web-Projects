@@ -2,39 +2,51 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
 import { useContext } from "react";
-import axiosInstance from '../../../provider/axios'
+import axiosInstance from "../../../provider/axios";
 const Signup = () => {
   const navigate = useNavigate();
-  const {user, createUser, updateUserName } = useContext(AuthContext);
+  const { user, createUser, updateUserNamePhone } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    console.log(data.email, data.password, data.name);
+    console.log(data.email, data.password, data.name, data.phone);
     try {
       const result = await createUser(data.email, data.password);
-      await updateUserName(data.name);
+      await updateUserNamePhone(data.name, data.phone);
   
       const user = result.user;
       console.log(user);
   
+      // Add additional fields to user data
+      const userData = {
+        uid: user.uid,
+        email: user.email,
+        displayName: data.name, // Use the entered name from the form
+        phoneNumber: data.phone,
+        photoURL: null, // You may set a default value or fetch user's photo URL if available
+        // password: data.password, // Adding password for demonstration, but it's generally not recommended to store it in plain text
+      };
+  
       // Now that the user profile is updated, send the user info to the server
-      await sendUserInfoToServer(user);
+      await sendUserInfoToServer(userData);
     } catch (error) {
-      console.error('Error:', error.message);
+      console.error("Error:", error.message);
     }
   };
+  
 
   const sendUserInfoToServer = (user) => {
-    axiosInstance.post("/users", user)
-      .then(response => {
+    axiosInstance
+      .post("/users", user)
+      .then((response) => {
         console.log("User information sent to the server:", response.data);
         // Optionally handle any additional logic after a successful request
         navigate("/"); // Redirect or perform other actions after successful registration
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error sending user information:", error);
         // Optionally handle errors or show error messages
       });

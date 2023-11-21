@@ -4,6 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import JoditEditor from 'jodit-react';
 import instance from "../../provider/axios";
 import { toast } from "react-toastify";
+import LoadingProgress from "../../components/LoadingProgress/LoadingProgress";
 function AddProduct_OLD_FormData_Format_using_TS_node() {
     const {register,control, handleSubmit, formState: { errors },} = useForm();
     // ============================== galleryImages ==============================
@@ -77,7 +78,7 @@ function AddProduct_OLD_FormData_Format_using_TS_node() {
       
 
     if (isLoading) {
-        return <>Loading...</>
+        return <LoadingProgress/>
     }
     return (
         <div className=" ">

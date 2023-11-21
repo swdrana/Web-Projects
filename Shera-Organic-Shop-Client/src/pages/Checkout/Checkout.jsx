@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import SectionTitle from "../../components/Pages/SectionTitle";
 import { useLocation } from "react-router-dom";
 import instance from "../../provider/axios";
+import useCurrentUser from "../../../hooks/useCurrentUser";
+import LoadingProgress from "../../components/LoadingProgress/LoadingProgress";
 
 function Checkout() {
   const [districts, setDistricts] = useState([]);
@@ -9,6 +11,8 @@ function Checkout() {
   const [selectedDistrict, setSelectedDistrict] = useState(null);
   const [selectedThana, setSelectedThana] = useState(null);
 
+
+  const { isLoading, isError, userInfo, error, refetch } = useCurrentUser();
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const productId = params.get("productId");
@@ -16,11 +20,13 @@ function Checkout() {
   const quantity = params.get("quantity");
   console.log(productId, selectedVariant, quantity);
 
-
+  const [showPaymentDetails, setShowPaymentDetails] = useState(false);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("cod"); // Set a default value
 
   const [totalPrice, setTotalPrice] = useState(0);
   const [delivaryCharge, setDelivaryCharge] = useState(0);
-  const [totalPriceWithDelivaryCharge, setTotalPriceWithDelivaryCharge] = useState(0);
+  const [totalPriceWithDelivaryCharge, setTotalPriceWithDelivaryCharge] =
+    useState(0);
   useEffect(() => {
     // Function to calculate total price
     const calculateTotalPrice = async () => {
@@ -31,10 +37,11 @@ function Checkout() {
           quantity,
         });
 
-        const { totalPrice, delivaryCharge, totalPriceWithDelivaryCharge } = response.data;
+        const { totalPrice, delivaryCharge, totalPriceWithDelivaryCharge } =
+          response.data;
         setTotalPrice(totalPrice);
         setDelivaryCharge(delivaryCharge);
-        setTotalPriceWithDelivaryCharge(totalPriceWithDelivaryCharge)
+        setTotalPriceWithDelivaryCharge(totalPriceWithDelivaryCharge);
       } catch (error) {
         console.error("Error calculating total price:", error.message);
       }
@@ -43,8 +50,6 @@ function Checkout() {
     // Call the function when productId, selectedVariant, or quantity changes
     calculateTotalPrice();
   }, [productId, selectedVariant, quantity]);
-
-
 
   useEffect(() => {
     fetch("bd-districts.json")
@@ -55,6 +60,9 @@ function Checkout() {
       .then((data) => setThanas(data.upazilas));
   }, []);
   // console.log(districts)
+  if (isLoading) {
+    return <LoadingProgress/>
+  }
   return (
     <div className=" bg-gray-white">
       <SectionTitle title="Checkout" />
@@ -69,12 +77,14 @@ function Checkout() {
                     type="text"
                     placeholder="Full Name"
                     className="input input-bordered input-primary w-full"
+                    defaultValue={userInfo?.displayName}
                   />
                   <input
                     type="tel"
                     placeholder="Phone No"
                     className="input input-bordered input-primary w-full"
                     required
+                    defaultValue={userInfo?.phoneNumber}
                   />
                 </div>
                 <div className=" flex flex-col md:flex-row justify-between gap-5">
@@ -87,7 +97,8 @@ function Checkout() {
                     type="email"
                     placeholder="Email"
                     className="input input-bordered input-primary w-full"
-                    readOnly
+                    defaultValue={userInfo?.email}
+                    disabled
                   />
                 </div>
               </div>
@@ -150,82 +161,124 @@ function Checkout() {
                 ></textarea>
               </div>
             </div>
-            <div className=" bg-white pb-8 mt-6 rounded-lg">
-              <h1 className=" text-2xl font-bold p-5 py-7">Payment Method</h1>
-              <div className=" flex flex-col gap-5 mx-5">
-                <div className="checkout-radio flex items-center justify-between gap-3 bg-white rounded p-4 mt-3">
-                  <div className="radio-left inline-flex items-center">
-                    <div className="theme-radio">
-                      <input
-                        type="radio"
-                        name="payment_method"
-                        id="cod"
-                        value="cod"
-                        required
-                      />
-                      <span className="custom-radio"></span>
-                    </div>
-                    <label htmlFor="cod" className="ms-2 text-h6 mb-0">
-                      Cash on delivery (COD)
-                    </label>
-                  </div>
-                  <div className="radio-right text-end">
-                    <img
-                      src="https://grostore.themetags.com/public/frontend/pg/cod.svg?v=v2.7.0"
-                      alt="cod"
-                      className="img-fluid"
+            <div className="bg-white pb-8 mt-6 rounded-lg">
+              <h1 className="text-2xl font-bold p-5 py-7">Payment Method</h1>
+              <div
+                className="flex items-center justify-between gap-3 border-primary border rounded mx-4 p-4 mt-3"
+                onClick={() => {
+                  setShowPaymentDetails(false);
+                  setSelectedPaymentMethod("cod");
+                }}
+                style={{ cursor: "pointer" }}
+              >
+                <input
+                  className="radio radio-success"
+                  type="radio"
+                  name="payment_method"
+                  id="cod"
+                  value="cod"
+                  checked={selectedPaymentMethod === "cod"}
+                />
+                <label
+                  htmlFor="cod"
+                  className="ms-2 text-h6 mb-0 cursor-pointer flex  justify-between w-full"
+                >
+                  <p>Cash on delivery (COD)</p>
+                  <img
+                    src="https://grostore.themetags.com/public/frontend/pg/cod.svg?v=v2.7.0"
+                    alt="cod"
+                    className="img-fluid"
+                  />
+                </label>
+              </div>
+
+              <div
+                className=" gap-3 border-primary border  rounded p-4 mx-4 mt-3"
+                onClick={() => {
+                  setShowPaymentDetails(true);
+                  setSelectedPaymentMethod("paynow");
+                }}
+                style={{ cursor: "pointer" }}
+              >
+                <div className=" flex items-center justify-between">
+                  <div className=" flex items-center justify-center">
+                    <input
+                      className="radio radio-success"
+                      type="radio"
+                      name="payment_method"
+                      onChange={() => setSelectedPaymentMethod("paynow")}
+                      checked={selectedPaymentMethod === "paynow"}
+                      required
                     />
-                  </div>
-                </div>
-                <div className="checkout-radio flex items-center justify-between gap-3 bg-white rounded p-4 mt-3">
-                  <div className="radio-left inline-flex items-center">
-                    <div className="theme-radio">
-                      <input
-                        type="radio"
-                        name="payment_method"
-                        id="paypal"
-                        value="paypal"
-                        required
-                      />
-                      <span className="custom-radio"></span>
-                    </div>
-                    <label htmlFor="paypal" className="ms-2 text-h6 mb-0">
+                    <label htmlFor="paynow" className="ms-2 text-h6 mb-0">
                       Pay Now
                     </label>
                   </div>
                   <div className="radio-right text-end">
                     <img
-                      src="https://1000logos.net/wp-content/uploads/2021/02/Bkash-logo.png"
-                      alt="paypal"
-                      className=" h-10"
+                      src="https://i.ibb.co/nb2WyYQ/payment-logo.png"
+                      alt="paynow"
+                      className="h-6"
                     />
                   </div>
                 </div>
+                {showPaymentDetails && selectedPaymentMethod === "paynow" && (
+                  <div className="m-4">
+                    <p>
+                      নিচের যেকোন একটা একাউন্টে টাকা পাঠিয়ে জানিয়ে দিন-
+                      <br />
+                      ১। বিকাশ / নগদ (পারসোনাল) 01793143054
+                      <br />
+                      ২। রকেট (পারসোনাল) 017931430546
+                      <br />
+                      ৩। DBBL : Md. Mehedi Hasan A/C 1801050028888 Branch:
+                      Satkhira
+                      <br />
+                      ৪। Islami Bank Bangladesh LTD : Shera Organic Shop A/C
+                      20501690100465100 Kalaroa Branch, Satkhira
+                    </p>
+                    <input
+                      type="text"
+                      placeholder="bKash, Nagad, Rocket, DBBL, IBBL"
+                      className="input input-bordered input-primary w-full mb-4"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Your Account No"
+                      className="input input-bordered input-primary w-full"
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>
-          <div className=" w-full lg:w-4/12 sticky top-0 z-10 bg-base-100 p-5">
-            <h1 className=" text-2xl font-bold pb-7">Order Summery</h1>
-            <div className="flex justify-between py-3">
-              <p>(+) Items(4):</p> <p>৳ {totalPrice.toFixed(2)}</p>
-            </div>
-            <div className="flex justify-between py-3">
-              <p>(+) Tax:</p> <p>৳ 0.00</p>
-            </div>
-            <div className="flex justify-between py-3">
-              <p>(+) Shipping:</p> <p>৳ {delivaryCharge.toFixed(2)}</p>
-            </div>
-            <div className="divider"></div>
 
-            <div className="flex justify-between py-3">
-              <h3 className="text-lg font-bold">Total</h3>
-              <p className=" text-lg font-bold">৳ {totalPriceWithDelivaryCharge.toFixed(2)}</p>
-            </div>
+          <div className="w-full lg:w-4/12 lg:p-5">
+            <div className="sticky top-32">
+              <h1 className="text-2xl font-bold pb-7">Order Summary</h1>
+              <div className="flex justify-between py-3">
+                <p>(+) Items(4):</p> <p>৳ {totalPrice.toFixed(2)}</p>
+              </div>
+              <div className="flex justify-between py-3">
+                <p>(+) Tax:</p> <p>৳ 0.00</p>
+              </div>
+              <div className="flex justify-between py-3">
+                <p>(+) Shipping:</p> <p>৳ {delivaryCharge.toFixed(2)}</p>
+              </div>
+              <div className="divider"></div>
 
-            <div className="divider"></div>
-            <button className=" btn btn-primary w-full text-white">
-              Place Order
-            </button>
+              <div className="flex justify-between py-3">
+                <h3 className="text-lg font-bold">Total</h3>
+                <p className="text-lg font-bold">
+                  ৳ {totalPriceWithDelivaryCharge.toFixed(2)}
+                </p>
+              </div>
+
+              <div className="divider"></div>
+              <button className="btn btn-primary w-full text-white">
+                Place Order
+              </button>
+            </div>
           </div>
         </div>
       </div>

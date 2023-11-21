@@ -1,5 +1,5 @@
 import preloader from './../../assets/images/loading/preloader.gif'
-const Loading = () => {
+const LoadingProgress = () => {
     return (
         <div>
            <img className=' mx-auto' src={preloader} alt="" /> 
@@ -7,4 +7,4 @@ const Loading = () => {
     );
 };
 
-export default Loading;
+export default LoadingProgress;

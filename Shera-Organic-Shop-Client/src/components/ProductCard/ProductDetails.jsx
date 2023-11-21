@@ -6,12 +6,13 @@ import ProductDetailsCard from "./ProductDetailsCard";
 // import { MdShoppingCartCheckout } from "react-icons/md";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import LoadingProgress from "../LoadingProgress/LoadingProgress";
 
 function ProductDetails() {
   const { id } = useParams();
   const { product, loading, error } = useProductDetails(id);
   if(loading){
-    return <>Loading...</>
+    return <LoadingProgress/>
   }
   const { productName,shortDescription, description, productCategory,variants, isPublished, productThumbnail, productGallery} = product;
   if (loading) {
