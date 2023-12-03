@@ -23,6 +23,9 @@ import AdminManagement from "../pages/Dashboard/AdminManagement";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import ProductDetails from "../components/ProductCard/ProductDetails";
+import MyOrders from "../pages/Profile/MyOrders";
+import OrderManagement from "../pages/Dashboard/OrderManagement/OrderManagement";
+import OrderDetails from "../pages/Dashboard/OrderManagement/OrderDetails";
 
 
 export const router = createBrowserRouter([
@@ -70,7 +73,7 @@ export const router = createBrowserRouter([
           element:<Products/>
         },
         {
-          path:'products/details/:id',
+          path:'details/:id',
           element:<ProductDetails/>
         },
         {
@@ -104,7 +107,11 @@ export const router = createBrowserRouter([
         {
           path:'terms-conditions',
           element:<TermsConditions/>
-        }
+        },
+        {
+          path:'my-orders',
+          element:<MyOrders/>
+        },
       ],
     },
     {
@@ -134,6 +141,14 @@ export const router = createBrowserRouter([
         {
           path:'manage-admin',
           element: <AdminManagement/>,
+        },
+        {
+          path:'all-orders',
+          element: <OrderManagement/>,
+        },
+        {
+          path:'all-orders/details/:id',
+          element: <OrderDetails/>,
         },
       ]
     },

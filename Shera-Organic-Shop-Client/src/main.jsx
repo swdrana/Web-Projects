@@ -7,12 +7,14 @@ import ScrollToTop from "./utilities/ScrollToTop";
 import AuthProvider from "./provider/AuthProvider";
 import {QueryClient, QueryClientProvider} from 'react-query'
 import { ToastProvider } from "./provider/ToastContext";
+import CheckoutProvider from "./provider/CheckoutProvider";
 
 const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
+      <CheckoutProvider>
         <QueryClientProvider client={queryClient}>
           <ToastProvider>
             <RouterProvider router={router}>
@@ -20,6 +22,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             </RouterProvider>
           </ToastProvider>
         </QueryClientProvider>
+      </CheckoutProvider>
     </AuthProvider>
   </React.StrictMode>
 );

@@ -6,9 +6,12 @@ import { FiMenu } from "react-icons/fi";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { BsCartPlus } from "react-icons/bs";
 import { AuthContext } from "../../../provider/AuthProvider";
+import useCurrentUser from "../../../../hooks/useCurrentUser";
 const NavBer = ({ isScrolled }) => {
   const navigate = useNavigate();
   const { user, logOut } = useContext(AuthContext);
+  const {userInfo} = useCurrentUser();
+  // console.log(userInfo)
   const [haveUser, setHaveUser] = useState(false);
   //   const [hiddenMenu, setHiddenMenu] = useState("hidden");
   //for sidebar
@@ -167,7 +170,7 @@ const NavBer = ({ isScrolled }) => {
                           d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                         />
                       </svg>
-                      <span className="badge badge-sm indicator-item">0</span>
+                      <span className="badge badge-sm indicator-item">{userInfo?.cart?.length}</span>
                     </div>
                   </label>
 
@@ -176,7 +179,7 @@ const NavBer = ({ isScrolled }) => {
                     className={`mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow`}
                   >
                     <div className="card-body">
-                      <span className="font-bold text-lg">8 Items</span>
+                      <span className="font-bold text-lg">{userInfo?.cart?.length} Items</span>
                       <span className="text-info">Subtotal: $999</span>
                       <div className="card-actions">
                         <Link to="carts" className="btn btn-primary btn-block">
@@ -211,13 +214,15 @@ const NavBer = ({ isScrolled }) => {
                     {user ? (
                       <>
                         <li>
-                          <a className="justify-between">
+                          <Link to='/profile' className="justify-between">
                             Profile
                             <span className="badge">New</span>
-                          </a>
+                          </Link>
                         </li>
                         <li>
-                          <a>Settings</a>
+                          <Link to='/my-orders'>
+                            My Orders
+                          </Link>
                         </li>
                         <li>
                           <button

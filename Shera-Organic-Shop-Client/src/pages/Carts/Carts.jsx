@@ -1,11 +1,189 @@
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from 'react-router-dom';
 import SectionTitle from "../../components/Pages/SectionTitle";
+import useCurrentUser from "../../../hooks/useCurrentUser";
+import LoadingProgress from "../../components/LoadingProgress/LoadingProgress";
+import { toast } from "react-toastify";
+import { CheckoutContext } from "../../provider/CheckoutProvider";
+
 function Carts() {
+  const [cartItems, setCartItems] = useState([]);
+  const [subtotal, setSubtotal] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const { userInfo } = useCurrentUser();
+  const fetchProductDetails = async (productId) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/products/${productId}`);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error fetching product details:", error);
+      return null;
+    }
+  };
+
+  const fetchCartItems = async () => {
+    try {
+      const userId = userInfo._id;
+      const response = await fetch(`http://localhost:3000/api/carts/${userId}/get-cart`);
+      const data = await response.json();
+  
+      if (data.cartItems) {
+        const updatedCartItems = await Promise.all(
+          data.cartItems.map(async (item) => {
+            const productDetails = await fetchProductDetails(item._id);
+            return {
+              ...item,
+              productDetails,
+              totalPrice: item.quantity * productDetails.variants[item.selectedVariant].price,
+            };
+          })
+        );
+  
+        setCartItems(updatedCartItems);
+        const total = updatedCartItems.reduce((acc, item) => acc + item.totalPrice, 0);
+        setSubtotal(total);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error("Error fetching cart items:", error);
+    }
+  };
+  
+
+
+
+
+
+  const handleIncrement = async (itemId) => {
+    try {
+      const selectedItem = cartItems.find(item => item._id === itemId);
+      if (selectedItem && selectedItem.quantity < 10) {
+        console.log("Selected Item:", selectedItem);
+        console.log("Selected Variant:", selectedItem.selectedVariant);
+
+        const response = await fetch(`http://localhost:3000/api/carts/${userInfo._id}/update-cart/${itemId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            selectedVariant: selectedItem.selectedVariant,
+            quantity: selectedItem.quantity + 1, // Increase quantity by 1
+          }),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          // If the quantity was successfully updated, refresh the cart items
+          fetchCartItems();
+        } else {
+          console.error("Error updating cart item quantity:", data.error);
+        }
+      } else {
+        console.error("Error updating cart item quantity: Selected item or variant is undefined or quantity is already at the maximum");
+      }
+    } catch (error) {
+      console.error("Error updating cart item quantity:", error);
+    }
+  };
+
+  const handleDecrement = async (itemId) => {
+    try {
+      const selectedItem = cartItems.find(item => item._id === itemId);
+
+      if (selectedItem  && selectedItem.quantity > 1) {
+        console.log("Selected Item:", selectedItem);
+        console.log("Selected Variant:", selectedItem.selectedVariant);
+
+        const response = await fetch(`http://localhost:3000/api/carts/${userInfo._id}/update-cart/${itemId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            selectedVariant: selectedItem.selectedVariant,
+            quantity: selectedItem.quantity - 1, // Decrease quantity by 1
+          }),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          // If the quantity was successfully updated, refresh the cart items
+          fetchCartItems();
+        } else {
+          console.error("Error updating cart item quantity:", data.error);
+        }
+      } else {
+        console.error("Error updating cart item quantity: Selected item or variant is undefined or quantity is already at the minimum");
+      }
+    } catch (error) {
+      console.error("Error updating cart item quantity:", error);
+    }
+  };
+
+
+
+  const handleDeleteItem = async (itemId) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/carts/${userInfo._id}/delete-cart/${itemId}`, {
+        method: 'DELETE',
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // If the item was successfully deleted, show a success toast
+        toast.success("Item removed from the cart", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+
+        // Refresh the cart items
+        fetchCartItems();
+      } else {
+        // If there was an error, show an error toast
+        toast.error(`Error: ${data.error}`, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }
+    } catch (error) {
+      // If there was a network error, show an error toast
+      toast.error("Error deleting cart item. Please try again later.", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchCartItems();
+  }, [userInfo]);
+
+
+
+
+
+
+  const { checkoutData, setCheckoutData } = useContext(CheckoutContext);
+  const navigate = useNavigate(); 
+  const handleCheckout = () => {
+    // Assuming your checkoutData structure is an array of cart items
+    setCheckoutData(cartItems);
+
+    // Navigate to the checkout page
+    navigate('/checkout');
+  };
+
+
+  if (loading) {
+    return <LoadingProgress />;
+  }
   return (
     <div>
       <SectionTitle title="Carts" />
-      <div className=" bg-gray-white">
-        <div className=" container mx-auto">
+      <div className="bg-gray-white">
+        <div className="container mx-auto">
           <div className="overflow-x-auto">
             <table className="table">
               {/* head */}
@@ -13,7 +191,7 @@ function Carts() {
                 <tr>
                   <th>
                     <label>
-                      <input type="checkbox" className="checkbox" />
+                      {/* <input type="checkbox" className="checkbox" /> */} #
                     </label>
                   </th>
                   <th>Product Info</th>
@@ -23,55 +201,64 @@ function Carts() {
                 </tr>
               </thead>
               <tbody>
-                {/* row 1 */}
-                <tr>
-                  <th>
-                    <label>
-                      <input type="checkbox" className="checkbox" />
-                    </label>
-                  </th>
-                  <td>
-                    <div className="flex items-center space-x-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                          <img
-                            src="https://grostore.themetags.com/public/uploads/media/RyXLvsaQVjFo3vC1QuphM8VSG5wNPtmK8f1u2gbI.png"
-                            alt="Avatar Tailwind CSS Component"
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="font-bold">Brit Premium Cat Indoor</div>
-                        <div className="text-sm opacity-50">Weight: 1kg </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td className=" text-secondary font-bold">৳1,440.00</td>
-                  <td>
-                    <div>
-                      <label className="input-group">
-                        <button className="btn btn-sm btn-primary">-</button>
-                        <input
-                          type="text"
-                          placeholder="143"
-                          className="input input-sm input-primary input-bordered w-12"
-                          readOnly
-                        />
-                        <button className="btn btn-sm btn-primary">+</button>
-                      </label>
-                    </div>
-                  </td>
-                  <th>
-                    <button className="btn btn-error btn-xs">X</button>
-                  </th>
-                </tr>
+                {/* Render cart items dynamically */}
+                {cartItems.length==0?<h2 className=" text-2xl text-center font-bold">Your Cart is Empty</h2>:''}
+{cartItems.map((item, index) => (
+  <tr key={item._id}>
+    <th>
+      <label>
+        {/* <input type="checkbox" className="checkbox" /> */}
+        {index+1}
+      </label>
+    </th>
+    <td>
+      <div className="flex items-center space-x-3">
+        <div className="avatar">
+          <div className="mask mask-squircle w-12 h-12">
+            <img src={item.productDetails.productThumbnail} alt="Product" />
+          </div>
+        </div>
+        <div>
+          <div className="font-bold">{item.productDetails.productName}
+          <br /><span className=" text-secondary">{item.productDetails.variants[`${item.selectedVariant}`].size}</span></div>
+          {/* Other details like variant, etc., can be added here */}
+        </div>
+      </div>
+    </td>
+    <td className="text-secondary font-bold">৳{item.totalPrice.toFixed(2)} </td>
+
+
+
+
+
+
+
+
+
+
+    <td>
+      <div>
+        <label className="input-group w-20">
+          <button className="btn btn-sm btn-primary" onClick={() => handleDecrement(item._id)}>-</button>
+          <p className="input input-sm input-primary input-bordered w-10 text-center"
+          >{item.quantity}</p>
+          <button className="btn btn-sm btn-primary" onClick={() => handleIncrement(item._id)}>+</button>
+        </label>
+      </div>
+    </td>
+    <th>
+      <button className="btn btn-error btn-xs" onClick={() => handleDeleteItem(item._id)}>X</button>
+    </th>
+  </tr>
+))}
+
               </tbody>
               {/* foot */}
               <tfoot>
                 <tr>
                   <th>
                     <label>
-                      <input type="checkbox" className="checkbox" />
+                      {/* <input type="checkbox" className="checkbox" /> */}#
                     </label>
                   </th>
                   <th>Product Info</th>
@@ -85,30 +272,36 @@ function Carts() {
 
           <div className="flex flex-col w-full lg:flex-row py-10">
             <div className="flex-1 p-10 card bg-base-100 rounded-box">
-              <h1 className=" text-2xl py-5 font-bold">Have a coupon?</h1>
-              <p className="  text-gray-600">Apply coupon to get discount.</p>
+              <h1 className="text-2xl py-5 font-bold">Have a coupon?</h1>
+              <p className="text-gray-600">Apply coupon to get a discount.</p>
               <div className="form-control py-2">
                 <div className="input-group">
                   <input type="text" placeholder="Enter Your Coupon Code" className="input input-bordered" />
                   <button className="btn btn-square">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
                   </button>
                 </div>
               </div>
             </div>
             <div className="divider lg:divider-horizontal"></div>
-            <div className=" flex-1 p-10 card bg-base-100 rounded-box">
-              <div className=" flex justify-between">
-                <h1 className=" text-2xl py-5">Subtotal</h1>
-                <h1 className=" text-2xl py-5 font-bold">৳1,440.00</h1>
+            <div className="flex-1 p-10 card bg-base-100 rounded-box">
+              <div className="flex justify-between">
+                <h1 className="text-2xl py-5">Subtotal</h1>
+                <h1 className="text-2xl py-5 font-bold">৳{subtotal.toFixed(2)}</h1>
               </div>
-              <p className="  text-gray-600">Shipping options will be updated during checkout.</p>
+              <p className="text-gray-600">Shipping options will be updated during checkout.</p>
               <div className="py-2">
-                <div className=" flex justify-between">
-                  <Link to='/' className=" btn btn-secondary btn-outline">Continue Shopping</Link>
-                  <Link to='/checkout' className=" btn btn-primary hover:btn-secondary"> <p className=" text-white">Checkout</p> </Link>
-                </div>
-              </div>
+        <div className="flex justify-between">
+          <Link to="/" className="btn btn-secondary btn-outline">
+            Continue Shopping
+          </Link>
+          <button onClick={handleCheckout} className="btn btn-primary hover:btn-secondary">
+            <p className="text-white">Checkout</p>
+          </button>
+        </div>
+      </div>
             </div>
           </div>
         </div>

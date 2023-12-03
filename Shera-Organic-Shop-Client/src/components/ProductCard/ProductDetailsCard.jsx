@@ -1,5 +1,5 @@
 import { FaCartArrowDown } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -12,7 +12,10 @@ import "./styles.css";
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { CheckoutContext } from "../../provider/CheckoutProvider";
+import useCurrentUser from "../../../hooks/useCurrentUser";
+import { toast } from "react-toastify";
 function ProductDetailsCard({ product }) {
   const { _id,productName,shortDescription,rating,description,productCategory,variants,isPublished,productThumbnail,productGallery,
   } = product;
@@ -23,7 +26,7 @@ function ProductDetailsCard({ product }) {
       setQuantity((prevQuantity) => prevQuantity + 1);
     }
   };
-
+  // productId=${_id}&selectedVariant=${selectedVariant}&quantity=${quantity
   const handleDecrement = () => {
     if (quantity > 1) {
       setQuantity((prevQuantity) => prevQuantity - 1);
@@ -33,6 +36,57 @@ function ProductDetailsCard({ product }) {
   const handleVariantChange = (index) => {
     setSelectedVariant(index);
   };
+
+  const selectedProductInfo = {_id, selectedVariant, quantity,totalPrice:variants[selectedVariant].price*quantity, productDetails:product };
+  const {checkoutData, setCheckoutData} = useContext(CheckoutContext);
+  useEffect(()=>setCheckoutData([]),[]);
+  // console.log(checkoutData)
+  const navigate = useNavigate();
+
+
+  const handelBuyNow = async () => {
+    
+    const info = [selectedProductInfo];
+    await setCheckoutData(info);
+    console.log(checkoutData);
+    navigate('/checkout');
+  };
+  
+  // Frontend code using fetch
+  const {userInfo} = useCurrentUser();
+  // console.log(userInfo);
+  const handelAddToCart = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/carts/${userInfo._id}/add-to-cart`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(selectedProductInfo),
+      });
+  
+      const data = await response.json();
+  
+      if (data.success) {
+        toast.success("Item added to the cart successfully");
+        console.log('Item added to the cart successfully');
+        navigate('/carts');
+      } else if (data.message === "Item with the same variant already exists in the cart. Cannot add to cart.") {
+        toast.warning("Item with the same variant already exists in the cart. Cannot add to cart.");
+        console.warn('Item with the same variant already exists in the cart. Cannot add to cart.');
+      } else {
+        console.error('Failed to add item to the cart');
+        toast.error("Failed to add item to the cart");
+      }
+    } catch (error) {
+      console.error('Error adding item to the cart:', error);
+      toast.error('Error adding item to the cart. Please try again later.');
+    }
+  };
+  
+  
+
+
   return (
     <div className="flex flex-col md:flex-row gap-4 rounded-lg pb-3 shadow-lg ">
       <div className=" w-full md:w-1/2">
@@ -239,12 +293,19 @@ function ProductDetailsCard({ product }) {
             </button>
           </label>
         </div>
-        <Link
-          to={`/checkout?productId=${_id}&selectedVariant=${selectedVariant}&quantity=${quantity}`}
+        <button
+        onClick={handelBuyNow}
+          // to={`/checkout?productId=${_id}&selectedVariant=${selectedVariant}&quantity=${quantity}`}
           className="btn btn-secondary btn-md text-white"
         >
           <FaCartArrowDown /> Buy Now
-        </Link>
+        </button>
+        <button
+          onClick={()=>handelAddToCart()}
+          className="btn btn-secondary btn-md text-white"
+        >
+          <FaCartArrowDown /> Add to Cart
+        </button>
       </div>
             </div>
           </div>

@@ -35,6 +35,9 @@ function DashboardLayout() {
                 <Link to='products'>All Products</Link>
             </li>
             <li>
+                <Link to='all-orders'>Manage Orders</Link>
+            </li>
+            <li>
                 <Link to='manage-admin'>Manage Admin</Link>
             </li>
           </ul>

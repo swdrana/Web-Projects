@@ -93,7 +93,7 @@ const ProductCardBig = ({product}) => {
             </h6>
           </div>
           <div className="px-8 z-20 pb-6 rounded-b-md duration-1000 transition-all border-2 border-white bg-white absolute w-full group-hover:shadow-2xl hidden group-hover:block">
-            <Link to={`details/${_id}`} className="btn btn-secondary w-full text-white hover:btn-primary hover:text-white">
+            <Link to={`/details/${_id}`} className="btn btn-secondary w-full text-white hover:btn-primary hover:text-white">
               Show Details
             </Link>
           </div>
