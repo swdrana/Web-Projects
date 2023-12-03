@@ -52,7 +52,7 @@ const OrderDetails = () => {
   return (
     <section className=" p-4 bg-gray-white">
       <div className="container">
-        <div className="flex items-center justify-between border rounded-md h-20  bg-base-100">
+        {/* <div className="flex items-center justify-between border rounded-md h-20  bg-base-100">
           <div className="tt-page-title">
             <h2 className=" ms-5 text-xl">Order Details</h2>
           </div>
@@ -80,7 +80,7 @@ const OrderDetails = () => {
               Download Invoice
             </a>
           </div>
-        </div>
+        </div> */}
 
         <div className=" bg-white border rounded-md my-5">
           {/* Left Sidebar */}

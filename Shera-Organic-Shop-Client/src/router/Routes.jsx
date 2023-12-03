@@ -26,6 +26,9 @@ import ProductDetails from "../components/ProductCard/ProductDetails";
 import MyOrders from "../pages/Profile/MyOrders";
 import OrderManagement from "../pages/Dashboard/OrderManagement/OrderManagement";
 import OrderDetails from "../pages/Dashboard/OrderManagement/OrderDetails";
+import UserProfileLayout from "../layout/UserProfileLayout";
+import UserProfile from "../pages/Profile/UserProfile";
+import UserDashboard from "../pages/Profile/UserDashboard";
 
 
 export const router = createBrowserRouter([
@@ -129,6 +132,40 @@ export const router = createBrowserRouter([
         {
           path:'addProduct',
           element: <AddProduct/>,
+        },
+        {
+          path:'products',
+          element: <AllProducts/>,
+        },
+        {
+          path:'products/:id',
+          element: <EditProduct/>,
+        },
+        {
+          path:'manage-admin',
+          element: <AdminManagement/>,
+        },
+        {
+          path:'all-orders',
+          element: <OrderManagement/>,
+        },
+        {
+          path:'all-orders/details/:id',
+          element: <OrderDetails/>,
+        },
+      ]
+    },
+    {
+      path:"profile",
+      element:<UserProfileLayout/>,
+      children:[
+        {
+          path:'',
+          element: <UserDashboard/>,
+        },
+        {
+          path:'my-order',
+          element: <MyOrders/>,
         },
         {
           path:'products',

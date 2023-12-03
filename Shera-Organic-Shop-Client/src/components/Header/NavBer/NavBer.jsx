@@ -78,7 +78,7 @@ const NavBer = ({ isScrolled }) => {
 
   return (
     <>
-      <div className=" h-14 md:h-28">
+      <div className=" h-14 md:h-28 print:hidden">
         <div
           className={` ${
             isScrolled ? "" : "bg-[#6eb356]"

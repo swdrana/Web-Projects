@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import instance from "../../provider/axios";
 import LoadingProgress from "../../components/LoadingProgress/LoadingProgress";
 import OrderItem from "./OrderItem"; // You need to create this component
@@ -30,7 +30,7 @@ function MyOrders() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold p-5 py-7">My Orders</h1>
+      <h1 className="text-xl font-bold pb-5">My Orders</h1>
       {orders.length === 0 ? (
         <p>No orders found.</p>
       ) : (
