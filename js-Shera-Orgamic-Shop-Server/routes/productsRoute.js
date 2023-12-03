@@ -87,5 +87,28 @@ router.delete("/:id", isAdminMiddleware, async (req, res) => {
   const result = await productsCollection.deleteOne({ _id: new ObjectId(productId) });
   res.send({ success: result.deletedCount > 0 });
 });
+// Calculate total price
+router.post("/calculateTotalPrice", async (req, res) => {
+  try {
+    const { productId, selectedVariant, quantity } = req.body;
 
+    // Fetch the product price and perform the calculation
+    await connectMongoClient();
+    const productsCollection = client.db('sheraorganicshopdb').collection('products');
+    const product = await productsCollection.findOne({ _id: new ObjectId(productId) });
+
+    if (product && product.variants && product.variants[selectedVariant]) {
+      const variantPrice = product.variants[selectedVariant].price;
+      const totalPrice = variantPrice * quantity;
+      const deliveryCharge = 100;
+      const totalPriceWithDeliveryCharge = totalPrice + deliveryCharge;
+      res.send({ totalPrice, deliveryCharge, totalPriceWithDeliveryCharge });
+    } else {
+      res.status(404).send("Product or variant not found");
+    }
+  } catch (error) {
+    console.error("Error calculating total price:", error);
+    res.status(500).send(`Internal Server Error: ${error.message}`);
+  }
+});
 module.exports = router;
