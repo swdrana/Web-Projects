@@ -1,26 +1,23 @@
+import DDMonYYYYWithTime from "../../../components/Date/DDMonYYYYWithTime";
+import LoadingProgress from "../../../components/LoadingProgress/LoadingProgress";
+import OrderRow from "../../Dashboard/OrderManagement/OrderRow";
+import instance from "../../../provider/axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import instance from "../../../provider/axios";
-import LoadingProgress from "../../../components/LoadingProgress/LoadingProgress";
-import DDMonYYYY from "../../../components/Date/DDMonYYYY";
-import DDMonYYYYWithTime from "../../../components/Date/DDMonYYYYWithTime";
-import OrderRow from "./OrderRow";
-import { toast } from "react-toastify";
+import OrderStatusBadge from "../../../components/Order/OrderStatusBadge";
 
-const OrderDetails = () => {
+function Invoice() {
   const { id } = useParams();
   const [orderData, setOrderData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [deliveryStatus, setDeliveryStatus] = useState("");
-//   console.log(orderData);
+  //   console.log(orderData);
   useEffect(() => {
     const fetchOrderById = async (orderId) => {
       try {
         const response = await instance.get(`/orders/${orderId}`);
         // Assuming your API returns the order data in the response.data property
         setOrderData(response.data);
-        setDeliveryStatus(response.data.status);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching order:", error);
@@ -32,55 +29,43 @@ const OrderDetails = () => {
     // Call the fetchOrderById function with the order ID from the URL
     fetchOrderById(id);
   }, [id]); // Add id to the dependency array to re-run the effect when the ID changes
-  
-
-  const handleDeliveryStatusChange = async (newStatus) => {
-    try {
-      await instance.put(`/orders/${id}`, { status: newStatus });
-      // Optionally, you can update the local order data after a successful update
-      // setOrderData((prevOrderData) => ({ ...prevOrderData, status: newStatus }));
-      toast.info("Delivery Status Updated");
-    } catch (error) {
-      console.error("Error updating delivery status:", error);
-    }
-  };
 
   if (loading) return <LoadingProgress />;
   if (error) return <p>Error fetching order: {error.message}</p>;
   if (!orderData) return <p>No order data found</p>;
-  console.log({ deliveryStatus });
+  console.log(orderData);
   return (
     <section className=" p-4 bg-gray-white">
       <div className="container">
         {/* <div className="flex items-center justify-between border rounded-md h-20  bg-base-100">
-          <div className="tt-page-title">
-            <h2 className=" ms-5 text-xl">Order Details</h2>
-          </div>
-          <div className=" me-5">
-            <a
-              href="https://grostore.themetags.com/admin/orders/invoice-download/109"
-              className="btn btn-primary"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="feather feather-download"
-              >
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-              </svg>
-              Download Invoice
-            </a>
-          </div>
-        </div> */}
+              <div className="tt-page-title">
+                <h2 className=" ms-5 text-xl">Order Details</h2>
+              </div>
+              <div className=" me-5">
+                <a
+                  href="https://grostore.themetags.com/admin/orders/invoice-download/109"
+                  className="btn btn-primary"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="feather feather-download"
+                  >
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  Download Invoice
+                </a>
+              </div>
+            </div> */}
 
         <div className=" bg-white border rounded-md my-5">
           {/* Left Sidebar */}
@@ -88,65 +73,32 @@ const OrderDetails = () => {
             <div className="card mb-4" id="section-1">
               {/* Order Status */}
               <div className="flex justify-between items-center g-3 bg-gray-white p-5">
-                <div className="col-auto flex-grow-1">
-                  <h5 className=" text-xl font-bold">
-                    Order Invoice
+                <div className="flex-grow-1">
+                  <h5 className=" text-lg md:text-2xl font-bold">
+                    Order Invoice <OrderStatusBadge status={orderData.status} />
                   </h5>
-                  <span className="text-muted">
-                    Order ID:{" "}
-                    <span className=" text-secondary text-sm ">
+                  <span className=" font-bold text-gray-deep">
+                    Order ID: &emsp;&emsp;
+                    <span className=" font-normal text-sm ">
                       #S-Shop:{orderData._id}
                     </span>
                   </span>
                   <br />
-                  <span className="text-muted">
-                    Order Date:{" "}
-                    <span className=" text-gray-400">
+                  <span className=" font-bold">
+                    Order Date:&emsp;
+                    <span className=" font-light">
                       <DDMonYYYYWithTime date={orderData.createdAt} />
                     </span>
                   </span>
                 </div>
-
-                {/* <label className="form-control w-full max-w-xs">
-                  <div className="label">
-                    <span className="label-text">Payment Status</span>
-                  </div>
-                  <select className="select select-bordered select-sm">
-                    <option disabled selected>
-                      Pick one
-                    </option>
-                    <option>Paid</option>
-                    <option>Unpaid</option>
-                    <option>COD</option>
-                  </select>
-                </label> */}
-
-                <label className="form-control w-full max-w-xs">
-                  <div className="label">
-                    <span className="label-text">Delivery Status</span>
-                  </div>
-
-                  <select
-          className="select select-bordered select-sm"
-          value={deliveryStatus}
-          onChange={(e) => {
-            const newStatus = e.target.value;
-            setDeliveryStatus(newStatus);
-            handleDeliveryStatusChange(newStatus);
-          }}
-          onBlur={handleDeliveryStatusChange}
-        >
-          <option disabled value="">
-            Pick one
-          </option>
-          <option value="pending">Pending</option>
-          {/* <option value="picked_up">Picked Up</option> */}
-          <option value="processing">Processing</option>
-          <option value="out_for_delivery">Out For Delivery</option>
-          <option value="delivered">Delivered</option>
-          <option value="cancelled">Cancelled</option>
-        </select>
-                </label>
+                <div className=" flex flex-col justify-center items-end ">
+                    <div className=" flex items-center justify-center"><img className=" w-10 md:w-14" src="https://i.ibb.co/8xhhZQk/Shera-Organic-Shop-logo.png" alt="" />
+                    <h2 className=" text-md md:text-2xl font-bold text-primary">Shera Organic Shop</h2></div>
+                    <address className=" text-end">Kalaroa Bajar, Kalaroa 9410, Satkhira
+                    <br />
+                    <a href="tel:+8801793143054" className=" font-normal" target="_blank" rel="noreferrer">01793-143054</a>
+                    </address>
+                </div>
               </div>
 
               {/* Customer Info */}
@@ -167,7 +119,7 @@ const OrderDetails = () => {
                 </div>
                 <div className="">
                   <h6 className="mb-2 font-bold">Shipping Address</h6>
-                  <div className="text-sm">
+                  <div className="text-sm text-end">
                     <p>{orderData.shippingAddress.apartment}</p>
                     <p>{orderData.shippingAddress.streetAddress}</p>
                     <p>
@@ -207,7 +159,7 @@ const OrderDetails = () => {
 
               {/* Grand Total */}
               <div className="flex items-center justify-between p-4 bg-gray-white rounded-md border m-6 ">
-                <div className="col-auto">
+                <div>
                   <h6 className=" font-bold">Payment Method</h6>
                   <span>
                     {orderData.payment.method == "paynow" ? "Online" : ""}
@@ -216,19 +168,19 @@ const OrderDetails = () => {
                     {orderData.payment.method == "cod" ? "Online" : ""}
                   </span>
                 </div>
-                <div className="col-auto">
+                <div>
                   <h6 className="mb-1">Sub Total</h6>
                   <strong>৳{orderData.orderSummary.subtotal}</strong>
                 </div>
-                <div className="col-auto">
+                <div>
                   <h6 className="mb-1">Shipping Cost</h6>
                   <strong>৳{orderData.orderSummary.deliveryCharge}</strong>
                 </div>
-                <div className="col-auto">
+                <div>
                   <h6 className="mb-1">Discount</h6>
                   <strong>৳{orderData.orderSummary.discount}</strong>
                 </div>
-                <div className="col-auto">
+                <div>
                   <h6 className="mb-1">Grand Total</h6>
                   <strong>৳{orderData.orderSummary.total}</strong>
                 </div>
@@ -239,5 +191,6 @@ const OrderDetails = () => {
       </div>
     </section>
   );
-};
-export default OrderDetails;
+}
+
+export default Invoice;

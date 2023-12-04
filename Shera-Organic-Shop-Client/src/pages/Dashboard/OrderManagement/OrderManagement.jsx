@@ -107,7 +107,7 @@ const OrderManagement = () => {
                 {/* head */}
                 <thead>
                   <tr>
-                    <th>Order ID</th>
+                    <th className=" w-5">Order ID</th>
                     <th>Customer</th>
                     <th>Placed On</th>
                     <th>Items</th>
@@ -119,7 +119,7 @@ const OrderManagement = () => {
                 <tbody>
                   {allOrders.map((order, index) => (
                     <tr key={index}>
-                      <td className="text-xs">{order._id}</td>
+                      <td className="text-xs">SOS{order._id}</td>
                       <td>
                         <div className="flex items-center gap-3">
                           {/* <div className="avatar">

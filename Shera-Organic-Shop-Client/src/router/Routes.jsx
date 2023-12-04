@@ -23,12 +23,13 @@ import AdminManagement from "../pages/Dashboard/AdminManagement";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import ProductDetails from "../components/ProductCard/ProductDetails";
-import MyOrders from "../pages/Profile/MyOrders";
+import MyOrders from "../pages/Profile/OrderHistory";
 import OrderManagement from "../pages/Dashboard/OrderManagement/OrderManagement";
 import OrderDetails from "../pages/Dashboard/OrderManagement/OrderDetails";
 import UserProfileLayout from "../layout/UserProfileLayout";
 import UserProfile from "../pages/Profile/UserProfile";
-import UserDashboard from "../pages/Profile/UserDashboard";
+import UserDashboard from "../pages/Profile/DashboardUser";
+import Invoice from "../pages/Profile/Order/Invoice";
 
 
 export const router = createBrowserRouter([
@@ -168,20 +169,8 @@ export const router = createBrowserRouter([
           element: <MyOrders/>,
         },
         {
-          path:'products',
-          element: <AllProducts/>,
-        },
-        {
-          path:'products/:id',
-          element: <EditProduct/>,
-        },
-        {
-          path:'manage-admin',
-          element: <AdminManagement/>,
-        },
-        {
-          path:'all-orders',
-          element: <OrderManagement/>,
+          path:'invoice/:id',
+          element: <Invoice/>,
         },
         {
           path:'all-orders/details/:id',

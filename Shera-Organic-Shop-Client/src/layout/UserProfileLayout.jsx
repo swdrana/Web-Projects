@@ -5,14 +5,74 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { AiOutlineHome } from "react-icons/ai";
 import { FaTruckArrowRight } from "react-icons/fa6";
 import { RiLoopLeftFill } from "react-icons/ri";
-import { BsCartCheck } from "react-icons/bs";
+import { BsCartCheck,BsCartX } from "react-icons/bs";
 import Footer from "../components/Footer/Footer";
+import useCurrentUser from "../../hooks/useCurrentUser";
+import LoadingProgress from "../components/LoadingProgress/LoadingProgress";
+import { useEffect, useState } from "react";
+import instance from "../provider/axios";
 function UserProfileLayout() {
+    const { isLoading, isError, userInfo, error, refetch } = useCurrentUser();
+    const [orders, setOrders] = useState([]);
+    const [orderCounts, setOrderCounts] = useState({
+      delivered: 0,
+      out_for_delivery: 0,
+      processing: 0,
+      newOrder: 0,
+      cancelled:0 // Assuming 'picked_up' and 'pending' are treated as new orders
+    });
+    
+    useEffect(() => {
+      const fetchUserOrders = async () => {
+        try {
+          if (userInfo && userInfo.email) {
+            const response = await instance.get(`orders/user/${userInfo.email}`);
+            setOrders(response.data);
+    
+            // Initialize an object to store the counts
+            const counts = {
+              delivered: 0,
+              out_for_delivery: 0,
+              processing: 0,
+              pending: 0,
+              cancelled:0
+            };
+    
+            // Update count variables based on order status
+            response.data.forEach((item) => {
+              const status = item.status;
+            //   console.log(status);
+              if (status in counts) {
+                counts[status] += 1;
+              }
+            });
+    
+            // Update state variable with the counts object
+            setOrderCounts(counts);
+          }
+        } catch (error) {
+          console.error("Error fetching user orders:", error.message);
+        }
+      };
+    
+      fetchUserOrders();
+    }, [userInfo]);
+    
+    // Access counts for each status as needed
+    // console.log(orderCounts.delivered);
+    // console.log(orderCounts.out_for_delivery);
+    // console.log(orderCounts.processing);
+    // console.log(orderCounts.newOrder);
+    
+
+  if (isLoading) return <LoadingProgress />;
+  if (error || isError) return error || isError;
+//   console.log(userInfo);
   return (
     <div className="bg-gray-white">
       <Header isFixed={true} />{" "}
       <div className=" mx-auto container">
-        <div className="flex align-items gap-6 p-4 p-sm-6    bg-white rounded-lg my-4 mb-4 flex-wrap lg:flex-nowrap">
+        <div className="flex align-items gap-6 p-4 p-sm-6 bg-white rounded-lg my-4 mb-4 flex-wrap lg:flex-nowrap">
           <div className="rounded-md w-44">
             <img
               src="https://grostore.themetags.com/public/uploads/media/65bad2tYppDLFCZ2JzveKJtJX7NiX6sznq5VmUS1.jpg"
@@ -20,56 +80,63 @@ function UserProfileLayout() {
               className="rounded-md"
             />
           </div>
-          <div className=" flex  gap-4 justify-center flex-col">
+          <div className=" flex  gap-4 justify-center flex-col w-full">
             <div>
-              <h4 className=" text-2xl font-bold">Robert Jacobs</h4>
+              <h4 className=" text-2xl font-bold">{userInfo.displayName}</h4>
               <div className="flex  items-center gap-2 gap-md-4 text-sm flex-wrap">
                 <span className=" flex justify-center items-center gap-2">
-                  <FaRegEnvelope /> customer@sheraorganic.com
+                  <FaRegEnvelope /> {userInfo.email}
                 </span>
                 <span className=" flex justify-center items-center gap-2">
                   <FaPhoneAlt />
-                  +880 1235 385 478
+                  <a href={`tel:${userInfo.phoneNumber}`} target="_blank" rel="noreferrer">{userInfo.phoneNumber}</a>
                 </span>
               </div>
             </div>
-
-            <div className="flex items-center flex-wrap mt-6 gap-5">
-              <div className="flex items-center gap-3">
-                <span className=" inline-flex items-center justify-center flex-shrink-0 rounded-md  text-green-600 bg-green-200 h-14 w-14">
-                  <AiOutlineHome size={40} />
-                </span>
-                <div>
-                  <h4 className=" font-bold text-2xl">4</h4>
-                  <span className=" text-gray-light">Total Delivered</span>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <span className=" inline-flex items-center justify-center flex-shrink-0 rounded-md  text-blue-600 bg-blue-200 h-14 w-14">
-                  <FaTruckArrowRight size={40} />
-                </span>
-                <div>
-                  <h4 className=" font-bold text-2xl">4</h4>
-                  <span className=" text-gray-light">Total Shipped</span>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className=" inline-flex items-center justify-center flex-shrink-0 rounded-md  text-orange-600 bg-orange-200 h-14 w-14">
-                  <RiLoopLeftFill size={40} />
-                </span>
-                <div>
-                  <h4 className=" font-bold text-2xl">4</h4>
-                  <span className=" text-gray-light">Order Processing</span>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
+            <div className="flex items-center justify-between flex-wrap mt-6 gap-5">
+              <div className="flex items-center gap-3 w-40">
                 <span className=" inline-flex items-center justify-center flex-shrink-0 rounded-md  text-purple-600 bg-purple-200 h-14 w-14">
                   <BsCartCheck size={40} />
                 </span>
                 <div>
-                  <h4 className=" font-bold text-2xl">4</h4>
+                  <h4 className=" font-bold text-2xl">{orderCounts.pending}</h4>
                   <span className=" text-gray-light">New Orders</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 w-52">
+                <span className=" inline-flex items-center justify-center flex-shrink-0 rounded-md  text-orange-600 bg-orange-200 h-14 w-14">
+                  <RiLoopLeftFill size={40} />
+                </span>
+                <div>
+                  <h4 className=" font-bold text-2xl">{orderCounts.processing}</h4>
+                  <span className=" text-gray-light">Order Processing</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 w-40">
+                <span className=" inline-flex items-center justify-center flex-shrink-0 rounded-md  text-blue-600 bg-blue-200 h-14 w-14">
+                  <FaTruckArrowRight size={40} />
+                </span>
+                <div>
+                  <h4 className=" font-bold text-2xl">{orderCounts.out_for_delivery}</h4>
+                  <span className=" text-gray-light">On the way</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 w-52">
+                <span className=" inline-flex items-center justify-center flex-shrink-0 rounded-md  text-green-600 bg-green-200 h-14 w-14">
+                  <AiOutlineHome size={40} />
+                </span>
+                <div>
+                  <h4 className=" font-bold text-2xl">{orderCounts.delivered}</h4>
+                  <span className=" text-gray-light">Total Delivered</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 w-52">
+                <span className=" inline-flex items-center justify-center flex-shrink-0 rounded-md  text-red-600 bg-red-200 h-14 w-14">
+                  <BsCartX size={40} />
+                </span>
+                <div>
+                  <h4 className=" font-bold text-2xl">{orderCounts.cancelled}</h4>
+                  <span className=" text-gray-light">Total Cancelled</span>
                 </div>
               </div>
             </div>
@@ -95,7 +162,7 @@ function UserProfileLayout() {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="menu p-4 w-52 min-h-full bg-base-100 text-base-content rounded-lg">
+          <ul className="menu p-4 w-52 min-h-full bg-base-100 text-base-content rounded-lg md:mt-0 mt-14">
             {/* Sidebar content here */}
             <li className=" border-b">
               <Link to="/profile">Dashboard</Link>
