@@ -9,6 +9,9 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
+const storage = getStorage(app);
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
 
@@ -19,18 +22,30 @@ function AuthProvider({ children }) {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
-  const updateUserNamePhone = (name, phoneNumber) => {
-    setLoading(true);
-    return updateProfile(auth.currentUser, {
-      displayName: name,
-      phoneNumber: phoneNumber,
-    })
-      .then(() => {
-        console.log("User Name Updated: ", auth.currentUser);
-      })
-      .catch((e) => {
-        console.log(e);
+  const updateUserNamePhone = async (name, phoneNumber, photoFile) => {
+    try {
+      setLoading(true);
+  
+      // Upload the photo to Firebase Storage
+      const storageRef = ref(storage, `user-profile-photos/${auth.currentUser.uid}`);
+      await uploadBytes(storageRef, photoFile);
+  
+      // Get the download URL of the uploaded photo
+      const photoURL = await getDownloadURL(storageRef);
+  
+      // Update the user profile with the new information
+      await updateProfile(auth.currentUser, {
+        displayName: name,
+        phoneNumber: phoneNumber,
+        photoURL: photoURL,
       });
+  
+      console.log("User Name and Photo Updated: ", auth.currentUser);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
   const sendPasswordReset = (email) => {
     setLoading(true);

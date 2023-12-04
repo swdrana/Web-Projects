@@ -11,9 +11,9 @@ import useCurrentUser from "../../hooks/useCurrentUser";
 import LoadingProgress from "../components/LoadingProgress/LoadingProgress";
 import { useEffect, useState } from "react";
 import instance from "../provider/axios";
+import demoUserPhoto from './../assets/images/people/demo-user.jpg'
 function UserProfileLayout() {
-    const { isLoading, isError, userInfo, error, refetch } = useCurrentUser();
-    const [orders, setOrders] = useState([]);
+    const { isLoading, isError, userInfo, error } = useCurrentUser();
     const [orderCounts, setOrderCounts] = useState({
       delivered: 0,
       out_for_delivery: 0,
@@ -27,7 +27,6 @@ function UserProfileLayout() {
         try {
           if (userInfo && userInfo.email) {
             const response = await instance.get(`orders/user/${userInfo.email}`);
-            setOrders(response.data);
     
             // Initialize an object to store the counts
             const counts = {
@@ -75,9 +74,9 @@ function UserProfileLayout() {
         <div className="flex align-items gap-6 p-4 p-sm-6 bg-white rounded-lg my-4 mb-4 flex-wrap lg:flex-nowrap">
           <div className="rounded-md w-44">
             <img
-              src="https://grostore.themetags.com/public/uploads/media/65bad2tYppDLFCZ2JzveKJtJX7NiX6sznq5VmUS1.jpg"
-              alt="avatar"
-              className="rounded-md"
+              src={userInfo.photoURL?userInfo.photoURL:demoUserPhoto}
+              alt={userInfo.photoURL}
+              className="rounded-md border max-h-44 mx-auto"
             />
           </div>
           <div className=" flex  gap-4 justify-center flex-col w-full">
@@ -171,7 +170,7 @@ function UserProfileLayout() {
               <Link to="my-order">Order History</Link>
             </li>
             <li className=" border-b">
-              <Link to="/profile">Edit Profile</Link>
+              <Link to="edit-profile">Edit Profile</Link>
             </li>
             <li>
               <Link to="/profile">Log Out</Link>

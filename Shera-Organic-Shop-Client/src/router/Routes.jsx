@@ -30,6 +30,7 @@ import UserProfileLayout from "../layout/UserProfileLayout";
 import UserProfile from "../pages/Profile/UserProfile";
 import UserDashboard from "../pages/Profile/DashboardUser";
 import Invoice from "../pages/Profile/Order/Invoice";
+import EditProfile from "../pages/Profile/EditProfile";
 
 
 export const router = createBrowserRouter([
@@ -173,8 +174,8 @@ export const router = createBrowserRouter([
           element: <Invoice/>,
         },
         {
-          path:'all-orders/details/:id',
-          element: <OrderDetails/>,
+          path:'edit-profile',
+          element: <EditProfile/>,
         },
       ]
     },
