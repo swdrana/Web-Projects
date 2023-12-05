@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom"
 import ProductCardSmall from "../../../components/ProductCard/ProductCardSmall"
 import CountdownTimer from "./countDownTimer"
+import useProducts from "../../../../hooks/useProducts";
 
 function WeeklyBestDeals() {
+    const [products, isLoading] = useProducts();
+    if(isLoading) return <>Loading...</>
     return (
         <div className="bg-gray-white">
             <div className="container mx-auto pb-20 md:px-7">
@@ -36,10 +39,9 @@ function WeeklyBestDeals() {
                     </ul> */}
                     </div>
                     <div className=" grid grid-cols-1 lg:grid-cols-2 gap-5  px-1 md:px-0 ">
-                        <ProductCardSmall></ProductCardSmall>
-                        <ProductCardSmall></ProductCardSmall>
-                        <ProductCardSmall></ProductCardSmall>
-                        <ProductCardSmall></ProductCardSmall>
+                        {products.slice(16,19).map(product=>{
+                            return <ProductCardSmall key={product._id} product={product}/>
+                        })}
                     </div>
                 </div>
             </div>

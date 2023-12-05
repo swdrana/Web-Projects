@@ -13,6 +13,7 @@ import { useContext, useEffect, useState } from "react";
 import instance from "../provider/axios";
 import demoUserPhoto from './../assets/images/people/demo-user.jpg'
 import { AuthContext } from "../provider/AuthProvider";
+import { HiMenu } from "react-icons/hi";
 function UserProfileLayout() {
     const {logOut} = useContext(AuthContext);
     const navigate = useNavigate();
@@ -146,17 +147,25 @@ function UserProfileLayout() {
         </div>
       </div>
       {/* ***************************** Layout Header End Here ***************************** */}
-      <div className="drawer lg:drawer-open container mx-auto">
+      <div className="drawer lg:drawer-open container mx-auto z-50">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col ms-0 md:ms-4 p-4 bg-white rounded-lg">
           {/* Page content here */}
+          <div className=" mt-4 flex justify-end me-4">
+              <label
+                htmlFor="my-drawer-2"
+                className=" btn btn-primary  text-gray-white btn-sm  border-0 drawer-button lg:hidden"
+              >
+               <HiMenu size={30} /> Open Drawer 
+              </label>
+            </div>
           <Outlet></Outlet>
-          <label
+          {/* <label
             htmlFor="my-drawer-2"
             className="btn btn-primary drawer-button lg:hidden w-1/2"
           >
             Open drawer
-          </label>
+          </label> */}
         </div>
         <div className="drawer-side">
           <label
@@ -164,8 +173,11 @@ function UserProfileLayout() {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="menu p-4 w-52 min-h-full bg-base-100 text-base-content rounded-lg md:mt-0 mt-14">
+          <ul className="menu p-4 w-52 min-h-full bg-base-100 text-base-content rounded-lg md:mt-0">
             {/* Sidebar content here */}
+            <li className=" border-b">
+              <Link to="/">Home</Link>
+            </li>
             <li className=" border-b">
               <Link to="/profile">Dashboard</Link>
             </li>

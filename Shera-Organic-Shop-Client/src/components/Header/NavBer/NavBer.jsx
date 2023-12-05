@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { BsGrid3X3GapFill } from "react-icons/bs";
-import { useContext, useState } from "react";
-import { BsSearch } from "react-icons/bs";
+import { useContext } from "react";
 import { BsCartPlus } from "react-icons/bs";
 import { AuthContext } from "../../../provider/AuthProvider";
 import useCurrentUser from "../../../../hooks/useCurrentUser";
@@ -11,18 +10,10 @@ const NavBer = ({ isScrolled }) => {
   const navigate = useNavigate();
   const { user, logOut } = useContext(AuthContext);
   const {userInfo} = useCurrentUser();
-  // console.log(userInfo)
-  const [haveUser, setHaveUser] = useState(false);
-  //   const [hiddenMenu, setHiddenMenu] = useState("hidden");
-  //for sidebar
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
   const navOptions = (
     <>
-      <li>
-        <Link to={"/dashboard"}>Dashboard</Link>
-      </li>
-      <li tabIndex={0}>
+      
+      {/* <li tabIndex={0}>
         <details>
           <summary>Categories</summary>
           <ul className="p-2">
@@ -43,29 +34,35 @@ const NavBer = ({ isScrolled }) => {
             </li>
           </ul>
         </details>
-      </li>
+      </li> */}
       <li>
         <Link to={"/products"}>Products</Link>
       </li>
       <li>
         <Link to={"/campaigns"}>Campaigns</Link>
-      </li>
-      <li>
-        <Link to={"/coupons"}>Coupons</Link>
-      </li>
-
+      </li><li>
+              <Link to={"blog"}>Blog</Link>
+            </li>
+      
+            {userInfo?.role=='admin'? <li>
+        <Link to={"/dashboard"}>Dashboard</Link>
+      </li>: <li>
+              <Link to={"contact-us"}>Contact Us</Link>
+            </li>}
       <li tabIndex={0}>
         <details>
           <summary>Pages</summary>
           <ul className="p-2">
-            <li>
-              <Link to={"blog"}>Blog</Link>
-            </li>
+          <li>
+        <Link to={"/coupons"}>Coupons</Link>
+      </li>{userInfo?.role=='admin'? <li>
+        <Link to={"/dashboard"}>Dashboard</Link>
+              <Link to={"contact-us"}>Contact Us</Link>
+      </li>: <li>
+              <Link to={"contact-us"}>Contact Us</Link>
+            </li>}
             <li>
               <Link to={"about-us"}>About Us</Link>
-            </li>
-            <li>
-              <Link to={"contact-us"}>Contact Us</Link>
             </li>
             <li>
               <Link to={"terms-conditions"}>Terms & Conditions</Link>

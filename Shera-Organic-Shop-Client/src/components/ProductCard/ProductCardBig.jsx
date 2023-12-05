@@ -16,10 +16,10 @@ const OfferBatch = styled.span`
 `;
 
 const ProductCardBig = ({product}) => {
-  console.log(product)
+  // console.log(product)
   const {_id, productName,shortDescription, description, productCategory,variants, isPublished, productThumbnail, productGallery} = product;
   return (
-    <div className=" w-full sm:w-[300px] mb-6 border border-[#f4f4f4] rounded-md hover:shadow-2xl  transition-all duration-100 hover:border-white">
+    <Link to={`/details/${_id}`}  className=" w-full sm:w-[300px] mb-6 border border-[#f4f4f4] rounded-md hover:shadow-2xl  transition-all duration-100 hover:border-white">
       <div className=" group ">
         <div className=" rounded-2 relative">
           {/* <OfferBatch className="  bg-error p-1 rounded-tl-xl rounded-br-xl text-white absolute top-1 left-1">
@@ -32,14 +32,14 @@ const ProductCardBig = ({product}) => {
               alt={productThumbnail}
               className="img-fluid"
             />
-            <div className="flex gap-2  flex-col absolute opacity-0 group-hover:opacity-100 top-7 right-4 transition-all duration-500">
+            {/* <div className="flex gap-2  flex-col absolute opacity-0 group-hover:opacity-100 top-7 right-4 transition-all duration-500">
               <button className=" hover:text-white  border rounded-full p-2 group  hover:bg-secondary transition-all duration-500 hover:border-white">
                 <FaRegHeart></FaRegHeart>
               </button>
               <button className=" hover:text-white border rounded-full p-2 group  hover:bg-primary  transition-all duration-500 hover:border-white">
                 <FaRegEye></FaRegEye>
               </button>
-            </div>
+            </div> */}
           </div>
 
           <div className="px-8  py-6">
@@ -99,7 +99,7 @@ const ProductCardBig = ({product}) => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
