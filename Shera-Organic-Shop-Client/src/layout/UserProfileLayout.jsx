@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import Header from "../components/Header/Header";
 import { FaRegEnvelope } from "react-icons/fa6";
 import { FaPhoneAlt } from "react-icons/fa";
@@ -9,10 +9,13 @@ import { BsCartCheck,BsCartX } from "react-icons/bs";
 import Footer from "../components/Footer/Footer";
 import useCurrentUser from "../../hooks/useCurrentUser";
 import LoadingProgress from "../components/LoadingProgress/LoadingProgress";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import instance from "../provider/axios";
 import demoUserPhoto from './../assets/images/people/demo-user.jpg'
+import { AuthContext } from "../provider/AuthProvider";
 function UserProfileLayout() {
+    const {logOut} = useContext(AuthContext);
+    const navigate = useNavigate();
     const { isLoading, isError, userInfo, error } = useCurrentUser();
     const [orderCounts, setOrderCounts] = useState({
       delivered: 0,
@@ -172,8 +175,11 @@ function UserProfileLayout() {
             <li className=" border-b">
               <Link to="edit-profile">Edit Profile</Link>
             </li>
-            <li>
-              <Link to="/profile">Log Out</Link>
+            <li onClick={()=>{
+                navigate('/login');
+                logOut()
+            }}>
+              <p>Log Out</p>
             </li>
           </ul>
         </div>

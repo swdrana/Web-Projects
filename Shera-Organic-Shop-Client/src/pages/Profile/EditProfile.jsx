@@ -1,52 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import uploadThumbnail from "./../../assets/images/bg/upload-thumbnail.svg";
 import useCurrentUser from "../../../hooks/useCurrentUser";
 import LoadingProgress from "../../components/LoadingProgress/LoadingProgress";
 import instance from "../../provider/axios";
 import { toast } from "react-toastify";
-import { updateProfile, getAuth } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { app, storage } from "../../firebase/firebase.config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 function EditProfile() {
-  //     const { isLoading, isError, userInfo, error, refetch } = useCurrentUser();
-
-  //     const { register, handleSubmit, setValue } = useForm();
-
-  //     const handleFileChange = (e) => {
-  //       const file = e.target.files[0];
-
-  //       // Read the selected file as a data URL
-  //       const reader = new FileReader();
-  //       reader.onloadend = () => {
-  //         setValue("photoURL", reader.result);
-  //       };
-
-  //       if (file) {
-  //         reader.readAsDataURL(file);
-  //       } else {
-  //         setValue("photoURL", null);
-  //       }
-  //     };
-  //   const onSubmit = async (data) => {
-  //     try {
-  //       // Customize your API request based on the updated fields
-  //       console.log(data)
-  //       const response = await instance.put(`/users/user/${userInfo._id}`, data);
-  //       refetch();
-  //       if (response.data.success) {
-  //         toast.success("Profile updated successfully");
-  //       } else {
-  //         toast.error("Failed to update profile");
-  //       }
-  //     } catch (error) {
-  //       console.error('Error updating profile:', error);
-  //       toast.error('Error updating profile. Please try again later.');
-  //     }
-  //   };
-
-  // ... (previous code)
   const [selectedFileName, setSelectedFileName] = useState("");
   const { register, handleSubmit, setValue } = useForm();
   const [photo, setPhoto] = useState(null);
@@ -62,37 +25,37 @@ function EditProfile() {
 
   const onSubmit = async (data) => {
     const authUser = auth.currentUser;
-    let updatedData = { ...data }; // Create a copy of the form data
-  
+    let updatedData = { ...data };
+
     if (photo) {
       // Image is selected, handle the image upload logic
       if (!photo.type.startsWith("image/")) {
         toast.error("Please upload a valid image file.");
         return;
       }
-  
+
       // Check if the image size exceeds 100KB
       if (photo.size > 200 * 1024) {
         toast.error("Image size must be less than 200KB.");
         return;
       }
-  
+
       setSubmitting(true);
-  
+
       const storageRef = ref(
         storage,
         `user-profile-photos/${authUser.uid}.${photo.name.split(".").pop()}`
       );
-  
+
       try {
         // Upload new photo to Firebase Storage
         await uploadBytes(storageRef, photo, {
           contentType: photo.type,
         });
-  
+
         // Get the download URL of the uploaded photo
         const photoURL = await getDownloadURL(storageRef);
-  
+
         // Update the copy of the data with the new photoURL
         updatedData = { ...updatedData, photoURL };
       } catch (error) {
@@ -102,14 +65,17 @@ function EditProfile() {
         return;
       }
     }
-  
+
     try {
       // Update the database with the new data (including photoURL if available)
-      const response = await instance.put(`/users/user/${userInfo._id}`, updatedData);
-  
+      const response = await instance.put(
+        `/users/user/${userInfo._id}`,
+        updatedData
+      );
+
       // Refetch user data
       refetch();
-  
+
       if (response.data.success) {
         toast.success("Profile updated successfully");
       } else {
@@ -122,13 +88,13 @@ function EditProfile() {
       setSubmitting(false);
     }
   };
-  
+
   // Utility function to format file size
-const formatFileSize = (sizeInBytes) => {
+  const formatFileSize = (sizeInBytes) => {
     const KB = 1024;
     const MB = KB * 1024;
     const GB = MB * 1024;
-  
+
     if (sizeInBytes >= GB) {
       return `${(sizeInBytes / GB).toFixed(2)} GB`;
     } else if (sizeInBytes >= MB) {
@@ -139,11 +105,6 @@ const formatFileSize = (sizeInBytes) => {
       return `${sizeInBytes} Bytes`;
     }
   };
-  
-  
-  
-  
-  
 
   if (isLoading) return <LoadingProgress />;
   if (error || isError) return error || isError;
@@ -156,8 +117,6 @@ const formatFileSize = (sizeInBytes) => {
         onSubmit={handleSubmit(onSubmit)}
         encType="multipart/form-data"
       >
-        
-
         {/* img upload  */}
         <div className="w-full border border-dashed rounded-lg bg-gray-white p-4">
           <input
@@ -166,7 +125,9 @@ const formatFileSize = (sizeInBytes) => {
               const file = e.target.files[0];
               setPhoto(file);
               setValue("photoURL", file);
-              setSelectedFileName(`${file.name} Current Size: ${formatFileSize(file.size)}`);
+              setSelectedFileName(
+                `${file.name} Current Size: ${formatFileSize(file.size)}`
+              );
             }}
             id="photoURL"
             className="custom-file-input cursor-pointer"
@@ -178,18 +139,18 @@ const formatFileSize = (sizeInBytes) => {
             onClick={() => document.getElementById("photoURL").click()}
             style={{ cursor: "pointer" }}
           >
-              <>
-                <img
-                  src={uploadThumbnail}
-                  alt="Icon or Placeholder"
-                  className="img-fluid"
-                />
-                <p className="text-dark fw-bold mb-2 mt-3">
-              {selectedFileName
-                ? `Selected: ${selectedFileName} (Max 200 KB)`
-                : "Click Here to select photo (Max 200 KB)"}
-            </p>
-              </>
+            <>
+              <img
+                src={uploadThumbnail}
+                alt="Icon or Placeholder"
+                className="img-fluid"
+              />
+              <p className="text-dark fw-bold mb-2 mt-3">
+                {selectedFileName
+                  ? `Selected: ${selectedFileName} (Max 200 KB)`
+                  : "Click Here to select photo (Max 200 KB)"}
+              </p>
+            </>
           </div>
         </div>
 
