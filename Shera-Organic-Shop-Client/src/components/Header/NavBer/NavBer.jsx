@@ -1,12 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { BsGrid3X3GapFill } from "react-icons/bs";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { FiMenu } from "react-icons/fi";
-import { HiOutlineUserCircle } from "react-icons/hi";
 import { BsCartPlus } from "react-icons/bs";
 import { AuthContext } from "../../../provider/AuthProvider";
 import useCurrentUser from "../../../../hooks/useCurrentUser";
+import BottomNav from "./BottomNav";
+import userIcon from './../../../assets/images/people/user-icon.png'
 const NavBer = ({ isScrolled }) => {
   const navigate = useNavigate();
   const { user, logOut } = useContext(AuthContext);
@@ -85,23 +85,16 @@ const NavBer = ({ isScrolled }) => {
           }   md:h-[75px]  h-0 relative `}
         >
           {/* Top Info Nav  */}
-          <div
-            className={`container mx-auto py-2 text-white flex justify-between ${
-              isScrolled ? "hidden" : ""
-            } `}
-          >
-            <p className="">Welcome to Shera Organic Shop</p>
+          <div className={` font-light container mx-auto p-2 text-white flex justify-between ${isScrolled ? "hidden" : ""} `}>
+            <p className= " hidden md:block">Welcome to Shera Organic Shop</p>
             <div className="flex gap-6">
-              <a
-                href="mailto:sheraorganicshop@gmail.com"
-                target={"_blank"}
-                rel="noreferrer"
-              >
+              <a href="mailto:sheraorganicshop@gmail.com"target={"_blank"}rel="noreferrer">
                 sheraorganicshop@gmail.com
               </a>
-              <p className="">DL</p>
+              {/* <p className="">DL</p> */}
             </div>
           </div>
+
           {/* Main Nav  */}
           <div
             className={` navbar bg-base-100  shadow-md  md:top-10 top-0  rounded-lg ${
@@ -111,13 +104,13 @@ const NavBer = ({ isScrolled }) => {
             }`}
           >
             <div className="navbar-start">
-              <Link to={"/"} className="btn btn-ghost">
+              <Link to={"/"} className=" btn btn-ghost m-0 md:-mt-2">
                 <img
-                  className=" w-14"
+                  className=" w-10 md:w-14"
                   src="https://i.ibb.co/8xhhZQk/Shera-Organic-Shop-logo.png"
                   alt=""
                 />
-                <p>Shera Organic Shop</p>
+                <p className=" text-xs md:text-lg font-semibold">Shera Organic Shop</p>
               </Link>
             </div>
 
@@ -127,7 +120,7 @@ const NavBer = ({ isScrolled }) => {
 
             <div className="navbar-end">
               {/* Search Cart Profile Start Here */}
-              <div className="dropdown dropdown-end hidden md:block">
+              {/* <div className="dropdown dropdown-end hidden md:block">
                 <label tabIndex={0} className="btn btn-ghost btn-circle">
                   <div className="indicator">
                     <BsSearch size={20} />
@@ -149,27 +142,14 @@ const NavBer = ({ isScrolled }) => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               {/* desktop cart start here  */}
-              {true && (
-                <div className="dropdown dropdown-end">
+              {user && (
+                <Link to='/carts' className="dropdown dropdown-end md:block hidden ">
                   <label tabIndex={0} className="btn btn-ghost btn-circle">
                     <div className="indicator">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                        />
-                      </svg>
+                    <BsCartPlus size={20} />
                       <span className="badge badge-sm indicator-item">{userInfo?.cart?.length}</span>
                     </div>
                   </label>
@@ -178,7 +158,7 @@ const NavBer = ({ isScrolled }) => {
                     tabIndex={0}
                     className={`mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow`}
                   >
-                    <div className="card-body">
+                    {/* <div className="card-body">
                       <span className="font-bold text-lg">{userInfo?.cart?.length} Items</span>
                       <span className="text-info">Subtotal: $999</span>
                       <div className="card-actions">
@@ -186,9 +166,9 @@ const NavBer = ({ isScrolled }) => {
                           View cart
                         </Link>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
-                </div>
+                </Link>
               )}
 
               {/* user profile icon and functionality start here  */}
@@ -199,10 +179,9 @@ const NavBer = ({ isScrolled }) => {
                     className="btn btn-ghost btn-circle avatar"
                   >
                     <div className="w-10 rounded-full">
-                      <img
-                        src={
-                          "https://www.citypng.com/public/uploads/small/11639594360nclmllzpmer2dvmrgsojcin90qmnuloytwrcohikyurvuyfzvhxeeaveigoiajks5w2nytyfpix678beyh4ykhgvmhkv3r3yj5hi.png"
-                        }
+                      <img className=" border rounded-full"
+                        src={userInfo?userInfo.photoURL?userInfo.photoURL:
+                          userIcon:userIcon}
                       />
                     </div>
                   </label>
@@ -272,35 +251,7 @@ const NavBer = ({ isScrolled }) => {
         </div>
       </div>
       {/* Bottom Nav */}
-      <div className=" z-10 border-t-[1px] fixed bottom-0 bg-gray-200 backdrop-filter backdrop-blur bg-opacity-20  lg:hidden w-full h-[45px] sm:h-[64px] grid grid-cols-4 text-xs">
-        <div className="flex flex-col justify-center items-center border-r-[1px]">
-          <Link className="flex flex-col justify-center items-center">
-            <FiMenu size={20} />
-            <p className=" text-gray-500">Menu</p>
-          </Link>
-        </div>
-        <div className="flex flex-col justify-center items-center border-r-[1px]">
-          <Link className="flex flex-col justify-center items-center">
-            <BsSearch size={20} />
-            <p className=" text-gray-500">Search</p>{" "}
-          </Link>
-        </div>
-        <div className="flex flex-col justify-center items-center border-r-[1px]">
-          <Link className="flex flex-col justify-center items-center">
-            <HiOutlineUserCircle size={23} />
-            <p className=" text-gray-500">Account</p>{" "}
-          </Link>
-        </div>
-        <div className="flex flex-col justify-center items-center border-r-[1px]">
-          <Link
-            to="carts"
-            className="flex flex-col justify-center items-center"
-          >
-            <BsCartPlus size={20} />
-            <p className=" text-gray-500">54985</p>{" "}
-          </Link>
-        </div>
-      </div>
+      <BottomNav userInfo={userInfo}/>
     </>
   );
 };
