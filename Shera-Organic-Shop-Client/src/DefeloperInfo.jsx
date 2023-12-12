@@ -1,4 +1,4 @@
-function App() {
+function DefeloperInfo() {
   return (
     <div className=" text-center">
       <h1 className="  text-5xl my-5 text-green-700 ">
@@ -72,4 +72,4 @@ function App() {
   );
 }
 
-export default App;
+export default DefeloperInfo;

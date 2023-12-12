@@ -230,7 +230,7 @@ const handlePlaceOrder = async () => {
         if (response.status === 200) {
           // Order placed successfully, you can navigate to a success page or show a confirmation message
           console.log("Order placed successfully:", response.data);
-          navigate("/my-orders");
+          navigate("/profile/my-order");
         } else {
           console.error("Error placing order:", response.data);
           // Handle the error and inform the user

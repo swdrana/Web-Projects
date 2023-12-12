@@ -1,5 +1,5 @@
 import { FaCartArrowDown } from "react-icons/fa";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -68,11 +68,11 @@ function ProductDetailsCard({ product }) {
 
   // Frontend code using fetch
   const { userInfo } = useCurrentUser();
-  // console.log(userInfo);
+  console.log(userInfo._id)
   const handelAddToCart = async () => {
     try {
       const response = await fetch(
-        `https://js-shera-orgamic-shop-server.vercel.app/api/carts/${userInfo._id}/add-to-cart`,
+        `http://localhost:3000/api/carts/${userInfo._id}/add-to-cart`,
         {
           method: "POST",
           headers: {
@@ -214,7 +214,7 @@ function ProductDetailsCard({ product }) {
           <h4 className="mt-1 mb-3 text-xl font-bold">{productName}</h4>
 
           {/* Rating  */}
-          <div className="flex  items-center flex-nowrap mb-2">
+          {/* <div className="flex  items-center flex-nowrap mb-2">
             <div className="rating rating-xs me-2">
               <input
                 type="radio"
@@ -247,7 +247,7 @@ function ProductDetailsCard({ product }) {
             <span className="flex-shrink-0  text-gray-deep text-[12px]">
               (5.2k Reviews) {rating}
             </span>
-          </div>
+          </div> */}
 
           {/* Price  */}
           <div className="font-bold mt-2 text-error">

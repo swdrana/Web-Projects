@@ -20,7 +20,7 @@ const OurFeaturedProducts = () => {
         <div className=" container pt-8 mx-auto">
             <div className=" flex flex-col lg:flex-row justify-center gap-0 lg:gap-4">
                 <div className=" flex flex-1 flex-col gap-4 items-center p-3 md:px-8 lg:p-0">
-                    {products.slice(0,3).map(product=>{
+                    {products.slice(0,4).map(product=>{
                       return <ProductCardSmall key={product._id} product={product}/>
                     })}
                 </div>
@@ -29,7 +29,7 @@ const OurFeaturedProducts = () => {
                 </div>
                 
                 <div className=" flex flex-1 flex-col gap-4 items-center mt-5 md:mt-0 p-3 md:px-10 lg:p-0">
-                {products.slice(4,7).map(product=>{
+                {products.slice(4,8).map(product=>{
                       return <ProductCardSmall key={product._id} product={product}/>
                     })}
                 </div>

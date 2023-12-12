@@ -5,6 +5,7 @@ import useCurrentUser from "../../../hooks/useCurrentUser";
 import LoadingProgress from "../../components/LoadingProgress/LoadingProgress";
 import { toast } from "react-toastify";
 import { CheckoutContext } from "../../provider/CheckoutProvider";
+import instance from "../../provider/axios";
 
 function Carts() {
   const [cartItems, setCartItems] = useState([]);
@@ -13,24 +14,21 @@ function Carts() {
   const { userInfo } = useCurrentUser();
   const fetchProductDetails = async (productId) => {
     try {
-      const response = await fetch(
-        `https://js-shera-orgamic-shop-server.vercel.app/api/products/${productId}`
-      );
-      const data = await response.json();
-      return data;
+      const response = await instance.get(`/products/${productId}`);
+  
+      return response.data;
     } catch (error) {
       console.error("Error fetching product details:", error);
       return null;
     }
   };
 
+
   const fetchCartItems = async () => {
     try {
       const userId = userInfo._id;
-      const response = await fetch(
-        `https://js-shera-orgamic-shop-server.vercel.app/api/carts/${userId}/get-cart`
-      );
-      const data = await response.json();
+      const response = await instance.get(`/carts/${userId}/get-cart`);
+      const data = await response.data;
 
       if (data.cartItems) {
         const updatedCartItems = await Promise.all(
@@ -41,7 +39,7 @@ function Carts() {
               productDetails,
               totalPrice:
                 item.quantity *
-                productDetails.variants[item.selectedVariant].price,
+                productDetails?.variants[item.selectedVariant].price,
             };
           })
         );
@@ -66,21 +64,28 @@ function Carts() {
         console.log("Selected Item:", selectedItem);
         console.log("Selected Variant:", selectedItem.selectedVariant);
 
-        const response = await fetch(
-          `https://js-shera-orgamic-shop-server.vercel.app/api/carts/${userInfo._id}/update-cart/${itemId}`,
+        // const response = await fetch(
+        //   `http://localhost:3000/api/carts/${userInfo._id}/update-cart/${itemId}`,
+        //   {
+        //     method: "PUT",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //       selectedVariant: selectedItem.selectedVariant,
+        //       quantity: selectedItem.quantity + 1, // Increase quantity by 1
+        //     }),
+        //   }
+        // );
+        const response = await instance.put(
+          `/carts/${userInfo._id}/update-cart/${itemId}`,
           {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              selectedVariant: selectedItem.selectedVariant,
-              quantity: selectedItem.quantity + 1, // Increase quantity by 1
-            }),
+            selectedVariant: selectedItem.selectedVariant,
+            quantity: selectedItem.quantity + 1, // Increase quantity by 1
           }
         );
-
-        const data = await response.json();
+        
+        const data = await response.data;
 
         if (data.success) {
           // If the quantity was successfully updated, refresh the cart items
@@ -106,21 +111,28 @@ function Carts() {
         console.log("Selected Item:", selectedItem);
         console.log("Selected Variant:", selectedItem.selectedVariant);
 
-        const response = await fetch(
-          `https://js-shera-orgamic-shop-server.vercel.app/api/carts/${userInfo._id}/update-cart/${itemId}`,
+        // const response = await fetch(
+        //   `http://localhost:3000/api/carts/${userInfo._id}/update-cart/${itemId}`,
+        //   {
+        //     method: "PUT",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //       selectedVariant: selectedItem.selectedVariant,
+        //       quantity: selectedItem.quantity - 1, // Decrease quantity by 1
+        //     }),
+        //   }
+        // );
+        const response = await instance.put(
+          `/carts/${userInfo._id}/update-cart/${itemId}`,
           {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              selectedVariant: selectedItem.selectedVariant,
-              quantity: selectedItem.quantity - 1, // Decrease quantity by 1
-            }),
+            selectedVariant: selectedItem.selectedVariant,
+            quantity: selectedItem.quantity - 1, // Decrease quantity by 1
           }
         );
-
-        const data = await response.json();
+        
+        const data = await response.data;
 
         if (data.success) {
           // If the quantity was successfully updated, refresh the cart items
@@ -140,14 +152,15 @@ function Carts() {
 
   const handleDeleteItem = async (itemId) => {
     try {
-      const response = await fetch(
-        `https://js-shera-orgamic-shop-server.vercel.app/api/carts/${userInfo._id}/delete-cart/${itemId}`,
-        {
-          method: "DELETE",
-        }
-      );
+      // const response = await fetch(
+      //   `http://localhost:3000/api/carts/${userInfo._id}/delete-cart/${itemId}`,
+      //   {
+      //     method: "DELETE",
+      //   }
+      // );
+      const response = await instance.delete(`/carts/${userInfo._id}/delete-cart/${itemId}`);
 
-      const data = await response.json();
+      const data = await response.data;
 
       if (data.success) {
         // If the item was successfully deleted, show a success toast
@@ -231,18 +244,18 @@ function Carts() {
                         <div className="avatar">
                           <div className="mask mask-squircle w-12 h-12">
                             <img
-                              src={item.productDetails.productThumbnail}
+                              src={item.productDetails?.productThumbnail}
                               alt="Product"
                             />
                           </div>
                         </div>
                         <div>
                           <div className="font-bold">
-                            {item.productDetails.productName}
+                            {item.productDetails?.productName}
                             <br />
                             <span className=" text-secondary">
                               {
-                                item.productDetails.variants[
+                                item.productDetails?.variants[
                                   `${item.selectedVariant}`
                                 ].size
                               }

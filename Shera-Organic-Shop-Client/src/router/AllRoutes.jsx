@@ -26,7 +26,6 @@ function AllRoutes() {
                   <Route path="about-us" element={<AboutUs/>}/>
                   <Route path="contact-us" element={<ContactUs/>}/>
                   <Route path="terms-conditions" element={<TermsConditions/>}/>
-                  <Route path="my-orders" element={<MyOrders/>}/>
                 </Route>
                 
                 <Route path="dashboard" element={<AdminRoute><DashboardLayout/></AdminRoute>}>

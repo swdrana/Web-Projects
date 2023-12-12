@@ -6,6 +6,7 @@ import { AuthContext } from "../../../provider/AuthProvider";
 import useCurrentUser from "../../../../hooks/useCurrentUser";
 import BottomNav from "./BottomNav";
 import userIcon from './../../../assets/images/people/user-icon.png'
+import logoBig from './../../../assets/images/logo/logo-big.png'
 const NavBer = ({ isScrolled }) => {
   const navigate = useNavigate();
   const { user, logOut } = useContext(AuthContext);
@@ -103,11 +104,11 @@ const NavBer = ({ isScrolled }) => {
             <div className="navbar-start">
               <Link to={"/"} className=" btn btn-ghost m-0 md:-mt-2">
                 <img
-                  className=" w-10 md:w-14"
-                  src="https://i.ibb.co/8xhhZQk/Shera-Organic-Shop-logo.png"
+                  className=" w-60"
+                  src={logoBig}
                   alt=""
                 />
-                <p className=" text-xs md:text-lg font-semibold">Shera Organic Shop</p>
+                {/* <p className=" text-xs md:text-lg font-semibold">Shera Organic Shop</p> */}
               </Link>
             </div>
 
@@ -196,7 +197,7 @@ const NavBer = ({ isScrolled }) => {
                           </Link>
                         </li>
                         <li>
-                          <Link to='/my-orders'>
+                          <Link to='/profile/my-order'>
                             My Orders
                           </Link>
                         </li>

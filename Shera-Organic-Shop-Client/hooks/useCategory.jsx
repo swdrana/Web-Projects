@@ -1,14 +1,16 @@
 import {useQuery, useQueryClient, QueryClient, QueryClientProvider} from "react-query";
+import instance from "../src/provider/axios";
 function useCategory() {
     const { isLoading, refetch, isError, data: categories = [], error } = useQuery(
         {
         queryKey:'categorys',
         queryFn: async ()=>{
-            const response = await fetch(`https://js-shera-orgamic-shop-server.vercel.app/api/categories`)
-            if (!response.ok) {
-                throw new Error('Network response was not ok Rana')
+            const response = await instance.get('/categories');
+
+            if (response.status < 200 || response.status >= 300) {
+                throw new Error('Network response was not ok Rana');
             }
-            return response.json()
+            return response.data;
         }
     })
     return [categories, isLoading, refetch, isError, error]

@@ -1,4 +1,3 @@
-import App from '../../App';
 import BrowseRecentPost from './BrowseRecentPost/BrowseRecentPost';
 import CustomerReview from './CustomerReview/CustomerReview';
 import OurFeaturedProducts from './OurFeaturedProducts/OurFeaturedProducts';
@@ -11,7 +10,6 @@ import WeeklyBestDeals from './WeeklyBestDeals/WeeklyBestDeals';
 const Home = () => {
     return (
         <div>
-            {/* <App></App> */}
             <Slider/>
             <OurTopCategory></OurTopCategory>
             <OurFeaturedProducts></OurFeaturedProducts>

@@ -54,7 +54,7 @@ const ProductCardBig = ({product}) => {
             <Link to="" className=" font-bold mb-2">
               {productName}
             </Link>
-            <div className="flex  items-center flex-nowrap mb-2">
+            {/* <div className="flex  items-center flex-nowrap mb-2">
               <div className="rating rating-xs me-2">
                 <input
                   type="radio"
@@ -86,7 +86,7 @@ const ProductCardBig = ({product}) => {
               <span className="flex-shrink-0  text-gray-deep text-[12px]">
                 (5.2k Reviews)
               </span>
-            </div>
+            </div> */}
             <h6 className=" font-bold ">
               <span className="text-md  text-error">৳{variants[0].price} </span>
               <small>/{variants[0].size}</small>
