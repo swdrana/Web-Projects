@@ -17,7 +17,7 @@ export { default as Dashboard } from "../pages/Dashboard/Dashboard";
 export { default as AddProduct } from "../pages/Dashboard/AddProduct";
 export { default as AddCategory } from "../pages/Dashboard/AddCategory";
 export { default as AllProducts } from "../pages/Dashboard/products/AllProducts";
-export { default as EditProduct } from "../pages/Dashboard/products/editProduct";
+export { default as EditProduct } from "../pages/Dashboard/products/EditProduct";
 export { default as AdminManagement } from "../pages/Dashboard/AdminManagement";
 export { default as PrivateRoute } from "./PrivateRoute";
 export { default as AdminRoute } from "./AdminRoute";
