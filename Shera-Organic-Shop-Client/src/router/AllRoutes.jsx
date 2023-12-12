@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import ScrollToTop from "../utilities/ScrollToTop"
-import {LayoutMain, Login, Signup, Home, LayoutCategories, Products, Campaigns, Coupons, Blog, AboutUs, ContactUs, TermsConditions, Carts, Checkout, DashboardLayout, Dashboard, AddProduct, AddCategory, AllProducts, EditProduct, AdminManagement, PrivateRoute, AdminRoute, ProductDetails, MyOrders, OrderManagement, OrderDetails, UserProfileLayout, UserProfile, UserDashboard, Invoice, EditProfile, AddressBook, AddAddress } from './RouteImport'
+import {LayoutMain, Login, Signup, Home, LayoutCategories, Products, Campaigns, Coupons, Blog, AboutUs, ContactUs, TermsConditions, Carts, Checkout, DashboardLayout, Dashboard, AddProduct, AddCategory, AllProducts, EditProduct, AdminManagement, PrivateRoute, AdminRoute, ProductDetails, MyOrders, OrderManagement, OrderDetails, UserProfileLayout, UserProfile, UserDashboard, Invoice, EditProfile, AddressBook, AddAddress,NotFound } from './RouteImport'
 function AllRoutes() {
     return (
         <BrowserRouter>
@@ -47,7 +47,9 @@ function AllRoutes() {
                   <Route path="address" element={<AddressBook/>}/>
                   <Route path="add-address" element={<AddAddress/>}/>
                 </Route>
-                <Route path="*" element={<p>Not Found</p>}/>
+                <Route path="*" element={<LayoutMain/>}>
+                  <Route path="*" element={<NotFound/>}/>
+                </Route>
               </Routes>
         </BrowserRouter>
     )

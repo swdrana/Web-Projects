@@ -32,3 +32,4 @@ export { default as Invoice } from "../pages/Profile/Order/Invoice";
 export { default as EditProfile } from "../pages/Profile/EditProfile";
 export { default as AddressBook } from "../pages/Profile/AddressBook/AddressBook";
 export { default as AddAddress } from "../pages/Profile/AddressBook/AddAddress";
+export { default as NotFound } from "../pages/NotFound/NotFound";
