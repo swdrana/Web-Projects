@@ -18,7 +18,7 @@ function TSAddCategory() {
 
   //   fetchData();
   // }, []);
-  console.log(categories)
+  console.log(categories);
   const {
     register,
     handleSubmit,
@@ -27,23 +27,23 @@ function TSAddCategory() {
 
   const onSubmit = async (data) => {
     console.log(data.categoryName, data.categoryImage);
-  
+
     const formData = new FormData();
-    formData.append('categoryName', data.categoryName);
-    formData.append('categoryImage', data.categoryImage[0]);
-    console.log(formData)
+    formData.append("categoryName", data.categoryName);
+    formData.append("categoryImage", data.categoryImage[0]);
+    console.log(formData);
     try {
       // Now you can omit the base URL and just provide the endpoint path.
-      await instance.post('/categories', formData);
+      await instance.post("/categories", formData);
       toast.success("Category Added");
-      console.log('Category successfully added');
+      console.log("Category successfully added");
       refetch();
     } catch (error) {
       toast.error("Please Change Something");
-      console.error('Error adding category:', error);
+      console.error("Error adding category:", error);
       if (error.response) {
         // Log the server response for more details
-        console.error('Server Response:', error.response.data);
+        console.error("Server Response:", error.response.data);
       }
     }
   };
@@ -51,23 +51,28 @@ function TSAddCategory() {
     try {
       // Send a DELETE request to your server's delete endpoint
       await instance.delete(`/categories/${categoryId}`);
-      toast.info("Category Deleted")
+      toast.info("Category Deleted");
       refetch();
-      console.log('Category deleted successfully');
+      console.log("Category deleted successfully");
       // Optionally, you can update your component's state or perform other actions as needed.
     } catch (error) {
-      toast.info("Error deleting category")
-      console.error('Error deleting category:', error);
+      toast.info("Error deleting category");
+      console.error("Error deleting category:", error);
     }
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)} className="card bg-base-100 w-full lg:w-1/2">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="card bg-base-100 w-full lg:w-1/2"
+      >
         <div className="card-body">
           <div className="form-control">
             <label className="label">
-              <span className="label-text">New Category Name<span className="text-red-500">*</span></span>
+              <span className="label-text">
+                New Category Name<span className="text-red-500">*</span>
+              </span>
             </label>
             <input
               {...register("categoryName", { required: true })}
@@ -75,11 +80,15 @@ function TSAddCategory() {
               placeholder="Category Name"
               className="input input-bordered input-secondary"
             />
-            {errors.categoryName && <span className="text-error text-xs">This field is required</span>}
+            {errors.categoryName && (
+              <span className="text-error text-xs">This field is required</span>
+            )}
           </div>
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Category Image<span className="text-red-500">*</span></span>
+              <span className="label-text">
+                Category Image<span className="text-red-500">*</span>
+              </span>
             </label>
             <input
               {...register("categoryImage", { required: true })}
@@ -87,10 +96,14 @@ function TSAddCategory() {
               placeholder="Image Link"
               className="file-input file-input-bordered file-input-secondary"
             />
-            {errors.categoryImage && <span className="text-error text-xs">This field is required</span>}
+            {errors.categoryImage && (
+              <span className="text-error text-xs">This field is required</span>
+            )}
           </div>
           <div className="form-control mt-6">
-            <button className="btn btn-secondary text-white">Add Category</button>
+            <button className="btn btn-secondary text-white">
+              Add Category
+            </button>
           </div>
         </div>
       </form>
@@ -108,23 +121,34 @@ function TSAddCategory() {
         <tbody>
           {/* Example row */}
           {categories.map((category, index) => (
-          <tr key={category._id}>
-            <th>{index+1}</th>
-            <td>
-              <div className="flex items-center justify-center">
-                <div className="avatar">
-                  <div className="mask mask-squircle w-16 h-16">
-                    {/* {TODO: change url} */}
-                    <img src={`http://localhost:3000/${category.categoryImage}`} alt="Product" />
+            <tr key={category._id}>
+              <th>{index + 1}</th>
+              <td>
+                <div className="flex items-center justify-center">
+                  <div className="avatar">
+                    <div className="mask mask-squircle w-16 h-16">
+                      {/* {TODO: change url} */}
+                      <img
+                        src={`https://js-shera-orgamic-shop-server.vercel.app/${category.categoryImage}`}
+                        alt="Product"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </td>
-            <td className="text-secondary font-bold">
-                  <div className="font-bold">{category.categoryName}</div></td>
-            <th><button onClick={() => handleDelete(category._id)} className="btn btn-error btn-xs">X</button></th>
-          </tr>
-        ))}
+              </td>
+              <td className="text-secondary font-bold">
+                <div className="font-bold">{category.categoryName}</div>
+              </td>
+              <th>
+                <button
+                  onClick={() => handleDelete(category._id)}
+                  className="btn btn-error btn-xs"
+                >
+                  X
+                </button>
+              </th>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

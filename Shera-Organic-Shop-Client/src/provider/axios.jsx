@@ -1,13 +1,13 @@
 import axios from "axios";
 // const instance = axios.create({
-//   baseURL: 'http://localhost:3000/api',
+//   baseURL: 'https://js-shera-orgamic-shop-server.vercel.app/api',
 //   headers: {
 //     'Content-Type': 'multipart/form-data',
 //   },
 // });
 
 const instance = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: "https://js-shera-orgamic-shop-server-bork77fwi.vercel.app/api",
 });
 
 // Function to determine the content type based on data type
@@ -17,21 +17,18 @@ const getContentType = (data) => {
     return undefined;
   }
 
-  return 'application/json';
+  return "application/json";
 };
 
 // Interceptor to set content type based on data type
 instance.interceptors.request.use((config) => {
-  config.headers['Content-Type'] = getContentType(config.data);
+  config.headers["Content-Type"] = getContentType(config.data);
   return config;
 });
 
 export default instance;
 
-
-
-
-// // example of use this instance 
+// // example of use this instance
 // import axiosInstance from './yourModifiedAxiosInstance';
 
 // // Example of sending JSON data

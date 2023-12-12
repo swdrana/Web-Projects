@@ -23,7 +23,6 @@ function Checkout() {
     couponError,
     setCouponError,
   } = useContext(CheckoutContext);
-  console.log(checkoutData);
 
   const [districts, setDistricts] = useState([]);
   const [thanas, setThanas] = useState([]);
@@ -32,7 +31,7 @@ function Checkout() {
 
   const { isLoading, isError, userInfo, error, refetch } = useCurrentUser();
   const location = useLocation();
-
+console.log(userInfo?.shippingAddress)
   const [showPaymentDetails, setShowPaymentDetails] = useState(false);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("cod"); // Set a default value
   const [selectedPaymentMethod2, setSelectedPaymentMethod2] = useState(""); // Set a default value
@@ -132,71 +131,131 @@ function Checkout() {
 
   // Order
   // Function to handle placing the order
-  const handlePlaceOrder = async () => {
-    // Collect payment information
-    const paymentMethod = selectedPaymentMethod;
-    const paymentDetails = showPaymentDetails ? getPaymentDetails() : "";
+// ... (existing code)
 
-    // Collect order summary information
-    const orderItems = checkoutData.map((item) => ({
-      productId: item.productDetails._id,
-      variant: item.selectedVariant,
-      quantity: item.quantity,
-      totalPrice: item.totalPrice,
-    }));
+// Function to handle placing the order
+const handlePlaceOrder = async () => {
+  // Collect payment information
+  const paymentMethod = selectedPaymentMethod;
+  const paymentDetails = showPaymentDetails ? getPaymentDetails() : "";
 
-    // Assemble all collected information
-    const orderData = {
-      personalInformation: { ...userInfo },
-      shippingAddress: {
-        district: selectedDistrict?.name,
-        thana: selectedThana?.name,
-        streetAddress,
-        apartment,
-      },
-      payment: {
-        method: paymentMethod,
-        details: paymentDetails,
-      },
-      orderSummary: {
-        items: orderItems,
-        subtotal: totalPrice,
-        deliveryCharge: deliveryCharge,
-        discount: discount,
-        total: totalPriceWithDeliveryCharge,
-      },
-    };
-    if (streetAddress === '') {
-      console.log("Missing Street Address");
-      toast.warning("Missing Street Address");
-    } else if (paymentMethod == 'paynow' && paymentDetails.paymentProvider == '' && paymentDetails.accountNo == '') {
-      console.log("Missing Payment Info");
-      toast.warning("Missing Payment Info");
-    }else{
+  // Collect order summary information
+  const orderItems = checkoutData.map((item) => ({
+    productId: item.productDetails._id,
+    variant: item.selectedVariant,
+    quantity: item.quantity,
+    totalPrice: item.totalPrice,
+  }));
 
-      console.log(paymentMethod)
-      console.log(paymentDetails)
-      try {
+  // Check if selectedDistrict and selectedThana are empty, and use the values from userInfo if available
+  const effectiveDistrict =
+    selectedDistrict ||
+    (userInfo?.shippingAddress?.district?.name
+      ? userInfo?.shippingAddress?.district
+      : userInfo?.shippingAddress?.district);
+  const effectiveThana =
+    selectedThana ||
+    (userInfo?.shippingAddress?.thana?.name
+      ? userInfo?.shippingAddress?.thana
+      : userInfo?.shippingAddress?.thana);
+
+  // Check if streetAddress is empty, and use the value from userInfo if available
+  const effectiveStreetAddress =
+    streetAddress || userInfo?.shippingAddress?.streetAddress;
+
+  // Assemble all collected information
+  const orderData = {
+    personalInformation: { ...userInfo },
+    shippingAddress: {
+      district: effectiveDistrict?.name,
+      thana: effectiveThana?.name,
+      streetAddress: effectiveStreetAddress,
+      apartment,
+    },
+    payment: {
+      method: paymentMethod,
+      details: paymentDetails,
+    },
+    orderSummary: {
+      items: orderItems,
+      subtotal: totalPrice,
+      deliveryCharge: deliveryCharge,
+      discount: discount,
+      total: totalPriceWithDeliveryCharge,
+    },
+  };
+
+  if (!effectiveDistrict) {
+    console.log("Missing District");
+    toast.warning("Missing District");
+  } else if (!effectiveThana) {
+    console.log("Missing Thana");
+    toast.warning("Missing Thana");
+  } else if (!effectiveStreetAddress) {
+    console.log("Missing Street Address");
+    toast.warning("Missing Street Address");
+  } else if (
+    paymentMethod === "paynow" &&
+    paymentDetails.paymentProvider === "" &&
+    paymentDetails.accountNo === ""
+  ) {
+    console.log("Missing Payment Info");
+    toast.warning("Missing Payment Info");
+  } else {
+    try {
+      // Update user data with the shipping address
+      const updatedUserData = {
+        ...userInfo,
+        shippingAddress: {
+          district: effectiveDistrict?.name,
+          thana: effectiveThana?.name,
+          streetAddress: effectiveStreetAddress,
+          apartment,
+        },
+      };
+
+      // Send the updated user data to the backend
+      const updateUserResponse = await instance.put(
+        `/users/user/${userInfo._id}`,
+        updatedUserData
+      );
+      refetch();
+      if (updateUserResponse.data.success) {
+        // Continue with placing the order
+
         // Send the order data to the database (replace this with your actual API endpoint)
         const response = await instance.post("/orders", orderData);
-  
+
         // Handle success or show an error message based on the response
         if (response.status === 200) {
           // Order placed successfully, you can navigate to a success page or show a confirmation message
           console.log("Order placed successfully:", response.data);
-          navigate('/my-orders');
-          
+          navigate("/my-orders");
         } else {
           console.error("Error placing order:", response.data);
           // Handle the error and inform the user
         }
-      } catch (error) {
-        console.error("Error placing order:", error.message);
+      } else {
+        console.error(
+          "Error updating user data:",
+          updateUserResponse.data
+        );
         // Handle the error and inform the user
       }
+    } catch (error) {
+      console.error("Error placing order:", error.message);
+      // Handle the error and inform the user
     }
-    
-  };
+  }
+};
+
+
+
+
+
+
+// ... (existing code)
+
 
   // Function to get payment details if applicable
   const getPaymentDetails = () => {
@@ -235,6 +294,7 @@ function Checkout() {
               selectedThana={selectedThana} // Pass selectedThana
               setSelectedDistrict={setSelectedDistrict}
               setSelectedThana={setSelectedThana}
+              userInfo={userInfo}
             />
 
             {/* Payment Method */}

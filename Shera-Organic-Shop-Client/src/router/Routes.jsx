@@ -1,36 +1,38 @@
 import { createBrowserRouter } from "react-router-dom";
-import LayoutMain from "../layout/LayoutMain";
-import Login from "../pages/Authentication/Login/Login";
-import Signup from "../pages/Authentication/signup/Signup";
-import Home from "../pages/Home/Home";
-import LayoutCategories from "../layout/LayoutCategories";
-import Products from "../pages/Products/Products";
-import Campaigns from "../pages/Campaigns/Campaigns";
-import Coupons from "../pages/Coupons/Coupons";
-import Blog from "../pages/Blog/Blog";
-import AboutUs from "../pages/AboutUs/AboutUs";
-import ContactUs from "../pages/ContactUs/ContactUs";
-import TermsConditions from "../pages/TermsConditions/TermsConditions";
-import Carts from "../pages/Carts/Carts";
-import Checkout from "../pages/Checkout/Checkout";
-import DashboardLayout from "../layout/DashboardLayout";
-import Dashboard from "../pages/Dashboard/Dashboard";
-import AddProduct from "../pages/Dashboard/AddProduct";
-import AddCategory from "../pages/Dashboard/AddCategory";
-import AllProducts from "../pages/Dashboard/products/AllProducts";
-import EditProduct from "../pages/Dashboard/products/editProduct";
-import AdminManagement from "../pages/Dashboard/AdminManagement";
-import PrivateRoute from "./PrivateRoute";
-import AdminRoute from "./AdminRoute";
-import ProductDetails from "../components/ProductCard/ProductDetails";
-import MyOrders from "../pages/Profile/OrderHistory";
-import OrderManagement from "../pages/Dashboard/OrderManagement/OrderManagement";
-import OrderDetails from "../pages/Dashboard/OrderManagement/OrderDetails";
-import UserProfileLayout from "../layout/UserProfileLayout";
-import UserProfile from "../pages/Profile/UserProfile";
-import UserDashboard from "../pages/Profile/DashboardUser";
-import Invoice from "../pages/Profile/Order/Invoice";
-import EditProfile from "../pages/Profile/EditProfile";
+import {LayoutMain, Login, Signup, Home, LayoutCategories, Products, Campaigns, Coupons, Blog, AboutUs, ContactUs, TermsConditions, Carts, Checkout, DashboardLayout, Dashboard, AddProduct, AddCategory, AllProducts, EditProduct, AdminManagement, PrivateRoute, AdminRoute, ProductDetails, MyOrders, OrderManagement, OrderDetails, UserProfileLayout, UserProfile, UserDashboard, Invoice, EditProfile, AddressBook, AddAddress } from './RouteImport'
+
+// import Signup from "../pages/Authentication/signup/Signup";
+// import Home from "../pages/Home/Home";
+// import LayoutCategories from "../layout/LayoutCategories";
+// import Products from "../pages/Products/Products";
+// import Campaigns from "../pages/Campaigns/Campaigns";
+// import Coupons from "../pages/Coupons/Coupons";
+// import Blog from "../pages/Blog/Blog";
+// import AboutUs from "../pages/AboutUs/AboutUs";
+// import ContactUs from "../pages/ContactUs/ContactUs";
+// import TermsConditions from "../pages/TermsConditions/TermsConditions";
+// import Carts from "../pages/Carts/Carts";
+// import Checkout from "../pages/Checkout/Checkout";
+// import DashboardLayout from "../layout/DashboardLayout";
+// import Dashboard from "../pages/Dashboard/Dashboard";
+// import AddProduct from "../pages/Dashboard/AddProduct";
+// import AddCategory from "../pages/Dashboard/AddCategory";
+// import AllProducts from "../pages/Dashboard/products/AllProducts";
+// import EditProduct from "../pages/Dashboard/products/editProduct";
+// import AdminManagement from "../pages/Dashboard/AdminManagement";
+// import PrivateRoute from "./PrivateRoute";
+// import AdminRoute from "./AdminRoute";
+// import ProductDetails from "../components/ProductCard/ProductDetails";
+// import MyOrders from "../pages/Profile/OrderHistory";
+// import OrderManagement from "../pages/Dashboard/OrderManagement/OrderManagement";
+// import OrderDetails from "../pages/Dashboard/OrderManagement/OrderDetails";
+// import UserProfileLayout from "../layout/UserProfileLayout";
+// import UserProfile from "../pages/Profile/UserProfile";
+// import UserDashboard from "../pages/Profile/DashboardUser";
+// import Invoice from "../pages/Profile/Order/Invoice";
+// import EditProfile from "../pages/Profile/EditProfile";
+// import AddressBook from "../pages/Profile/AddressBook/AddressBook";
+// import AddAddress from "../pages/Profile/AddressBook/AddAddress";
 
 
 export const router = createBrowserRouter([
@@ -176,6 +178,14 @@ export const router = createBrowserRouter([
         {
           path:'edit-profile',
           element: <EditProfile/>,
+        },
+        {
+          path:'address',
+          element: <AddressBook/>,
+        },
+        {
+          path:'add-address',
+          element: <AddAddress/>,
         },
       ]
     },

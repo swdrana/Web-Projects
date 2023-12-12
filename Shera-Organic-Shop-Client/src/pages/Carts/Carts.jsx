@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import SectionTitle from "../../components/Pages/SectionTitle";
 import useCurrentUser from "../../../hooks/useCurrentUser";
 import LoadingProgress from "../../components/LoadingProgress/LoadingProgress";
@@ -13,7 +13,9 @@ function Carts() {
   const { userInfo } = useCurrentUser();
   const fetchProductDetails = async (productId) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/products/${productId}`);
+      const response = await fetch(
+        `https://js-shera-orgamic-shop-server.vercel.app/api/products/${productId}`
+      );
       const data = await response.json();
       return data;
     } catch (error) {
@@ -25,9 +27,11 @@ function Carts() {
   const fetchCartItems = async () => {
     try {
       const userId = userInfo._id;
-      const response = await fetch(`http://localhost:3000/api/carts/${userId}/get-cart`);
+      const response = await fetch(
+        `https://js-shera-orgamic-shop-server.vercel.app/api/carts/${userId}/get-cart`
+      );
       const data = await response.json();
-  
+
       if (data.cartItems) {
         const updatedCartItems = await Promise.all(
           data.cartItems.map(async (item) => {
@@ -35,13 +39,18 @@ function Carts() {
             return {
               ...item,
               productDetails,
-              totalPrice: item.quantity * productDetails.variants[item.selectedVariant].price,
+              totalPrice:
+                item.quantity *
+                productDetails.variants[item.selectedVariant].price,
             };
           })
         );
-  
+
         setCartItems(updatedCartItems);
-        const total = updatedCartItems.reduce((acc, item) => acc + item.totalPrice, 0);
+        const total = updatedCartItems.reduce(
+          (acc, item) => acc + item.totalPrice,
+          0
+        );
         setSubtotal(total);
         setLoading(false);
       }
@@ -49,29 +58,27 @@ function Carts() {
       console.error("Error fetching cart items:", error);
     }
   };
-  
-
-
-
-
 
   const handleIncrement = async (itemId) => {
     try {
-      const selectedItem = cartItems.find(item => item._id === itemId);
+      const selectedItem = cartItems.find((item) => item._id === itemId);
       if (selectedItem && selectedItem.quantity < 10) {
         console.log("Selected Item:", selectedItem);
         console.log("Selected Variant:", selectedItem.selectedVariant);
 
-        const response = await fetch(`http://localhost:3000/api/carts/${userInfo._id}/update-cart/${itemId}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            selectedVariant: selectedItem.selectedVariant,
-            quantity: selectedItem.quantity + 1, // Increase quantity by 1
-          }),
-        });
+        const response = await fetch(
+          `https://js-shera-orgamic-shop-server.vercel.app/api/carts/${userInfo._id}/update-cart/${itemId}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              selectedVariant: selectedItem.selectedVariant,
+              quantity: selectedItem.quantity + 1, // Increase quantity by 1
+            }),
+          }
+        );
 
         const data = await response.json();
 
@@ -82,7 +89,9 @@ function Carts() {
           console.error("Error updating cart item quantity:", data.error);
         }
       } else {
-        console.error("Error updating cart item quantity: Selected item or variant is undefined or quantity is already at the maximum");
+        console.error(
+          "Error updating cart item quantity: Selected item or variant is undefined or quantity is already at the maximum"
+        );
       }
     } catch (error) {
       console.error("Error updating cart item quantity:", error);
@@ -91,22 +100,25 @@ function Carts() {
 
   const handleDecrement = async (itemId) => {
     try {
-      const selectedItem = cartItems.find(item => item._id === itemId);
+      const selectedItem = cartItems.find((item) => item._id === itemId);
 
-      if (selectedItem  && selectedItem.quantity > 1) {
+      if (selectedItem && selectedItem.quantity > 1) {
         console.log("Selected Item:", selectedItem);
         console.log("Selected Variant:", selectedItem.selectedVariant);
 
-        const response = await fetch(`http://localhost:3000/api/carts/${userInfo._id}/update-cart/${itemId}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            selectedVariant: selectedItem.selectedVariant,
-            quantity: selectedItem.quantity - 1, // Decrease quantity by 1
-          }),
-        });
+        const response = await fetch(
+          `https://js-shera-orgamic-shop-server.vercel.app/api/carts/${userInfo._id}/update-cart/${itemId}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              selectedVariant: selectedItem.selectedVariant,
+              quantity: selectedItem.quantity - 1, // Decrease quantity by 1
+            }),
+          }
+        );
 
         const data = await response.json();
 
@@ -117,20 +129,23 @@ function Carts() {
           console.error("Error updating cart item quantity:", data.error);
         }
       } else {
-        console.error("Error updating cart item quantity: Selected item or variant is undefined or quantity is already at the minimum");
+        console.error(
+          "Error updating cart item quantity: Selected item or variant is undefined or quantity is already at the minimum"
+        );
       }
     } catch (error) {
       console.error("Error updating cart item quantity:", error);
     }
   };
 
-
-
   const handleDeleteItem = async (itemId) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/carts/${userInfo._id}/delete-cart/${itemId}`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `https://js-shera-orgamic-shop-server.vercel.app/api/carts/${userInfo._id}/delete-cart/${itemId}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       const data = await response.json();
 
@@ -160,21 +175,15 @@ function Carts() {
     fetchCartItems();
   }, [userInfo]);
 
-
-
-
-
-
   const { checkoutData, setCheckoutData } = useContext(CheckoutContext);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const handleCheckout = () => {
     // Assuming your checkoutData structure is an array of cart items
     setCheckoutData(cartItems);
 
     // Navigate to the checkout page
-    navigate('/checkout');
+    navigate("/checkout");
   };
-
 
   if (loading) {
     return <LoadingProgress />;
@@ -202,56 +211,82 @@ function Carts() {
               </thead>
               <tbody>
                 {/* Render cart items dynamically */}
-                {cartItems.length==0?<h2 className=" text-2xl text-center font-bold">Your Cart is Empty</h2>:''}
-{cartItems.map((item, index) => (
-  <tr key={item._id}>
-    <th>
-      <label>
-        {/* <input type="checkbox" className="checkbox" /> */}
-        {index+1}
-      </label>
-    </th>
-    <td>
-      <div className="flex items-center space-x-3">
-        <div className="avatar">
-          <div className="mask mask-squircle w-12 h-12">
-            <img src={item.productDetails.productThumbnail} alt="Product" />
-          </div>
-        </div>
-        <div>
-          <div className="font-bold">{item.productDetails.productName}
-          <br /><span className=" text-secondary">{item.productDetails.variants[`${item.selectedVariant}`].size}</span></div>
-          {/* Other details like variant, etc., can be added here */}
-        </div>
-      </div>
-    </td>
-    <td className="text-secondary font-bold">৳{item.totalPrice.toFixed(2)} </td>
+                {cartItems.length == 0 ? (
+                  <h2 className=" text-2xl text-center font-bold">
+                    Your Cart is Empty
+                  </h2>
+                ) : (
+                  ""
+                )}
+                {cartItems.map((item, index) => (
+                  <tr key={item._id}>
+                    <th>
+                      <label>
+                        {/* <input type="checkbox" className="checkbox" /> */}
+                        {index + 1}
+                      </label>
+                    </th>
+                    <td>
+                      <div className="flex items-center space-x-3">
+                        <div className="avatar">
+                          <div className="mask mask-squircle w-12 h-12">
+                            <img
+                              src={item.productDetails.productThumbnail}
+                              alt="Product"
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <div className="font-bold">
+                            {item.productDetails.productName}
+                            <br />
+                            <span className=" text-secondary">
+                              {
+                                item.productDetails.variants[
+                                  `${item.selectedVariant}`
+                                ].size
+                              }
+                            </span>
+                          </div>
+                          {/* Other details like variant, etc., can be added here */}
+                        </div>
+                      </div>
+                    </td>
+                    <td className="text-secondary font-bold">
+                      ৳{item.totalPrice.toFixed(2)}{" "}
+                    </td>
 
-
-
-
-
-
-
-
-
-
-    <td>
-      <div>
-        <label className="input-group w-20">
-          <button className="btn btn-sm btn-primary" onClick={() => handleDecrement(item._id)}>-</button>
-          <p className="input input-sm input-primary input-bordered w-10 text-center"
-          >{item.quantity}</p>
-          <button className="btn btn-sm btn-primary" onClick={() => handleIncrement(item._id)}>+</button>
-        </label>
-      </div>
-    </td>
-    <th>
-      <button className="btn btn-error btn-xs" onClick={() => handleDeleteItem(item._id)}>X</button>
-    </th>
-  </tr>
-))}
-
+                    <td>
+                      <div>
+                        <label className="input-group w-20">
+                          <button
+                            className="btn btn-sm btn-primary"
+                            onClick={() => handleDecrement(item._id)}
+                          >
+                            -
+                          </button>
+                          <p className="input input-sm input-primary input-bordered w-10 text-center">
+                            {item.quantity}
+                          </p>
+                          <button
+                            className="btn btn-sm btn-primary"
+                            onClick={() => handleIncrement(item._id)}
+                          >
+                            +
+                          </button>
+                        </label>
+                      </div>
+                    </td>
+                    <th>
+                      <button
+                        className="btn btn-error btn-xs"
+                        onClick={() => handleDeleteItem(item._id)}
+                      >
+                        X
+                      </button>
+                    </th>
+                  </tr>
+                ))}
               </tbody>
               {/* foot */}
               <tfoot>
@@ -272,36 +307,41 @@ function Carts() {
 
           <div className="flex flex-col w-full lg:flex-row py-10">
             <div className="flex-1 p-10 card bg-base-100 rounded-box">
-              <h1 className="text-2xl py-5 font-bold">Have a coupon?</h1>
-              <p className="text-gray-600">Apply coupon to get a discount.</p>
-              <div className="form-control py-2">
-                <div className="input-group">
-                  <input type="text" placeholder="Enter Your Coupon Code" className="input input-bordered" />
-                  <button className="btn btn-square">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                  </button>
-                </div>
+              <h1 className="text-2xl py-5 font-bold">Want Discount?</h1>
+              <p className="text-gray-600">Click bellow to get a coupon</p>
+              <div className=" my-2">
+                <Link className=" btn btn-primary text-white " to="/coupons">
+                  Get Coupon
+                </Link>
               </div>
             </div>
             <div className="divider lg:divider-horizontal"></div>
             <div className="flex-1 p-10 card bg-base-100 rounded-box">
               <div className="flex justify-between">
                 <h1 className="text-2xl py-5">Subtotal</h1>
-                <h1 className="text-2xl py-5 font-bold">৳{subtotal.toFixed(2)}</h1>
+                <h1 className="text-2xl py-5 font-bold">
+                  ৳{subtotal.toFixed(2)}
+                </h1>
               </div>
-              <p className="text-gray-600">Shipping options will be updated during checkout.</p>
+              <p className="text-gray-600">
+                Shipping options will be updated during checkout.
+              </p>
               <div className="py-2">
-        <div className="flex justify-between">
-          <Link to="/" className="btn btn-secondary btn-outline">
-            Continue Shopping
-          </Link>
-          <button onClick={handleCheckout} className="btn btn-primary hover:btn-secondary">
-            <p className="text-white">Checkout</p>
-          </button>
-        </div>
-      </div>
+                <div className="flex justify-between">
+                  <Link
+                    to="/products"
+                    className="btn btn-secondary btn-outline"
+                  >
+                    Continue Shopping
+                  </Link>
+                  <button
+                    onClick={handleCheckout}
+                    className="btn btn-primary hover:btn-secondary"
+                  >
+                    <p className="text-white">Checkout</p>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

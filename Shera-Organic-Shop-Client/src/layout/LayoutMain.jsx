@@ -5,9 +5,9 @@ import Header from "../components/Header/Header";
 const LayoutMain = () => {
   return (
     <div>
-      <Header></Header>
-      <Outlet></Outlet>
-      <Footer></Footer>
+      <Header/>
+      <Outlet/>
+      <Footer/>
     </div>
   );
 };
