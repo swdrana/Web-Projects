@@ -30,8 +30,7 @@ function Checkout() {
   const [selectedThana, setSelectedThana] = useState(null);
 
   const { isLoading, isError, userInfo, error, refetch } = useCurrentUser();
-  const location = useLocation();
-console.log(userInfo?.shippingAddress)
+  console.log(userInfo?.shippingAddress)
   const [showPaymentDetails, setShowPaymentDetails] = useState(false);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("cod"); // Set a default value
   const [selectedPaymentMethod2, setSelectedPaymentMethod2] = useState(""); // Set a default value
