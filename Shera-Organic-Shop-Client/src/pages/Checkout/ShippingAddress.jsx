@@ -13,14 +13,14 @@ const ShippingAddress = ({
     console.log("Street Address Changed:", e.target.value);
     setStreetAddress(e.target.value);
   };
-
+console.log(selectedDistrict)
   const handleApartmentChange = (e) => {
     console.log("Apartment Changed:", e.target.value);
     setApartment(e.target.value);
   };
 
   const getDefaultDistrictValue = () => {
-    return selectedDistrict?.name || userInfo?.shippingAddress?.district || "";
+    return selectedDistrict?.name || userInfo?.shippingAddress?.district?.name || "";
   };
 
   const getDefaultThanaValue = () => {
@@ -67,7 +67,7 @@ const ShippingAddress = ({
               // Reset the selected thana when the district changes
               setSelectedThana(null);
             }}
-            value={getDefaultDistrictValue()}
+            defaultValue={getDefaultDistrictValue()}
             required
           >
             <option disabled value="">
@@ -90,7 +90,7 @@ const ShippingAddress = ({
               );
               setSelectedThana(foundThana);
             }}
-            value={getDefaultThanaValue()}
+            defaultValue={getDefaultThanaValue()}
             required
           >
             <option disabled value="">

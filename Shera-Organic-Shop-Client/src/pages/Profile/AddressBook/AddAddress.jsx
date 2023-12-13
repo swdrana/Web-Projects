@@ -1,4 +1,32 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 function AddAddress() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  console.log(data)
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://bdapis.com/api/v1.1/districts/');
+        setData(response.data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []); // The empty dependency array means this effect will run once after the initial render
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
   return (
     <div className="">
       <h4 className="text-2xl font-bold">Add New Address</h4>

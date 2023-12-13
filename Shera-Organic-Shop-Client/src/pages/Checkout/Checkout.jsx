@@ -29,8 +29,13 @@ function Checkout() {
   const [selectedDistrict, setSelectedDistrict] = useState(null);
   const [selectedThana, setSelectedThana] = useState(null);
 
+  console.log("CK ",selectedDistrict)
   const { isLoading, isError, userInfo, error, refetch } = useCurrentUser();
-  console.log(userInfo?.shippingAddress)
+// console.log(userInfo?.shippingAddress.thana)
+useEffect(()=>{
+  setSelectedDistrict(userInfo?.shippingAddress.district);
+  setSelectedThana(userInfo?.shippingAddress.thana);
+},[userInfo?.shippingAddress])
   const [showPaymentDetails, setShowPaymentDetails] = useState(false);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("cod"); // Set a default value
   const [selectedPaymentMethod2, setSelectedPaymentMethod2] = useState(""); // Set a default value
@@ -148,12 +153,12 @@ const handlePlaceOrder = async () => {
 
   // Check if selectedDistrict and selectedThana are empty, and use the values from userInfo if available
   const effectiveDistrict =
-    selectedDistrict ||
+    selectedDistrict !='' ? selectedDistrict :
     (userInfo?.shippingAddress?.district?.name
       ? userInfo?.shippingAddress?.district
       : userInfo?.shippingAddress?.district);
   const effectiveThana =
-    selectedThana ||
+    selectedThana  !='' ? selectedThana :
     (userInfo?.shippingAddress?.thana?.name
       ? userInfo?.shippingAddress?.thana
       : userInfo?.shippingAddress?.thana);
@@ -206,8 +211,8 @@ const handlePlaceOrder = async () => {
       const updatedUserData = {
         ...userInfo,
         shippingAddress: {
-          district: effectiveDistrict?.name,
-          thana: effectiveThana?.name,
+          district: effectiveDistrict,
+          thana: effectiveThana,
           streetAddress: effectiveStreetAddress,
           apartment,
         },
@@ -219,7 +224,7 @@ const handlePlaceOrder = async () => {
         updatedUserData
       );
       refetch();
-      if (updateUserResponse.data.success) {
+      if (updateUserResponse.data) {
         // Continue with placing the order
 
         // Send the order data to the database (replace this with your actual API endpoint)

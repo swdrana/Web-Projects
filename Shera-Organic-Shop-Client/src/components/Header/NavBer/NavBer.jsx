@@ -42,13 +42,13 @@ const NavBer = ({ isScrolled }) => {
       <li>
         <Link to={"/campaigns"}>Campaigns</Link>
       </li><li>
-              <Link to={"blog"}>Blog</Link>
+              <Link to={"/blog"}>Blog</Link>
             </li>
       
             {userInfo?.role=='admin'? <li>
         <Link to={"/dashboard"}>Dashboard</Link>
       </li>: <li>
-              <Link to={"contact-us"}>Contact Us</Link>
+              <Link to={"/contact-us"}>Contact Us</Link>
             </li>}
       <li tabIndex={0}>
         <details>
@@ -58,15 +58,15 @@ const NavBer = ({ isScrolled }) => {
         <Link to={"/coupons"}>Coupons</Link>
       </li>{userInfo?.role=='admin'? <li>
         <Link to={"/dashboard"}>Dashboard</Link>
-              <Link to={"contact-us"}>Contact Us</Link>
+              <Link to={"/contact-us"}>Contact Us</Link>
       </li>: <li>
-              <Link to={"contact-us"}>Contact Us</Link>
+              <Link to={"/contact-us"}>Contact Us</Link>
             </li>}
             <li>
-              <Link to={"about-us"}>About Us</Link>
+              <Link to={"/about-us"}>About Us</Link>
             </li>
             <li>
-              <Link to={"terms-conditions"}>Terms & Conditions</Link>
+              <Link to={"/terms-conditions"}>Terms & Conditions</Link>
             </li>
           </ul>
         </details>

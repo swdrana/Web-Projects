@@ -68,7 +68,7 @@ function ProductDetailsCard({ product }) {
 
   // Frontend code using fetch
   const { userInfo } = useCurrentUser();
-  console.log(userInfo._id)
+  // console.log(userInfo._id)
   const handelAddToCart = async () => {
     try {
       const response = await fetch(

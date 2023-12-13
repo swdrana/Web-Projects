@@ -184,9 +184,9 @@ function UserProfileLayout() {
             <li className=" border-b">
               <Link to="my-order">Order History</Link>
             </li>
-            <li className=" border-b">
+            {/* <li className=" border-b">
               <Link to="address">Address Book</Link>
-            </li>
+            </li> */}
             <li className=" border-b">
               <Link to="edit-profile">Edit Profile</Link>
             </li>

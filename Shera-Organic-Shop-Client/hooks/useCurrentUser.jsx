@@ -14,6 +14,9 @@ function useCurrentUser() {
     refetch,
   } = useQuery(["currentUser", user?.email], async () => {
     try {
+      if (!user) {
+        return {}
+      }
       const response = await instance.get(`/users/${user.email}`);
 
       // Assuming your API returns an error status code for unsuccessful requests

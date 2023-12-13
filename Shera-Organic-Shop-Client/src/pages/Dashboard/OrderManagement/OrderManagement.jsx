@@ -22,10 +22,9 @@
 
 // export default OrderManagement;
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import instance from "../../../provider/axios";
 import DDMonYYYY from "../../../components/Date/DDMonYYYY";
-import DDMonYYYYWithTime from "../../../components/Date/DDMonYYYYWithTime";
 import TwelveHourTime from "../../../components/Date/TwelveHourTime";
 import { FaRegEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -148,7 +147,7 @@ const OrderManagement = () => {
                       </td>
                       <td>
                         {order.orderSummary.items.reduce(
-                          (total, item) => total + item.quantity,
+                          (total) => total + order.quantity,
                           0
                         )}
                       </td>
@@ -164,8 +163,30 @@ const OrderManagement = () => {
                         )}
                       </td>
                       <td>
-                        <p className=" text-xs badge badge-info">
-                          {order.status}
+                        <p className="">
+                          {order.status == "out_for_delivery" ? (
+                        <div className="badge bg-blue-200 text-blue-600">
+                          Shipped
+                        </div>
+                      ) : order.status == "pending" ? (
+                        <div className="badge bg-purple-200 text-purple-600">
+                          Pending
+                        </div>
+                      ) : order.status == "processing" ? (
+                        <div className="badge bg-orange-200 text-orange-600">
+                          Processing
+                        </div>
+                      ) : order.status == "delivered" ? (
+                        <div className="badge bg-green-200 text-green-600">
+                          Delivered
+                        </div>
+                      ) : order.status == "cancelled" ? (
+                        <div className="badge bg-red-200 text-red-600">
+                          Cancelled
+                        </div>
+                      ) : (
+                        ""
+                      )}
                         </p>
                       </td>
                       <td>

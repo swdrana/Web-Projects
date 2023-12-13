@@ -23,7 +23,7 @@ function DashboardUser() {
 
     fetchUserOrders();
   }, [userInfo]);
-  console.log(orders);
+  // console.log(orders);
   if (isLoading) return <LoadingProgress />;
   if (error || isError) return error || isError;
   return (
