@@ -16,6 +16,7 @@ import { useContext, useEffect, useState } from "react";
 import { CheckoutContext } from "../../provider/CheckoutProvider";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../provider/AuthProvider";
+import instance from "../../provider/axios";
 function ProductDetailsCard({ product }) {
   const {
     _id,
@@ -71,19 +72,14 @@ function ProductDetailsCard({ product }) {
   // console.log(userInfo._id)
   const handelAddToCart = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/carts/${userInfo._id}/add-to-cart`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(selectedProductInfo),
-        }
+      const response = await instance.post(
+        `/carts/${userInfo._id}/add-to-cart`,
+        selectedProductInfo
       );
-        refetch();
-      const data = await response.json();
-
+      refetch();
+  
+      const data = response.data;
+  
       if (data.success) {
         toast.success("Item added to the cart successfully");
         console.log("Item added to the cart successfully");
@@ -95,9 +91,6 @@ function ProductDetailsCard({ product }) {
         toast.warning(
           "Item with the same variant already exists in the cart. Cannot add to cart."
         );
-        console.warn(
-          "Item with the same variant already exists in the cart. Cannot add to cart."
-        );
       } else {
         console.error("Failed to add item to the cart");
         toast.error("Failed to add item to the cart");
@@ -107,7 +100,7 @@ function ProductDetailsCard({ product }) {
       toast.error("Error adding item to the cart. Please try again later.");
     }
   };
-
+  
   return (
     <div className="flex flex-col md:flex-row gap-4 rounded-lg pb-3 shadow-lg ">
       <div className=" w-full md:w-1/2">

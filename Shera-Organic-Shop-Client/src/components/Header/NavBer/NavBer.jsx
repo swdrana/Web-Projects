@@ -146,7 +146,7 @@ const NavBer = ({ isScrolled }) => {
                   <label tabIndex={0} className="btn btn-ghost btn-circle">
                     <div className="indicator">
                     <BsCartPlus size={20} />
-                      <span className="badge badge-sm indicator-item">{userInfo?.cart?.length}</span>
+                      <span className="badge badge-sm indicator-item">{userInfo?.cart?.length || 0}</span>
                     </div>
                   </label>
 

@@ -22,7 +22,7 @@ const auth = getAuth(app);
 function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
-  console.log('DB: ',userInfo)
+  // console.log('DB: ',userInfo)
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
   const {
@@ -147,7 +147,7 @@ function AuthProvider({ children }) {
     facebookLogin,
     googleLogin
   };
-  console.log('ggg',user)
+  // console.log('ggg',user)
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
