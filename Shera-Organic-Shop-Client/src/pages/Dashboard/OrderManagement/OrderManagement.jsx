@@ -35,7 +35,7 @@ const OrderManagement = () => {
     const fetchData = async () => {
       try {
         const response = await instance.get(`orders/`);
-        console.log(response.data);
+        // console.log(response.data);
         setAllOrders(response.data);
       } catch (error) {
         console.error("Error fetching user orders:", error.message);
@@ -44,7 +44,6 @@ const OrderManagement = () => {
 
     fetchData();
   }, []);
-
   return (
     <section className="p-4">
       <div className="container">
@@ -54,54 +53,11 @@ const OrderManagement = () => {
 
         <div className="">
           <div className="card mb-4" id="section-1">
-            <form
-              className="app-search"
-              action="https://grostore.themetags.com/admin/orders"
-              method="GET"
-            >
-              <div className="card-header border-b-0">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                  <div className="flex-grow-1 md:hidden"></div>
-                  <div className="flex-grow-1">
-                    <div className="tt-search-box">
-                      <div className="relative">
-                        <span className="absolute top-1/2 left-0 transform -translate-y-1/2 ml-2">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="feather feather-search"
-                          >
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                          </svg>
-                        </span>
-                        <input
-                          className="form-input rounded-l-start w-full"
-                          type="text"
-                          id="search"
-                          name="search"
-                          placeholder="Search by name/phone"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  {/* ... (rest of the form elements) */}
-                </div>
-              </div>
-            </form>
-
             <table className="table">
               <thead></thead>
               <tbody></tbody>
             </table>
-            <div className="overflow-x-auto">
+            <div className="">
               <table className="table table-zebra">
                 {/* head */}
                 <thead>
@@ -146,10 +102,11 @@ const OrderManagement = () => {
                         <TwelveHourTime date={order.createdAt}></TwelveHourTime>
                       </td>
                       <td>
-                        {order.orderSummary.items.reduce(
+                        {/* {order.orderSummary.items.reduce(
                           (total) => total + order.quantity,
                           0
-                        )}
+                        )} */}
+                        {order.orderSummary.items.length}
                       </td>
                       <td>
                         {order.payment.method == "paynow" ? (
@@ -194,23 +151,10 @@ const OrderManagement = () => {
                       </td>
                     </tr>
                   ))}
-                  <tr>
-                    <td>
-                      Zemlak, Daniel and Leannon
-                      <br />
-                      <span className="badge badge-ghost badge-sm">
-                        Desktop Support Technician
-                      </span>
-                    </td>
-                    <td>Purple</td>
-                    <th>
-                      <button className="btn btn-ghost btn-xs">details</button>
-                    </th>
-                  </tr>
                 </tbody>
               </table>
             </div>
-            <div className="flex items-center justify-between px-4 pb-4">
+            <div className="flex items-center justify-between px-4 py-4 bg-success text-white">
               <span>{`Showing 1-${allOrders.length} of ${allOrders.length} results`}</span>
               <nav>
                 <ul className="pagination">{/* ... (pagination items) */}</ul>

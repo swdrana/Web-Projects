@@ -3,14 +3,12 @@ import { BsGrid3X3GapFill } from "react-icons/bs";
 import { useContext } from "react";
 import { BsCartPlus } from "react-icons/bs";
 import { AuthContext } from "../../../provider/AuthProvider";
-import useCurrentUser from "../../../../hooks/useCurrentUser";
 import BottomNav from "./BottomNav";
 import userIcon from './../../../assets/images/people/user-icon.png'
 import logoBig from './../../../assets/images/logo/logo-big.png'
 const NavBer = ({ isScrolled }) => {
   const navigate = useNavigate();
-  const { user, logOut } = useContext(AuthContext);
-  const {userInfo} = useCurrentUser();
+  const { user, userInfo, logOut } = useContext(AuthContext);
   const navOptions = (
     <>
       

@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import uploadThumbnail from "./../../assets/images/bg/upload-thumbnail.svg";
-import useCurrentUser from "../../../hooks/useCurrentUser";
 import LoadingProgress from "../../components/LoadingProgress/LoadingProgress";
 import instance from "../../provider/axios";
 import { toast } from "react-toastify";
 import { getAuth } from "firebase/auth";
 import { app, storage } from "../../firebase/firebase.config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { AuthContext } from "../../provider/AuthProvider";
 
 function EditProfile() {
   const [selectedFileName, setSelectedFileName] = useState("");
   const { register, handleSubmit, setValue } = useForm();
   const [photo, setPhoto] = useState(null);
-  const { isLoading, isError, userInfo, error, refetch } = useCurrentUser();
+  const { isLoading, isError, userInfo, error, refetch } = useContext(AuthContext);
   const [isSubmitting, setSubmitting] = useState(false);
   const auth = getAuth(app);
 

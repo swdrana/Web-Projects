@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
 import { toast } from "react-toastify";
+import FacebookSignIn from "./FacebookSignIn";
+import GoogleSignIn from "./GoogleSignIn";
 
 const Login = () => {
   const { user, signIn, sendPasswordReset } = useContext(AuthContext);
@@ -89,6 +91,12 @@ const Login = () => {
                   Don&apos;t Have an Account? Please Register.
                 </Link>
               </div>
+              <div className="divider">OR</div>
+
+          <div className=" flex items-center justify-around gap-10">
+            <FacebookSignIn/>
+            <GoogleSignIn/>
+          </div>
             </div>
           </form>
         </div>

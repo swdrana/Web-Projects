@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import useCurrentUser from "../../../hooks/useCurrentUser";
+import { useContext, useEffect, useState } from "react";
 import instance from "../../provider/axios";
 import LoadingProgress from "../../components/LoadingProgress/LoadingProgress";
 import DDMonYYYY from "../../components/Date/DDMonYYYY";
 import { FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../provider/AuthProvider";
 function DashboardUser() {
-  const { isLoading, isError, userInfo, error } = useCurrentUser();
+  const {userInfo, loading} = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
@@ -24,8 +24,8 @@ function DashboardUser() {
     fetchUserOrders();
   }, [userInfo]);
   // console.log(orders);
-  if (isLoading) return <LoadingProgress />;
-  if (error || isError) return error || isError;
+  if (loading) return <LoadingProgress />;
+  // if (error || isError) return error || isError;
   return (
     <div>
       Recent 10 Orders

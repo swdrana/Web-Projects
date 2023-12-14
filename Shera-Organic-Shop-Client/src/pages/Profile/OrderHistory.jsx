@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import instance from "../../provider/axios";
 import LoadingProgress from "../../components/LoadingProgress/LoadingProgress";
-import useCurrentUser from "../../../hooks/useCurrentUser";
 import DDMonYYYY from "../../components/Date/DDMonYYYY";
 import { Link } from "react-router-dom";
 import { FaEye } from "react-icons/fa6";
+import { AuthContext } from "../../provider/AuthProvider";
 
 function OrderHistory() {
-  const { userInfo, isLoading, isError } = useCurrentUser();
+  const { userInfo, isLoading, isError } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {

@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import SectionTitle from "../../components/Pages/SectionTitle";
-import { useLocation, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import instance from "../../provider/axios";
-import useCurrentUser from "../../../hooks/useCurrentUser";
 import LoadingProgress from "../../components/LoadingProgress/LoadingProgress";
 import { CheckoutContext } from "../../provider/CheckoutProvider";
 import { toast } from "react-toastify";
@@ -10,12 +9,12 @@ import PersonalInformation from "./PersonalInformation";
 import ShippingAddress from "./ShippingAddress";
 import PaymentDetails from "./PaymentDetails";
 import OrderSummary from "./OrderSummary";
+import { AuthContext } from "../../provider/AuthProvider";
 
 function Checkout() {
   const navigate = useNavigate();
   const {
     checkoutData,
-    setCheckoutData,
     couponCode,
     setCouponCode,
     discount,
@@ -30,11 +29,11 @@ function Checkout() {
   const [selectedThana, setSelectedThana] = useState(null);
 
   console.log("CK ",selectedDistrict)
-  const { isLoading, isError, userInfo, error, refetch } = useCurrentUser();
+  const { isLoading, userInfo, refetch } = useContext(AuthContext);
 // console.log(userInfo?.shippingAddress.thana)
 useEffect(()=>{
-  setSelectedDistrict(userInfo?.shippingAddress.district);
-  setSelectedThana(userInfo?.shippingAddress.thana);
+  setSelectedDistrict(userInfo?.shippingAddress?.district);
+  setSelectedThana(userInfo?.shippingAddress?.thana);
 },[userInfo?.shippingAddress])
   const [showPaymentDetails, setShowPaymentDetails] = useState(false);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("cod"); // Set a default value
@@ -210,6 +209,7 @@ const handlePlaceOrder = async () => {
       // Update user data with the shipping address
       const updatedUserData = {
         ...userInfo,
+        
         shippingAddress: {
           district: effectiveDistrict,
           thana: effectiveThana,

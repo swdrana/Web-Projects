@@ -1,10 +1,8 @@
 import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
-import instance from "../../provider/axios";
-import useCurrentUser from "../../../hooks/useCurrentUser";
 
 function Campaigns() {
-  const { isLoading, isError, userInfo, error, refetch } = useCurrentUser();
+  const {userInfo} = useContext(AuthContext);
   console.log(userInfo)
   // const { user, setUser } = useContext(AuthContext);
   // console.log(user);

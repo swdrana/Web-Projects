@@ -14,18 +14,18 @@ import "./styles.css";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { useContext, useEffect, useState } from "react";
 import { CheckoutContext } from "../../provider/CheckoutProvider";
-import useCurrentUser from "../../../hooks/useCurrentUser";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../provider/AuthProvider";
 function ProductDetailsCard({ product }) {
   const {
     _id,
     productName,
     shortDescription,
-    rating,
-    description,
+    // rating,
+    // description,
     productCategory,
     variants,
-    isPublished,
+    // isPublished,
     productThumbnail,
     productGallery,
   } = product;
@@ -67,7 +67,7 @@ function ProductDetailsCard({ product }) {
   };
 
   // Frontend code using fetch
-  const { userInfo } = useCurrentUser();
+  const { userInfo, refetch } = useContext(AuthContext);
   // console.log(userInfo._id)
   const handelAddToCart = async () => {
     try {
@@ -81,7 +81,7 @@ function ProductDetailsCard({ product }) {
           body: JSON.stringify(selectedProductInfo),
         }
       );
-
+        refetch();
       const data = await response.json();
 
       if (data.success) {

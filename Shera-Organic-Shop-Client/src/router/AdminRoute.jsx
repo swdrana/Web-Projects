@@ -1,9 +1,10 @@
 import { Navigate, useLocation } from "react-router-dom";
-import useCurrentUser from "../../hooks/useCurrentUser";
 import LoadingProgress from "../components/LoadingProgress/LoadingProgress";
+import { useContext } from "react";
+import { AuthContext } from "../provider/AuthProvider";
 
 function AdminRoute({ children }) {
-  const { isLoading, isError, userInfo, error, refetch } = useCurrentUser();
+  const { isLoading,userInfo, } = useContext(AuthContext);
   const location = useLocation();
 
   if (isLoading) {

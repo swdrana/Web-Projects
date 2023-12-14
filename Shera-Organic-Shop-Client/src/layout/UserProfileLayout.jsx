@@ -7,7 +7,6 @@ import { FaTruckArrowRight } from "react-icons/fa6";
 import { RiLoopLeftFill } from "react-icons/ri";
 import { BsCartCheck,BsCartX } from "react-icons/bs";
 import Footer from "../components/Footer/Footer";
-import useCurrentUser from "../../hooks/useCurrentUser";
 import LoadingProgress from "../components/LoadingProgress/LoadingProgress";
 import { useContext, useEffect, useState } from "react";
 import instance from "../provider/axios";
@@ -15,9 +14,12 @@ import demoUserPhoto from './../assets/images/people/demo-user.jpg'
 import { AuthContext } from "../provider/AuthProvider";
 import { HiMenu } from "react-icons/hi";
 function UserProfileLayout() {
-    const {logOut} = useContext(AuthContext);
+    const {logOut, userInfo, loading,
+      isLoading,
+      isError,
+      // data,
+      error,} = useContext(AuthContext);
     const navigate = useNavigate();
-    const { isLoading, isError, userInfo, error } = useCurrentUser();
     const [orderCounts, setOrderCounts] = useState({
       delivered: 0,
       out_for_delivery: 0,
@@ -68,7 +70,7 @@ function UserProfileLayout() {
     // console.log(orderCounts.newOrder);
     
 
-  if (isLoading) return <LoadingProgress />;
+  if (loading || isLoading) return <LoadingProgress />;
   if (error || isError) return error || isError;
 //   console.log(userInfo);
   return (

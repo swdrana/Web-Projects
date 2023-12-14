@@ -16,10 +16,10 @@ const UserProfile = () => {
       </div>
       <div className=" flex  gap-4 justify-center flex-col">
         <div>
-          <h4 className=" text-2xl font-bold">Robert Jacobs</h4>
+          <h4 className=" text-2xl font-bold">Developer Rana</h4>
           <div className="flex  items-center gap-2 gap-md-4 text-sm flex-wrap">
             <span className=" flex justify-center items-center gap-2">
-              <FaRegEnvelope /> customer@themetags.com
+              <FaRegEnvelope /> codingbengal@gmail.com
             </span>
             <span className=" flex justify-center items-center gap-2">
               <FaPhoneAlt />

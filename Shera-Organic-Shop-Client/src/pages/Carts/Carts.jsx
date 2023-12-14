@@ -1,17 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SectionTitle from "../../components/Pages/SectionTitle";
-import useCurrentUser from "../../../hooks/useCurrentUser";
 import LoadingProgress from "../../components/LoadingProgress/LoadingProgress";
 import { toast } from "react-toastify";
 import { CheckoutContext } from "../../provider/CheckoutProvider";
 import instance from "../../provider/axios";
+import { AuthContext } from "../../provider/AuthProvider";
 
 function Carts() {
   const [cartItems, setCartItems] = useState([]);
   const [subtotal, setSubtotal] = useState(0);
   const [loading, setLoading] = useState(true);
-  const { userInfo } = useCurrentUser();
+  const { userInfo } = useContext(AuthContext);
   const fetchProductDetails = async (productId) => {
     try {
       const response = await instance.get(`/products/${productId}`);
@@ -188,7 +188,7 @@ function Carts() {
     fetchCartItems();
   }, [userInfo]);
 
-  const { checkoutData, setCheckoutData } = useContext(CheckoutContext);
+  const { setCheckoutData } = useContext(CheckoutContext);
   const navigate = useNavigate();
   const handleCheckout = () => {
     // Assuming your checkoutData structure is an array of cart items
