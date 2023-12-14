@@ -12,7 +12,7 @@ function GoogleSignIn() {
           });
     }
    return (
-       <div onClick={handelGoogleLogin} className=" btn bg-transparent rounded-full border-0 p-0 m-0">
+       <div onClick={handelGoogleLogin} className=" btn bg-transparent rounded-full w-12 border-0 p-0 m-0">
             <FcGoogle size={40}/>
        </div>
    )

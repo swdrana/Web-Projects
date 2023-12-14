@@ -83,6 +83,11 @@ const Login = () => {
               <div className="form-control mt-6">
                 <button className="btn btn-primary">Login</button>
               </div>
+              <div className="divider">OR</div>
+              <div className=" flex items-center justify-around gap-10">
+                <GoogleSignIn/>
+                <FacebookSignIn/>
+              </div>
               <div className="form-control mt-6">
                 <Link
                   to="/signup"
@@ -91,12 +96,6 @@ const Login = () => {
                   Don&apos;t Have an Account? Please Register.
                 </Link>
               </div>
-              <div className="divider">OR</div>
-
-          <div className=" flex items-center justify-around gap-10">
-            <FacebookSignIn/>
-            <GoogleSignIn/>
-          </div>
             </div>
           </form>
         </div>

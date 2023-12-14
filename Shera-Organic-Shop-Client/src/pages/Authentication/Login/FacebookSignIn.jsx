@@ -7,8 +7,8 @@ function FacebookSignIn() {
         facebookLogin()
      }
     return (
-        <div onClick={handelFbLogin} className=" btn bg-transparent rounded-full border-0 p-0 m-0">
-            <FaFacebook color=" blue" size={40}/>
+        <div onClick={handelFbLogin} disabled className=" btn bg-transparent rounded-full w-12 border-0 p-0 m-0">
+            <FaFacebook color=" gray" size={40}/>
         </div>
     )
 }

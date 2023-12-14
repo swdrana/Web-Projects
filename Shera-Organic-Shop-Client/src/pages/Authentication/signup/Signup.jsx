@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
 import { useContext } from "react";
 import axiosInstance from "../../../provider/axios";
+import GoogleSignIn from "../Login/GoogleSignIn";
+import FacebookSignIn from "../Login/FacebookSignIn";
 const Signup = () => {
   const navigate = useNavigate();
   const { user, createUser, updateUserNamePhone } = useContext(AuthContext);
@@ -154,6 +156,11 @@ const Signup = () => {
                 <button className="btn btn-secondary text-white">
                   Create Account
                 </button>
+              </div>
+              <div className="divider">OR</div>
+              <div className=" flex items-center justify-around gap-10">
+                <GoogleSignIn/>
+                <FacebookSignIn/>
               </div>
               <div className="form-control mt-6">
                 <Link
