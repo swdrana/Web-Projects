@@ -31,9 +31,9 @@ function ProductDetails() {
     <div className="bg-base-100">
       <div className=" container mx-auto ">
         <section className="flex flex-col lg:flex-row gap-5">
-          <div className="py-6 px-4 w-full">
-            <ProductDetailsCard product={product} />
-            <div className="product-info-tab rounded-lg shadow-lg overflow-hidden pt-6 mt-4">
+          <div className="py-6 w-full">
+            <div className=""><ProductDetailsCard product={product} /></div>
+            <div className="w-1/4 product-info-tab rounded-lg shadow-lg overflow-hidden pt-6 mt-4">
               <Tabs>
                 <TabList className="flex border-b justify-center gap-5 pt-info-tab-nav">
                   <Tab>

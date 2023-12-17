@@ -102,76 +102,8 @@ function ProductDetailsCard({ product }) {
   };
   
   return (
-    <div className="flex flex-col md:flex-row gap-4 rounded-lg pb-3 shadow-lg ">
-      <div className=" w-full md:w-1/2">
-        {/* <div className="quickview-double-slider">
-                  <div className="swiper">
-                    <div className="swiper-wrapper">
-                      <div className="swiper-slide text-center">
-                        <img
-                          src="https://grostore-html.themetags.com/assets/img/products/p-lg-1.png"
-                          alt="jam"
-                          className="img-fluid"
-                        />
-                      </div>
-                      <div className="swiper-slide text-center">
-                        <img
-                          src="assets/img/products/p-lg-2.png"
-                          alt="jam"
-                          className="img-fluid"
-                        />
-                      </div>
-                      <div className="swiper-slide text-center">
-                        <img
-                          src="assets/img/products/p-lg-3.png"
-                          alt="jam"
-                          className="img-fluid"
-                        />
-                      </div>
-                      <div className="swiper-slide text-center">
-                        <img
-                          src="assets/img/products/p-lg-4.png"
-                          alt="jam"
-                          className="img-fluid"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="swiper mt-80">
-                    <div className="swiper-wrapper">
-                      <div className="swiper-slide product-thumb-single rounded-2 d-flex align-items-center justify-content-center">
-                        <img
-                          src="assets/img/products/thumb-sm-1.png"
-                          alt="jam"
-                          className="img-fluid"
-                        />
-                      </div>
-                      <div className="swiper-slide product-thumb-single rounded-2 d-flex align-items-center justify-content-center">
-                        <img
-                          src="assets/img/products/thumb-sm-2.png"
-                          alt="jam"
-                          className="img-fluid"
-                        />
-                      </div>
-                      <div className="swiper-slide product-thumb-single rounded-2 d-flex align-items-center justify-content-center">
-                        <img
-                          src="assets/img/products/thumb-sm-3.png"
-                          alt="jam"
-                          className="img-fluid"
-                        />
-                      </div>
-                      <div className="swiper-slide product-thumb-single rounded-2 d-flex align-items-center justify-content-center">
-                        <img
-                          src="assets/img/products/thumb-sm-4.png"
-                          alt="jam"
-                          className="img-fluid"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div> */}
-        <div className=" h-96 w-[450px]">
+    <div className=" grid grid-cols-1 md:grid-cols-2 gap-4 rounded-lg pb-3 shadow-lg ">
+      <div ><div className=" h-96 w-full">
           <>
             <Swiper
               spaceBetween={30}
@@ -199,10 +131,9 @@ function ProductDetailsCard({ product }) {
               })}
             </Swiper>
           </>
-        </div>
-      </div>
+        </div></div>
       {/* Product Discription and pirce  */}
-      <div className=" w-full md:w-1/2">
+      <div className=" w-full  px-2">
         <div className="product-info">
           <h4 className="mt-1 mb-3 text-xl font-bold">{productName}</h4>
 
@@ -287,47 +218,44 @@ function ProductDetailsCard({ product }) {
           </ul>
 
           {/* Select Item Options  */}
-          <div className="d-flex align-items-center gap-4 flex-wrap">
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-4">
-                <div>
-                  <label className="input-group">
-                    <button
-                      onClick={handleDecrement}
-                      className="btn btn-primary text-lg"
-                    >
-                      -
-                    </button>
-                    <input
-                      type="text"
-                      placeholder="1"
-                      className="input input-primary input-bordered w-14 text-center font-bold text-lg"
-                      value={quantity}
-                      readOnly
-                    />
-                    <button
-                      onClick={handleIncrement}
-                      className="btn btn-primary text-lg"
-                    >
-                      +
-                    </button>
-                  </label>
-                </div>
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+            <div>
+              <label className="input-group w-full">
                 <button
-                  onClick={handelBuyNow}
-                  // to={`/checkout?productId=${_id}&selectedVariant=${selectedVariant}&quantity=${quantity}`}
-                  className="btn btn-secondary btn-md text-white"
+                  onClick={handleDecrement}
+                  className="btn btn-sm btn-primary text-lg w-1/3"
                 >
-                  <FaCartArrowDown /> Buy Now
+                  -
                 </button>
+                <input
+                  type="text"
+                  placeholder="1"
+                  className="input w-1/3  btn-sm input-primary input-bordered text-center font-bold text-lg"
+                  value={quantity}
+                  readOnly
+                />
                 <button
-                  onClick={() => handelAddToCart()}
-                  className="btn btn-secondary btn-md text-white"
+                  onClick={handleIncrement}
+                  className="btn w-1/3 btn-primary btn-sm text-lg"
                 >
-                  <FaCartArrowDown /> Add to Cart
+                  +
                 </button>
-              </div>
+              </label>
             </div>
+            <button
+              onClick={handelBuyNow}
+              // to={`/checkout?productId=${_id}&selectedVariant=${selectedVariant}&quantity=${quantity}`}
+              className="btn btn-error btn-sm text-white flex"
+            >
+              <div className=" flex gap-1 items-center justify-center"><FaCartArrowDown /> Buy Now</div>
+            </button>
+            <button
+              onClick={() => handelAddToCart()}
+              className="btn btn-secondary btn-sm text-white"
+            >
+              <div className=" flex gap-1 items-center justify-center">
+              <FaCartArrowDown /> Add to Cart</div>
+            </button>
           </div>
 
           {/* Tag  */}

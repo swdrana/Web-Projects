@@ -8,7 +8,7 @@ function DashboardLayout() {
       <div className=" container mx-auto">
         <div className="drawer lg:drawer-open">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-          <div className="drawer-content flex flex-col border rounded-md ms-5">
+          <div className="drawer-content flex flex-col border rounded-md">
             {/* Page content here */}
             <div className=" mt-4 flex justify-end me-4">
               <label
@@ -26,7 +26,7 @@ function DashboardLayout() {
               aria-label="close sidebar"
               className="drawer-overlay"
             ></label>
-            <ul className="menu p-4 w-80 min-h-full bg-base-100 border rounded-lg text-base-content mt-14 md:mt-0">
+            <ul className="menu p-4 w-80 min-h-full bg-base-100 border rounded-lg text-base-content mt-14 lg:mt-0">
               {/* Sidebar content here */}
               <li>
                 <Link to="addCategory">Add Category</Link>
@@ -42,6 +42,9 @@ function DashboardLayout() {
               </li>
               <li>
                 <Link to="manage-admin">Manage Admin</Link>
+              </li>
+              <li>
+                <Link to="/dashboard">Dashboard</Link>
               </li>
             </ul>
           </div>

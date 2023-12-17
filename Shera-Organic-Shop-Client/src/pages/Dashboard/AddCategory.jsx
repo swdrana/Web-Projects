@@ -183,12 +183,12 @@ function AddCategory() {
   };
 
   return (
-    <div>
+    <div className="">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="card bg-base-100 w-full lg:w-1/2"
+        className="card bg-base-100"
       >
-        <div className="card-body">
+        <div className=" mx-auto">
           <div className="form-control">
             <label className="label">
               <span className="label-text">

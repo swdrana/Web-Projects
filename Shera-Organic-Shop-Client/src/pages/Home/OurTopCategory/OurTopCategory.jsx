@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import TopCategoryCard from "./TopCategoryCard";
-
+import ghee from '../../../assets/images/categories/Oil_Ghee.png'
 const topCategory = [
   {
     catName: "Ghee",
     categoryLink: "ghee",
     catItemNo: 3,
     catIcon:
-      "https://grostore.themetags.com/public/uploads/media/5oephm2sfLrK3ISeqQThhR9rA5FKcCsDnRsOezBZ.png",
+      ghee,
     dotColor: "#ff89c9",
   },
   {

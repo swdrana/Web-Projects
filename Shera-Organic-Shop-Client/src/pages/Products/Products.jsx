@@ -4,8 +4,10 @@ import LoadingProgress from "../../components/LoadingProgress/LoadingProgress";
 import SectionTitle from "../../components/Pages/SectionTitle";
 import ProductCardBig from "./../../components/ProductCard/ProductCardBig";
 import { FaSearch } from "react-icons/fa";
-import { useState } from "react";
+import { useRef, useState } from "react";
 function Products() {
+  const viewProductRef = useRef(null);
+
   const [products, isLoading] = useProducts();
   const [categories, loading, refetch, isError, error] = useCategory();
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -52,8 +54,14 @@ function Products() {
                   className="input input-bordered input-secondary"
                   value={searchTerm}
                   onChange={handleSearch}
+                  onKeyDown={(e) => {
+                    return e.key === 'Enter' ?
+                      viewProductRef.current.scrollIntoView({ behavior: 'smooth' })
+                      : ''
+                    }
+                  }
                 />
-                <button className="btn btn-outline btn-secondary">
+                <button className="btn btn-outline btn-secondary" onClick={()=>viewProductRef.current.scrollIntoView({ behavior: 'smooth' })}>
                   <FaSearch className=" hover:text-white" />
                 </button>
               </div>
@@ -64,6 +72,7 @@ function Products() {
                 <button
                   className="btn btn-xs sm:btn-sm md:btn-md w-full"
                   onClick={() => {
+                    viewProductRef.current.scrollIntoView({ behavior: 'smooth' });
                     setSelectedCategory("");
                     setSearchTerm("");
                   }}
@@ -73,9 +82,13 @@ function Products() {
                 </button>
                 {categories.map((category) => (
                   <button
+                    
                     key={category._id}
                     className="btn btn-xs sm:btn-sm md:btn-md w-full"
-                    onClick={() => setSelectedCategory(category.categoryName)}
+                    onClick={() =>{
+                      viewProductRef.current.scrollIntoView({ behavior: 'smooth' });
+                      return setSelectedCategory(category.categoryName)
+                    }}
                   >
                     {category.categoryName}
                   </button>
@@ -137,7 +150,7 @@ function Products() {
               </div> */}
               {/* Left Side End Here Right Side Start Here  */}
             </div>
-            <div className="  w-full lg:w-3/4 bg-white ">
+            <div id="view-product" ref={viewProductRef} className="  w-full lg:w-3/4 bg-white ">
               <div className=" flex flex-col lg:flex-row gap-5 items-center justify-between p-5 font-bold">
                 <h3 className=" text-lg">Showing {filteredProducts.length} of {products.length} results</h3>
                 {/* <div className=" flex items-center gap-2">
