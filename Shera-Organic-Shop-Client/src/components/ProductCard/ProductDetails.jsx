@@ -33,7 +33,7 @@ function ProductDetails() {
         <section className="flex flex-col lg:flex-row gap-5">
           <div className="py-6 w-full">
             <div className=""><ProductDetailsCard product={product} /></div>
-            <div className="w-1/4 product-info-tab rounded-lg shadow-lg overflow-hidden pt-6 mt-4">
+            <div className="w-full product-info-tab rounded-lg shadow-lg overflow-hidden pt-6 mt-4">
               <Tabs>
                 <TabList className="flex border-b justify-center gap-5 pt-info-tab-nav">
                   <Tab>
@@ -86,8 +86,7 @@ function ProductDetails() {
             </div>
           </div>
 
-          <div className="">
-            <div className="">
+          <div>
               <div className="rounded-lg shadow-lg bg-white mt-6">
                 {/* Free Shipping */}
                 <div className="flex items-center gap-3 p-4">
@@ -149,7 +148,6 @@ function ProductDetails() {
                 </a>
               </div>
               {/* End of Banner Widget */}
-            </div>
           </div>
         </section>
       </div>

@@ -27,7 +27,6 @@ const OurFeaturedProducts = () => {
                 <div className="hidden xl:flex flex-1 flex-col  items-center justify-center bg-base-100 rounded-md">
                     <img src="https://grostore.themetags.com/public/uploads/media/4XLlX5B52ESQ9DQW7D79aNa6OUooSX4Y13F9lMp9.png" alt="" />
                 </div>
-                
                 <div className=" flex flex-1 flex-col gap-4 items-center mt-5 md:mt-0 p-3 md:px-10 lg:p-0">
                 {products.slice(4,8).map(product=>{
                       return <ProductCardSmall key={product._id} product={product}/>

@@ -11,15 +11,11 @@ function AllRoutes() {
                   <Route path="login" element={<Login/>}/>
                   <Route path="signup" element={<Signup/>}/>
 
-                  <Route path="categories" element={<LayoutCategories/>}>
-                    <Route path="biscuits" element={<>biscuits</>}/>
-                    <Route path="organic" element={<>organic</>}/>
-                  </Route>
-
                   <Route path="products" element={<Products/>}/>
+                  <Route path="products/:category" element={<Products/>}/>
                   <Route path="details/:id" element={<ProductDetails/>}/>
-                  <Route path="carts" element={<Carts/>}/>
-                  <Route path="checkout" element={<Checkout/>}/>
+                  <Route path="carts" element={<PrivateRoute><Carts/></PrivateRoute>}/>
+                  <Route path="checkout" element={<PrivateRoute><Checkout/></PrivateRoute>}/>
                   <Route path="campaigns" element={<Campaigns/>}/>
                   <Route path="coupons" element={<Coupons/>}/>
                   <Route path="blog" element={<Blog/>}/>
@@ -38,7 +34,8 @@ function AllRoutes() {
                   <Route path="all-orders" element={<OrderManagement/>}/>
                   <Route path="all-orders/details/:id" element={<OrderDetails/>}/>
                 </Route>
-                <Route path="profile" element={<UserProfileLayout/>}>
+
+                <Route path="profile" element={<PrivateRoute><UserProfileLayout/></PrivateRoute>}>
                   <Route index element={<UserDashboard/>}/>
                   <Route path="my-order" element={<MyOrders/>}/>
                   <Route path="invoice/:id" element={<Invoice/>}/>

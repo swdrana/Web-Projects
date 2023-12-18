@@ -1,56 +1,14 @@
 import styled from "styled-components";
 import TopCategoryCard from "./TopCategoryCard";
-import ghee from '../../../assets/images/categories/Oil_Ghee.png'
-const topCategory = [
-  {
-    catName: "Ghee",
-    categoryLink: "ghee",
-    catItemNo: 3,
-    catIcon:
-      ghee,
-    dotColor: "#ff89c9",
-  },
-  {
-    catName: "Grocery",
-    categoryLink: "grocery",
-    catItemNo: 7,
-    catIcon:
-      "https://grostore.themetags.com/public/uploads/media/WQJjaqXZXNnUHaubvRhHh5c3m4knHkCSwHWCIPWd.png",
-    dotColor: "#6eb356",
-  },
-  {
-    catName: "Honey",
-    categoryLink: "honey",
-    catItemNo: 9,
-    catIcon:
-      "https://grostore.themetags.com/public/uploads/media/B1w5t5CWLo5OtLqvM332UQfsWzIarG9qiyEVUNb0.png",
-    dotColor: "#ff89c9",
-  },
-  {
-    catName: "Nuts",
-    categoryLink: "nuts",
-    catItemNo: 4,
-    catIcon:
-      "https://grostore.themetags.com/public/uploads/media/wUmBSdLhhuyiPqNrzJJbxdtFemrBtwS2lDcfecbf.png",
-    dotColor: "#6eb356",
-  },
-  {
-    catName: "Oil",
-    categoryLink: "oil",
-    catItemNo: 8,
-    catIcon:
-      "https://grostore.themetags.com/public/uploads/media/TMmhA1bTP1CTsrU3FpNspex6S3WNdqKy2xZR9aM8.png",
-    dotColor: "#ff89c9",
-  },
-  {
-    catName: "Tea & Snacks",
-    categoryLink: "tea-and-snacks",
-    catItemNo: 5,
-    catIcon:
-      "https://grostore.themetags.com/public/uploads/media/OfNXzapZlaGqPdd3IcLP4D4bp8BkwDEjlRGhGbfh.png",
-    dotColor: "#6eb356",
-  },
-];
+import ghee from "../../../assets/images/categories/Oil_Ghee.png";
+import Honey from "../../../assets/images/categories/Honey.png";
+import Nuts from "../../../assets/images/categories/Nuts _ Seeds.png";
+import Grocery from "../../../assets/images/categories/Grocery _ spices_.png";
+import Herbal from "../../../assets/images/categories/Herbal _ powder.png";
+import Combo from "../../../assets/images/categories/Combo package_.png";
+import bsShape from "../../../assets/images/bg/bg-shape.png";
+import useProducts from "../../../../hooks/useProducts";
+
 const CatBorder = styled.div`
   border: 2px dashed #fd7e14;
   border-radius: 10px;
@@ -58,6 +16,52 @@ const CatBorder = styled.div`
 `;
 
 const OurTopCategory = () => {
+  const [products] = useProducts();
+  // console.log(products)
+  const categoryCounts = products.reduce((acc, product) => {
+  const category = product.productCategory;
+  acc[category] = (acc[category] || 0) + 1;
+  return acc;
+}, {});
+  const topCategory = [
+    {
+      catName: "Oil & Ghee",
+      catItemNo: categoryCounts["Oil & Ghee"] || 0,
+      catIcon: ghee,
+      dotColor: "#ff89c9",
+    },
+    {
+      catName: "Honey",
+      catItemNo: categoryCounts["Honey"] || 0,
+      catIcon: Honey,
+      dotColor: "#6eb356",
+    },
+    {
+      catName: "Nuts & seeds",
+      catItemNo: categoryCounts["Nuts & seeds"] || 0,
+      catIcon: Nuts,
+      dotColor: "#ff89c9",
+    },
+    {
+      catName: "Grocery & spices ",
+      catItemNo: categoryCounts["Grocery & spices"] || 0,
+      catIcon: Grocery,
+      dotColor: "#6eb356",
+    },
+    {
+      catName: "Herbal & Power",
+      catItemNo: categoryCounts["Herbal & Power"] || 0,
+      catIcon:Herbal,
+      dotColor: "#ff89c9",
+    },
+    {
+      catName: "Combo package",    
+      catItemNo: categoryCounts["Combo package"] || 0,
+      catIcon:Combo,
+      dotColor: "#6eb356",
+    },
+  ];
+
   return (
     <div className=" relative">
       <div className="container w-11/12 sm:w-full mx-auto relative bg-base-100">
@@ -73,7 +77,6 @@ const OurTopCategory = () => {
                 caticon={s.catIcon}
                 catname={s.catName}
                 catitemno={s.catItemNo}
-                categoryLink={s.categoryLink}
               />
             );
           })}
@@ -82,8 +85,8 @@ const OurTopCategory = () => {
 
       <img
         className="absolute bottom-0 -z-10"
-        src="https://grostore.themetags.com/public/frontend/default/assets/img/shapes/bg-shape.png"
-        alt=""
+        src={bsShape}
+        alt={bsShape}
       />
     </div>
   );

@@ -4,7 +4,8 @@ import LoadingProgress from "../../components/LoadingProgress/LoadingProgress";
 import SectionTitle from "../../components/Pages/SectionTitle";
 import ProductCardBig from "./../../components/ProductCard/ProductCardBig";
 import { FaSearch } from "react-icons/fa";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 function Products() {
   const viewProductRef = useRef(null);
 
@@ -13,8 +14,21 @@ function Products() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
+
+  const { category } = useParams();
+  useEffect(() => {
+    // Check if category parameter is present in the URL
+    if (category) {
+      // Filter products based on the category parameter
+      setSelectedCategory(category.toLowerCase().trim());
+    } else {
+      // No category parameter, show all products
+      setSelectedCategory("");
+    }
+  }, [category]);
+
   const filteredProducts = products.filter((product) => {
-    const productCategory = product.productCategory.toLowerCase().trim();
+    const productCategory = product.productCategory.toLowerCase().trim()
     const selectedCategoryLowerCase = selectedCategory.toLowerCase().trim();
     const productName = product.productName.toLowerCase().trim();
     const searchQuery = searchTerm.toLowerCase().trim();

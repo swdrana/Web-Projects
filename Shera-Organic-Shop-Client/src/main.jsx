@@ -14,12 +14,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
       <CheckoutProvider>
         <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-          <ToastProvider>
-            {/* <RouterProvider router={router}/> Object Format */}
-            <AllRoutes/>
-          </ToastProvider>
-    </AuthProvider>
+          <AuthProvider>
+            <ToastProvider>
+              {/* <RouterProvider router={router}/> Object Format */}
+              <AllRoutes/>
+            </ToastProvider>
+          </AuthProvider>
         </QueryClientProvider>
       </CheckoutProvider>
   </React.StrictMode>

@@ -72,6 +72,9 @@ function ProductDetailsCard({ product }) {
   // console.log(userInfo._id)
   const handelAddToCart = async () => {
     try {
+      if (!userInfo) {
+       return navigate('/login'); 
+      }
       const response = await instance.post(
         `/carts/${userInfo._id}/add-to-cart`,
         selectedProductInfo
@@ -103,35 +106,35 @@ function ProductDetailsCard({ product }) {
   
   return (
     <div className=" grid grid-cols-1 md:grid-cols-2 gap-4 rounded-lg pb-3 shadow-lg ">
-      <div ><div className=" h-96 w-full">
-          <>
-            <Swiper
-              spaceBetween={30}
-              centeredSlides={true}
-              autoplay={{
-                delay: 2500,
-                disableOnInteraction: false,
-              }}
-              pagination={{
-                clickable: true,
-              }}
-              navigation={true}
-              modules={[Autoplay, Pagination, Navigation]}
-              className="mySwiper"
-            >
-              <SwiperSlide>
-                <img src={productThumbnail} alt="" />
-              </SwiperSlide>
-              {productGallery.map((img) => {
-                return (
-                  <SwiperSlide key={img}>
-                    <img src={img} alt="" />
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper>
-          </>
-        </div></div>
+      <div className=" h-96 w-full">
+        <>
+          <Swiper
+            spaceBetween={30}
+            centeredSlides={true}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+            }}
+            navigation={true}
+            modules={[Autoplay, Pagination, Navigation]}
+            className="mySwiper"
+          >
+            <SwiperSlide>
+              <img src={productThumbnail} alt="" />
+            </SwiperSlide>
+            {productGallery.map((img) => {
+              return (
+                <SwiperSlide key={img}>
+                  <img src={img} alt="" />
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        </>
+      </div>
       {/* Product Discription and pirce  */}
       <div className=" w-full  px-2">
         <div className="product-info">
