@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import ProductCardSmall from "../../../components/ProductCard/ProductCardSmall"
-import CountdownTimer from "./CountdownTimer"
+// import CountdownTimer from "./CountdownTimer"
 import useProducts from "../../../../hooks/useProducts";
 import weeklyBestDeal from './../../../assets/images/feature/weeklyBestDeal.png'
 function WeeklyBestDeals() {

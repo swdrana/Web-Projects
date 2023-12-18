@@ -1,21 +1,11 @@
-import { useEffect } from "react";
-import instance from "../../provider/axios";
 import SectionTitle from "../../components/Pages/SectionTitle";
 import mango from "./../../assets/images/bg/mango.png"
 import aboutFeature1 from "./../../assets/images/about/about-feature-1.png"
 import aboutFeature2 from "./../../assets/images/about/about-feature-2.png"
 import hand from "./../../assets/images/icon/hand-icon.svg"
+
 function AboutUs() {
-  useEffect(() => {
-    instance.get('/products')
-      .then(response => {
-        // console.log(response.data);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  }, []);
-  
+
   return (
     <div className=" bg-gray-white">
       <SectionTitle title={"About Us"} />
