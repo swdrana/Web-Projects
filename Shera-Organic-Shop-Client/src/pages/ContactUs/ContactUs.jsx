@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import SectionTitle from "../../components/Pages/SectionTitle"
-
+import textureOverlay from './../../assets/images/bg/texture-overlay.png'
 function ContactUs() {
   return (
     <div className=" bg-gray-white">
@@ -12,8 +12,8 @@ function ContactUs() {
             <div className="">
               <div className="contact-left-box relative overflow-hidden bg-primary p-6 flex flex-col h-full">
                 <img
-                  src="https://grostore.themetags.com/public/frontend/default/assets/img/shapes/texture-overlay.png?v=v3.0.0"
-                  alt="texture"
+                  src={textureOverlay}
+                  alt={textureOverlay}
                   className="absolute w-full h-full start-0 top-0 z--1"
                 />
                 <h3 className="text-white mb-3 text-2xl font-bold">Contact Details</h3>
@@ -54,10 +54,7 @@ function ContactUs() {
             </div>
             <div className="">
               <form
-                className="contact-form ps-4 ps-xl-0 py-8 pe-5 contact-form ps-5 ps-xl-4 py-6 pe-6"
-                action="https://grostore.themetags.com/contact-us"
-                method="POST"
-                id="contact-form"
+                className="contact-form ps-4 ps-xl-0 contact-form ps-xl-4 py-6 pe-6"
               >
                 {/* ... Your form elements go here ... */}
               </form>

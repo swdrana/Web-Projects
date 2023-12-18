@@ -17,6 +17,9 @@ const Login = () => {
     signIn(data.email, data.password).then((result) => {
       const user = result.user;
       console.log(user);
+    }).catch((error) => {
+      console.error(error)
+      toast.error("Wrong Email or Password!")
     });
   };
   const handelPasswordReset=()=>{
@@ -70,7 +73,7 @@ const Login = () => {
                 </label>
                 <input
                   {...register("password")}
-                  type="text"
+                  type="password"
                   placeholder="password"
                   className="input input-bordered input-primary"
                 />

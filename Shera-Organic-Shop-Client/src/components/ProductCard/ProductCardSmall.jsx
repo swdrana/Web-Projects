@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import { BsArrowRightShort } from "react-icons/bs";
 import { FaRegEye } from "react-icons/fa";
 function ProductCardSmall({product}) {
-  const {_id, productName,shortDescription, description, productCategory,variants, isPublished, productThumbnail, productGallery} = product;
+  const {_id, productName, variants, productThumbnail} = product;
   return (
-    <Link to={`/details/${_id}`}  className=" group">
+    <Link to={`/details/${_id}`}  className=" group w-full">
       <div className=" w-full  h-full md:h-[154px] flex flex-col md:flex-row p-4 md:items-center bg-base-100 rounded-md gap-7">
-        <div className="relative flex justify-center items-center">
+        <div className="relative flex justify-center items-center w-4/12">
         <img
           className=" mx-auto md:mx-0 md:h-[120px] bg-[#f3f3f3] rounded-md"
           src={productThumbnail}
@@ -19,9 +19,7 @@ function ProductCardSmall({product}) {
         </div>
       </div>
         </div>
-
-
-        <div className="">
+        <div className=" w-8/12">
           <h3 className=" font-bold text-[15px] pb-2">{productName}</h3>
           <p>
             <strong className="text-[#ff0406] text-[17px]">৳{variants[0].price} </strong>{" "}

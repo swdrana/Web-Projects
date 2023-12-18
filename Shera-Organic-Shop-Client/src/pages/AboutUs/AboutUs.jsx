@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import instance from "../../provider/axios";
 import SectionTitle from "../../components/Pages/SectionTitle";
-
+import mango from "./../../assets/images/bg/mango.png"
+import aboutFeature1 from "./../../assets/images/about/about-feature-1.png"
+import aboutFeature2 from "./../../assets/images/about/about-feature-2.png"
+import hand from "./../../assets/images/icon/hand-icon.svg"
 function AboutUs() {
   useEffect(() => {
     instance.get('/products')
@@ -13,14 +16,13 @@ function AboutUs() {
       });
   }, []);
   
-
   return (
     <div className=" bg-gray-white">
       <SectionTitle title={"About Us"} />
       <section className=" container mx-auto">
       <img
-        src="https://grostore.themetags.com/public/frontend/default/assets/img/shapes/mango.png?v=v3.0.0"
-        alt="mango"
+        src={mango}
+        alt={mango}
         className="absolute mango z--1"
       />
       <div className="container">
@@ -28,8 +30,8 @@ function AboutUs() {
           <div className="col-span-1 md:col-span-1">
             <div className="ab-left px-5">
               <img
-                src="https://grostore.themetags.com/public/uploads/media/uHJUnKSPCnxPMqvB4SDKRScR3wzi2qnoMYf5LMOf.png"
-                alt=""
+                src={aboutFeature1}
+                alt={aboutFeature1}
                 className="w-full h-auto"
               />
               <div className="text-right">
@@ -63,8 +65,8 @@ function AboutUs() {
                   <div className="image-box py-6 px-4 border">
                     <div className="icon relative">
                       <img
-                        src="https://grostore.themetags.com/public/frontend/default/assets/img/icons/hand-icon.svg?v=v3.0.0"
-                        alt="hand icon"
+                        src={hand}
+                        alt={hand}
                       />
                     </div>
                     <h4 className="mt-3 text-2xl font-bold">Our Mission</h4>
@@ -77,8 +79,8 @@ function AboutUs() {
                   <div className="image-box py-6 px-4 border">
                     <div className="icon relative">
                       <img
-                        src="https://grostore.themetags.com/public/frontend/default/assets/img/icons/hand-icon.svg?v=v3.0.0"
-                        alt="hand icon"
+                        src={hand}
+                        alt={hand}
                       />
                     </div>
                     <h4 className="mt-3 text-2xl font-bold">Our Vision</h4>
@@ -118,8 +120,8 @@ function AboutUs() {
                   <div className="horizontal-icon-box flex items-center gap-4 bg-white rounded p-4 hover-shadow flex-wrap md:flex-nowrap">
                     <span className="icon-wrapper relative flex-shrink-0">
                       <img
-                        src="https://grostore.themetags.com/public/uploads/media/uIUWZvcD1QLjDUUZksriYBKg9w2L2wyk45jQ0opx.svg"
-                        alt=""
+                        src={hand}
+                        alt={hand}
                         className="w-full h-auto"
                       />
                     </span>
@@ -135,8 +137,8 @@ function AboutUs() {
                   <div className="horizontal-icon-box flex items-center gap-4 bg-white rounded p-4 hover-shadow flex-wrap md:flex-nowrap">
                     <span className="icon-wrapper relative flex-shrink-0">
                       <img
-                        src="https://grostore.themetags.com/public/uploads/media/uIUWZvcD1QLjDUUZksriYBKg9w2L2wyk45jQ0opx.svg"
-                        alt=""
+                        src={hand}
+                        alt={hand}
                         className="w-full h-auto"
                       />
                     </span>
@@ -152,8 +154,8 @@ function AboutUs() {
                   <div className="horizontal-icon-box flex items-center gap-4 bg-white rounded p-4 hover-shadow flex-wrap md:flex-nowrap">
                     <span className="icon-wrapper relative flex-shrink-0">
                       <img
-                        src="https://grostore.themetags.com/public/uploads/media/uIUWZvcD1QLjDUUZksriYBKg9w2L2wyk45jQ0opx.svg"
-                        alt=""
+                        src={hand}
+                        alt={hand}
                         className="w-full h-auto"
                       />
                     </span>
@@ -169,8 +171,8 @@ function AboutUs() {
                   <div className="horizontal-icon-box flex items-center gap-4 bg-white rounded p-4 hover-shadow flex-wrap md:flex-nowrap">
                     <span className="icon-wrapper relative flex-shrink-0">
                       <img
-                        src="https://grostore.themetags.com/public/uploads/media/uIUWZvcD1QLjDUUZksriYBKg9w2L2wyk45jQ0opx.svg"
-                        alt=""
+                        src={hand}
+                        alt={hand}
                         className="w-full h-auto"
                       />
                     </span>
@@ -188,8 +190,8 @@ function AboutUs() {
           <div className="col-span-1 md:col-span-1">
             <div className="about-us-left px-5 relative">
               <img
-                src="https://grostore.themetags.com/public/uploads/media/0IDKVHfbMyMpiViurIP5ff83nbR5jLypT76YgbwZ.png"
-                alt=""
+                src={aboutFeature2}
+                alt={aboutFeature2}
                 className="w-full h-auto"
               />
             </div>

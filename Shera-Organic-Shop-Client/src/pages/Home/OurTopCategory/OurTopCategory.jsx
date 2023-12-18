@@ -63,9 +63,9 @@ const OurTopCategory = () => {
   ];
 
   return (
-    <div className=" relative">
+    <div className=" relative px-0 md:px-5">
       <div className="container w-11/12 sm:w-full mx-auto relative bg-base-100">
-        <h2 className="text-center text-lg md:text-3xl absolute -top-4 left-1/2 -translate-x-1/2 bg-base-100 font-bold">
+        <h2 className="text-center text-lg md:text-3xl absolute -top-4 left-1/2 -translate-x-1/2 bg-base-100 font-bold z-10">
           Our Top Categories
         </h2>
         <CatBorder className=" flex flex-wrap justify-center gap-5">

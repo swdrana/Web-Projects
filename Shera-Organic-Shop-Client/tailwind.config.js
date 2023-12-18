@@ -18,10 +18,16 @@ export default {
             transform: "translateY(-60px)",
           },
         },
+        "left-to-right-scroll":{
+          "100%": {
+            backgroundPosition: "-100% 0"
+          }
+        }
       },
       animation: {
         "spin-slow": "spin 22s linear infinite",
         "bounce-slow": "bounce-slow 7s linear infinite",
+        "left-to-right-scroll": "left-to-right-scroll 30s linear infinite"
       },
     },
   },

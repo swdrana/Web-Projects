@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import ScrollToTop from "../utilities/ScrollToTop"
-import {LayoutMain, Login, Signup, Home, LayoutCategories, Products, Campaigns, Coupons, Blog, AboutUs, ContactUs, TermsConditions, Carts, Checkout, DashboardLayout, Dashboard, AddProduct, AddCategory, AllProducts, EditProduct, AdminManagement, PrivateRoute, AdminRoute, ProductDetails, MyOrders, OrderManagement, OrderDetails, UserProfileLayout, UserProfile, UserDashboard, Invoice, EditProfile, AddressBook, AddAddress,NotFound } from './RouteImport'
+import {LayoutMain, Login, Signup, Home, Products, Campaigns, Coupons, Blog, AboutUs, ContactUs, TermsConditions, Carts, Checkout, DashboardLayout, Dashboard, AddProduct, AddCategory, AllProducts, EditProduct, AdminManagement, PrivateRoute, AdminRoute, ProductDetails, MyOrders, OrderManagement, OrderDetails, UserProfileLayout, UserDashboard, Invoice, EditProfile, AddressBook, AddAddress,NotFound } from './RouteImport'
 function AllRoutes() {
     return (
         <BrowserRouter>

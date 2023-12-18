@@ -1,3 +1,4 @@
+import codSvg from "./../../assets/images/icon/cod.svg"
 const PaymentDetails = ({
   showPaymentDetails,
   selectedPaymentMethod,
@@ -32,8 +33,8 @@ const PaymentDetails = ({
         >
           <p>Cash on delivery (COD)</p>
           <img
-            src="https://grostore.themetags.com/public/frontend/pg/cod.svg?v=v2.7.0"
-            alt="cod"
+            src={codSvg}
+            alt={codSvg}
             className="img-fluid"
           />
         </label>

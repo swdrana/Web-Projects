@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import ProductCardSmall from "../../../components/ProductCard/ProductCardSmall"
 import CountdownTimer from "./CountdownTimer"
 import useProducts from "../../../../hooks/useProducts";
-
+import weeklyBestDeal from './../../../assets/images/feature/weeklyBestDeal.png'
 function WeeklyBestDeals() {
     const [products, isLoading] = useProducts();
     if(isLoading) return <>Loading...</>
@@ -12,13 +12,13 @@ function WeeklyBestDeals() {
             <div className="flex gap-3 flex-col md:flex-row">
                 <div className=" w-full md:w-1/3 px-3 md:px-0 flex justify-center items-center sm:items-start">
                     <Link>
-                        <img src="https://grostore.themetags.com/public/uploads/media/xANvWdU5lMHnp1MSSNTpnQMlqAUEMUcgl1Bu9IzB.png" alt="" />
+                        <img src={weeklyBestDeal} alt={weeklyBestDeal} />
                     </Link>
                 </div>
                 <div className=" w-full md:w-2/3 px-3 md:px-0 flex flex-col">
                     <div className=" border-2 border-dashed border-secondary rounded-lg h-full md:h-20  p-4 w-full mb-5 flex justify-between items-center flex-col md:flex-row">
                         <h2 className=" text-2xl font-bold">Weekly Best Deals</h2>
-                        <CountdownTimer></CountdownTimer>
+                        {/* <CountdownTimer></CountdownTimer> */}
                         {/* <ul className="flex items-center gap-2" data-date="04/30/2025 00:00:00">
                             <li className="position-relative z-1 d-flex align-items-center justify-content-center flex-column rounded-2">
                             <h5 className="mb-0 days">595</h5>

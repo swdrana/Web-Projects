@@ -1,13 +1,14 @@
 import useProducts from "../../../../hooks/useProducts";
 import ProductCardSmall from "../../../components/ProductCard/ProductCardSmall";
 import bgShapeBottomWhite from './../../../assets/images/bg/bg-shape-2.png'
+import featureImg from './../../../assets/images/feature/product-page-feature.png'
 
 const OurFeaturedProducts = () => {
   const [products, isLoading] = useProducts();
   if(isLoading) return <>Loading...</>
   // console.log(products)
   return (
-    <div className=" bg-[#eef6eb] py-24 md:py-32 relative">
+    <div className=" bg-[#eef6eb] py-24 md:py-32 px-0 lg:px-5 relative">
       <div>
         <h1 className="text-3xl text-center font-bold">
           Our Featured Products
@@ -25,7 +26,7 @@ const OurFeaturedProducts = () => {
                     })}
                 </div>
                 <div className="hidden xl:flex flex-1 flex-col  items-center justify-center bg-base-100 rounded-md">
-                    <img src="https://grostore.themetags.com/public/uploads/media/4XLlX5B52ESQ9DQW7D79aNa6OUooSX4Y13F9lMp9.png" alt="" />
+                    <img src={featureImg} alt="" />
                 </div>
                 <div className=" flex flex-1 flex-col gap-4 items-center mt-5 md:mt-0 p-3 md:px-10 lg:p-0">
                 {products.slice(4,8).map(product=>{

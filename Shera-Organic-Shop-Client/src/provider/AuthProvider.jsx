@@ -125,7 +125,7 @@ function AuthProvider({ children }) {
   };
   const signIn = (email, password) => {
     setLoading(true);
-    signInWithEmailAndPassword(auth, email, password);
+    return signInWithEmailAndPassword(auth, email, password);
   };
   const logOut = () => {
     setLoading(true);
