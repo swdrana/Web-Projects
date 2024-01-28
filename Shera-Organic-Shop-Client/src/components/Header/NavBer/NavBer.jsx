@@ -6,6 +6,7 @@ import { AuthContext } from "../../../provider/AuthProvider";
 import BottomNav from "./BottomNav";
 import userIcon from './../../../assets/images/people/user-icon.png'
 import logoBig from './../../../assets/images/logo/logo-big.png'
+import ThemeChange from "./ThemeChange";
 const NavBer = ({ isScrolled }) => {
   const navigate = useNavigate();
   const { user, userInfo, logOut } = useContext(AuthContext);
@@ -88,6 +89,7 @@ const NavBer = ({ isScrolled }) => {
                 sheraorganicshop@gmail.com
               </a>
               {/* <p className="">DL</p> */}
+              <ThemeChange/>
             </div>
           </div>
 

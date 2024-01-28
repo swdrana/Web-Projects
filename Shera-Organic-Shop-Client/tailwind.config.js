@@ -50,6 +50,22 @@ export default {
           "--gray-white": "#f8fafc",
           "--lime": "#eef6eb",
         },
+        dark:{
+          "primary": "#6eb356",
+          "secondary": "#ff7c08",
+          "accent": "#07a",
+          "neutral": "#233",
+          "base-100": "#151F32",
+          "info": "#38bdf8",
+          "success": "#22c55e",
+          "warning": "#ffc107",
+          "error": "#ff0406",
+
+          '--gray-light': '#9b9bb4',
+          "--gray-deep": "#5d6374",
+          "--gray-white": "#f8fafc",
+          "--lime": "#eef6eb",
+        }
       },
     ],
   },
