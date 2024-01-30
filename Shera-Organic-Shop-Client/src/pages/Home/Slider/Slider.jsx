@@ -16,32 +16,60 @@ import leafShadow from "./../../../assets/images/bg/leaf-shadow.png";
 const Slider = () => {
   const sliderInfo = [
     {
-      title: "Genuine 100% Organic Products",
-      headTop: "Hello",
-      headBottom: "ভেজাল মুক্ত",
+      title: "নির্ভেজাল খাদ্যের নিশ্চয়তা",
+      headTop: "আসসালামু আলাইকুম",
+      headBottom: "আপনাকে স্বাগতম",
       description:
-        "Assertively target market-driven intellectual capital with worldwide human capital holistic.",
-      sliderImg:"https://grostore.themetags.com/public/uploads/media/tqX3y27qUHZweGhb3SBIDn5oaBmdNtTpoArgngd8.png",
+        "‘সেরা অর্গানিক শপ’- নিরাপদ খাদ্য সরবরাহে বদ্ধপরিকর। আমাদের সকল পণ্যে গ্যারান্টি নিশ্চয়তা প্রদান করে থাকি",
+      sliderImg:"https://i.ibb.co/XXDkQxG/image.png",
     },
     {
-      title: "Genuine 100% Organic Products",
-      headTop: "Heading Top",
-      headBottom: "Heading Bottom",
+      title: "১০০% প্রাকৃতিক মধু",
+      headTop: "পরিপক্ক মধু",
+      headBottom: "স্বাস্থ্যের বন্ধু",
       description:
-        "Assertively target market-driven intellectual capital with worldwide human capital holistic.",
+        "শক্তি - শেফা - সুস্থ্যতা , এটাই মধু’র উপকারিতা। তাই এখুনি আমাদের পরিপক্ক মধু সংগ্রহ করুন!",
       sliderImg:
-        "https://grostore.themetags.com/public/uploads/media/94xjsBdRXNRUzF1D7zC54waCUu6Di7mv9rVQ4bmq.png",
+        "https://i.ibb.co/9YtGMpL/cream-honey.webp",
     },
     {
-      title: "Genuine 100% Organic Products",
-      headTop: "খাটি পন্য",
-      headBottom: "ভেজাল মুক্ত",
+      title: "১০০% কোল্ড প্রেস ভোজ্য তেল",
+      headTop: "তেল নিরাপদ তো",
+      headBottom: "জীবন ঝুঁকি মুক্ত",
       description:
-        "Assertively target market-driven intellectual capital with worldwide human capital holistic.",
+        "কাঠের ঘানি ভাঙ্গা / প্রথম চাপের সেরা সরিষার তেল ও সেরা নারকেল তেল হোক আপনার নিত্যদিনের খাবারের অংশ।",
       sliderImg:
-        "https://i.ibb.co/n0tp9qq/extra-virgin-coconut-oil-Banner-1.png",
+        "https://i.ibb.co/SRHvXbT/oil-group-1.png",
     },
-  ];
+    ];
+  // const sliderInfo = [
+  //   {
+  //     title: "Genuine 100% Organic Products",
+  //     headTop: "Hello",
+  //     headBottom: "ভেজাল মুক্ত",
+  //     description:
+  //       "Assertively target market-driven intellectual capital with worldwide human capital holistic.",
+  //     sliderImg:"https://grostore.themetags.com/public/uploads/media/tqX3y27qUHZweGhb3SBIDn5oaBmdNtTpoArgngd8.png",
+  //   },
+  //   {
+  //     title: "Genuine 100% Organic Products",
+  //     headTop: "Heading Top",
+  //     headBottom: "Heading Bottom",
+  //     description:
+  //       "Assertively target market-driven intellectual capital with worldwide human capital holistic.",
+  //     sliderImg:
+  //       "https://grostore.themetags.com/public/uploads/media/94xjsBdRXNRUzF1D7zC54waCUu6Di7mv9rVQ4bmq.png",
+  //   },
+  //   {
+  //     title: "Genuine 100% Organic Products",
+  //     headTop: "খাটি পন্য",
+  //     headBottom: "ভেজাল মুক্ত",
+  //     description:
+  //       "Assertively target market-driven intellectual capital with worldwide human capital holistic.",
+  //     sliderImg:
+  //       "https://i.ibb.co/n0tp9qq/extra-virgin-coconut-oil-Banner-1.png",
+  //   },
+  // ];
   return (
     <div className=" mb-1">
       <Swiper
