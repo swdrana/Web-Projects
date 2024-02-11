@@ -17,7 +17,7 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { AuthContext } from "../../provider/AuthProvider";
 import { CheckoutContext } from "../../provider/CheckoutProvider";
 import instance from "../../provider/axios";
-import { AddToCart, Purchase } from "../../utilities/facebookPixel";
+import { AddToCart } from "../../utilities/facebookPixel";
 function ProductDetailsCard({ product }) {
   const {
     _id,
@@ -64,8 +64,7 @@ function ProductDetailsCard({ product }) {
   const handelBuyNow = async () => {
     const info = [selectedProductInfo];
     await setCheckoutData(info);
-    console.log(checkoutData);
-    Purchase()
+    console.log('=============',checkoutData);
     navigate("/checkout");
   };
 

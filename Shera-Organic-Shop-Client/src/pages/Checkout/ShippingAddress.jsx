@@ -13,7 +13,7 @@ const ShippingAddress = ({
     console.log("Street Address Changed:", e.target.value);
     setStreetAddress(e.target.value);
   };
-console.log(selectedDistrict)
+// console.log(selectedDistrict)
   const handleApartmentChange = (e) => {
     console.log("Apartment Changed:", e.target.value);
     setApartment(e.target.value);

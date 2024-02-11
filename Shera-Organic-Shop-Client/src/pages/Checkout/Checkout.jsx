@@ -1,15 +1,16 @@
 import { useContext, useEffect, useState } from "react";
-import SectionTitle from "../../components/Pages/SectionTitle";
-import {useNavigate } from "react-router-dom";
-import instance from "../../provider/axios";
-import LoadingProgress from "../../components/LoadingProgress/LoadingProgress";
-import { CheckoutContext } from "../../provider/CheckoutProvider";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import LoadingProgress from "../../components/LoadingProgress/LoadingProgress";
+import SectionTitle from "../../components/Pages/SectionTitle";
+import { AuthContext } from "../../provider/AuthProvider";
+import { CheckoutContext } from "../../provider/CheckoutProvider";
+import instance from "../../provider/axios";
+import { Purchase } from "../../utilities/facebookPixel";
+import OrderSummary from "./OrderSummary";
+import PaymentDetails from "./PaymentDetails";
 import PersonalInformation from "./PersonalInformation";
 import ShippingAddress from "./ShippingAddress";
-import PaymentDetails from "./PaymentDetails";
-import OrderSummary from "./OrderSummary";
-import { AuthContext } from "../../provider/AuthProvider";
 
 function Checkout() {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ function Checkout() {
   const [selectedDistrict, setSelectedDistrict] = useState(null);
   const [selectedThana, setSelectedThana] = useState(null);
 
-  console.log("CK ",selectedDistrict)
+  // console.log("CK ",selectedDistrict)
   const { isLoading, userInfo, refetch } = useContext(AuthContext);
 // console.log(userInfo?.shippingAddress.thana)
 useEffect(()=>{
@@ -187,7 +188,6 @@ const handlePlaceOrder = async () => {
       total: totalPriceWithDeliveryCharge,
     },
   };
-
   if (!effectiveDistrict) {
     console.log("Missing District");
     toast.warning("Missing District");
@@ -234,6 +234,8 @@ const handlePlaceOrder = async () => {
         if (response.status === 200) {
           // Order placed successfully, you can navigate to a success page or show a confirmation message
           console.log("Order placed successfully:", response.data);
+          const order = response.data;
+  Purchase(order.personalInformation._id, order._id, order.orderSummary.subtotal, order.orderSummary.items.length, 'BDT')
           navigate("/profile/my-order");
         } else {
           console.error("Error placing order:", response.data);
