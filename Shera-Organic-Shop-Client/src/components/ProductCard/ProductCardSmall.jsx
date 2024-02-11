@@ -28,7 +28,7 @@ function ProductCardSmall({ product }) {
             </strong>{" "}
             <span className="text-[14px]">/{variants[0].size}</span>
           </p>
-          <div className=" flex font-bold text-[#6eb356] hover:text-[#ff7c08] transition-all text-[13px] pt-2" onClick={()=>InitiateCheckout()}>
+          <div className=" flex font-bold text-[#6eb356] hover:text-[#ff7c08] transition-all text-[13px] pt-2" onClick={()=>InitiateCheckout(_id,productName,variants[0].price)}>
             Buy Now <BsArrowRightShort size={20} />
           </div>
         </div>

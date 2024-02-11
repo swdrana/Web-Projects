@@ -1,3 +1,4 @@
+import { PageView } from '../../utilities/facebookPixel';
 import BrowseRecentPost from './BrowseRecentPost/BrowseRecentPost';
 import CustomerReview from './CustomerReview/CustomerReview';
 import OurFeaturedProducts from './OurFeaturedProducts/OurFeaturedProducts';
@@ -8,6 +9,7 @@ import TrendingProducts from './TrendingProducts/TrendingProducts';
 import TwoFeatureImg from './TwoFeatureImg/TwoFeatureImg';
 import WeeklyBestDeals from './WeeklyBestDeals/WeeklyBestDeals';
 const Home = () => {
+    PageView();
     return (
         <div>
             <Slider/>
