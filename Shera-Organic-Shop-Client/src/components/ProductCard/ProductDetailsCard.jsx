@@ -5,18 +5,19 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 import "./styles.css";
 
 // import required modules
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { useContext, useEffect, useState } from "react";
-import { CheckoutContext } from "../../provider/CheckoutProvider";
 import { toast } from "react-toastify";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { AuthContext } from "../../provider/AuthProvider";
+import { CheckoutContext } from "../../provider/CheckoutProvider";
 import instance from "../../provider/axios";
+import { AddToCart, Purchase } from "../../utilities/facebookPixel";
 function ProductDetailsCard({ product }) {
   const {
     _id,
@@ -64,6 +65,7 @@ function ProductDetailsCard({ product }) {
     const info = [selectedProductInfo];
     await setCheckoutData(info);
     console.log(checkoutData);
+    Purchase()
     navigate("/checkout");
   };
 
@@ -72,17 +74,18 @@ function ProductDetailsCard({ product }) {
   // console.log(userInfo._id)
   const handelAddToCart = async () => {
     try {
+      AddToCart();
       if (!userInfo) {
-       return navigate('/login'); 
+        return navigate("/login");
       }
       const response = await instance.post(
         `/carts/${userInfo._id}/add-to-cart`,
         selectedProductInfo
       );
       refetch();
-  
+
       const data = response.data;
-  
+
       if (data.success) {
         toast.success("Item added to the cart successfully");
         console.log("Item added to the cart successfully");
@@ -103,7 +106,7 @@ function ProductDetailsCard({ product }) {
       toast.error("Error adding item to the cart. Please try again later.");
     }
   };
-  
+
   return (
     <div className=" grid grid-cols-1 md:grid-cols-2 gap-4 rounded-lg pb-3 shadow-lg ">
       <div className=" h-96 w-full">
@@ -250,14 +253,17 @@ function ProductDetailsCard({ product }) {
               // to={`/checkout?productId=${_id}&selectedVariant=${selectedVariant}&quantity=${quantity}`}
               className="btn btn-error btn-sm text-white flex"
             >
-              <div className=" flex gap-1 items-center justify-center"><FaCartArrowDown /> Buy Now</div>
+              <div className=" flex gap-1 items-center justify-center">
+                <FaCartArrowDown /> Buy Now
+              </div>
             </button>
             <button
               onClick={() => handelAddToCart()}
               className="btn btn-secondary btn-sm text-white"
             >
               <div className=" flex gap-1 items-center justify-center">
-              <FaCartArrowDown /> Add to Cart</div>
+                <FaCartArrowDown /> Add to Cart
+              </div>
             </button>
           </div>
 

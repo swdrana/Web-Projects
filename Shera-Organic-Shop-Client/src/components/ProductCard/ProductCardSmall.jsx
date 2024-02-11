@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { BsArrowRightShort } from "react-icons/bs";
 import { FaRegEye } from "react-icons/fa";
+import { InitiateCheckout } from "../../utilities/facebookPixel";
 function ProductCardSmall({ product }) {
   const { _id, productName, variants, productThumbnail } = product;
   return (
@@ -27,7 +28,7 @@ function ProductCardSmall({ product }) {
             </strong>{" "}
             <span className="text-[14px]">/{variants[0].size}</span>
           </p>
-          <div className=" flex font-bold text-[#6eb356] hover:text-[#ff7c08] transition-all text-[13px] pt-2">
+          <div className=" flex font-bold text-[#6eb356] hover:text-[#ff7c08] transition-all text-[13px] pt-2" onClick={InitiateCheckout()}>
             Buy Now <BsArrowRightShort size={20} />
           </div>
         </div>
