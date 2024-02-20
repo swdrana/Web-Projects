@@ -2,14 +2,11 @@ import { FaCartArrowDown } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
 import "./styles.css";
-
 // import required modules
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -17,20 +14,15 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { AuthContext } from "../../provider/AuthProvider";
 import { CheckoutContext } from "../../provider/CheckoutProvider";
 import instance from "../../provider/axios";
-import { AddToCart } from "../../utilities/facebookPixel";
+import { trackAddToCart } from "../../utilities/facebookPixel";
+
 function ProductDetailsCard({ product }) {
-  const {
-    _id,
-    productName,
-    shortDescription,
-    // rating,
-    // description,
-    productCategory,
-    variants,
-    // isPublished,
-    productThumbnail,
-    productGallery,
-  } = product;
+  const navigate = useNavigate();
+  const { userInfo, refetch } = useContext(AuthContext);
+  const { checkoutData, setCheckoutData } = useContext(CheckoutContext);
+  const {_id, productName, shortDescription, // rating, description,
+    productCategory, variants, // isPublished,
+    productThumbnail, productGallery, } = product;
   const [selectedVariant, setSelectedVariant] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const handleIncrement = () => {
@@ -38,15 +30,21 @@ function ProductDetailsCard({ product }) {
       setQuantity((prevQuantity) => prevQuantity + 1);
     }
   };
-  // productId=${_id}&selectedVariant=${selectedVariant}&quantity=${quantity
   const handleDecrement = () => {
     if (quantity > 1) {
       setQuantity((prevQuantity) => prevQuantity - 1);
     }
   };
-
   const handleVariantChange = (index) => {
     setSelectedVariant(index);
+  };
+  useEffect(() => setCheckoutData([]), []);
+
+  const handelBuyNow = async () => {
+    const info = [selectedProductInfo];
+    await setCheckoutData(info);
+    console.log("=============", checkoutData);
+    navigate("/checkout");
   };
 
   const selectedProductInfo = {
@@ -56,24 +54,10 @@ function ProductDetailsCard({ product }) {
     totalPrice: variants[selectedVariant].price * quantity,
     productDetails: product,
   };
-  const { checkoutData, setCheckoutData } = useContext(CheckoutContext);
-  useEffect(() => setCheckoutData([]), []);
-  // console.log(checkoutData)
-  const navigate = useNavigate();
-
-  const handelBuyNow = async () => {
-    const info = [selectedProductInfo];
-    await setCheckoutData(info);
-    console.log('=============',checkoutData);
-    navigate("/checkout");
-  };
-
-  // Frontend code using fetch
-  const { userInfo, refetch } = useContext(AuthContext);
-  // console.log(userInfo._id)
+  
   const handelAddToCart = async () => {
     try {
-      AddToCart();
+      trackAddToCart(userInfo?._id, userInfo?.displayName, userInfo?.email, userInfo?.phoneNumber, userInfo?.shippingAddress, product?._id, productName, productCategory ,selectedProductInfo?.totalPrice );
       if (!userInfo) {
         return navigate("/login");
       }

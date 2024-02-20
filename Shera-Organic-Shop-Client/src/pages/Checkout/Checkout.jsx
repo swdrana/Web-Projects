@@ -235,7 +235,7 @@ const handlePlaceOrder = async () => {
           // Order placed successfully, you can navigate to a success page or show a confirmation message
           console.log("Order placed successfully:", response.data);
           const order = response.data;
-  Purchase(order.personalInformation._id, order._id, order.orderSummary.subtotal, order.orderSummary.items.length, 'BDT')
+  Purchase(order.personalInformation._id, order._id, order.orderSummary.subtotal, order.orderSummary.items.length)
           navigate("/profile/my-order");
         } else {
           console.error("Error placing order:", response.data);
