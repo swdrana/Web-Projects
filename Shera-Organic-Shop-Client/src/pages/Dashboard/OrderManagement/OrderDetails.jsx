@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import instance from "../../../provider/axios";
 import LoadingProgress from "../../../components/LoadingProgress/LoadingProgress";
-import DDMonYYYY from "../../../components/Date/DDMonYYYY";
+// import DDMonYYYY from "../../../components/Date/DDMonYYYY";
 import DDMonYYYYWithTime from "../../../components/Date/DDMonYYYYWithTime";
 import OrderRow from "./OrderRow";
 import { toast } from "react-toastify";
@@ -48,7 +48,7 @@ const OrderDetails = () => {
   if (loading) return <LoadingProgress />;
   if (error) return <p>Error fetching order: {error.message}</p>;
   if (!orderData) return <p>No order data found</p>;
-  console.log({ deliveryStatus });
+  console.log({ orderData });
   return (
     <section className=" p-4 bg-gray-white">
       <div className="container">
@@ -210,10 +210,12 @@ const OrderDetails = () => {
                 <div className="col-auto">
                   <h6 className=" font-bold">Payment Method</h6>
                   <span>
-                    {orderData.payment.method == "paynow" ? "Online" : ""}
+                    {orderData.payment.method == "paynow" ? (`Online: ${orderData.payment.details.paymentProvider}`): ""}
+                    <br />
+                    {orderData.payment.method == "paynow" && orderData.payment.details.accountNo ? 'A/C: '+orderData.payment.details.accountNo: ""}
                   </span>
                   <span>
-                    {orderData.payment.method == "cod" ? "Online" : ""}
+                    {orderData.payment.method == "cod" ? "COD" : ""}
                   </span>
                 </div>
                 <div className="col-auto">

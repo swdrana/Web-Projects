@@ -159,13 +159,21 @@ function Invoice() {
 
               {/* Grand Total */}
               <div className="flex items-center justify-between p-4 bg-gray-white rounded-md border m-6 ">
-                <div>
+                <div className="col-auto">
                   <h6 className=" font-bold">Payment Method</h6>
                   <span>
-                    {orderData.payment.method == "paynow" ? "Online" : ""}
+                    {orderData.payment.method == "paynow" ? 
+                    (
+                      <>
+                        {`Online: ${orderData.payment.details.paymentProvider}`}
+                        <br />
+                      </>
+                    )
+                    : ""}
+                    {orderData.payment.method == "paynow" && orderData.payment.details.accountNo ? 'A/C: '+orderData.payment.details.accountNo: ""}
                   </span>
                   <span>
-                    {orderData.payment.method == "cod" ? "Online" : ""}
+                    {orderData.payment.method == "cod" ? "COD" : ""}
                   </span>
                 </div>
                 <div>
