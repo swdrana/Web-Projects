@@ -1,7 +1,16 @@
-// OrderSummary.js
-import React from "react";
+import { useState } from 'react';
 
-function OrderSummary({ checkoutData, totalPrice, deliveryCharge, discount, totalPriceWithDeliveryCharge, handlePlaceOrder, applyCoupon, couponError,setCouponCode,couponCode }) {
+function OrderSummary({ checkoutData, totalPrice, deliveryCharge, discount, totalPriceWithDeliveryCharge, handlePlaceOrder, applyCoupon, couponError, setCouponCode, couponCode }) {
+  const [isPlacingOrder, setIsPlacingOrder] = useState(false);
+
+  const handleOrderButtonClick = async () => {
+    if (!isPlacingOrder) {
+      setIsPlacingOrder(true);
+      await handlePlaceOrder();
+      setIsPlacingOrder(false);
+    }
+  };
+
   return (
     <div className="bg-white pb-8 mt-6 rounded-lg">
       <h1 className="text-2xl font-bold p-5 py-7">Order Summary</h1>
@@ -36,18 +45,18 @@ function OrderSummary({ checkoutData, totalPrice, deliveryCharge, discount, tota
       <div className="bg-white pb-8 mt-6 rounded-lg">
         <h1 className="text-2xl font-bold p-5 py-7">Coupon Code</h1>
         <div className="mx-5 flex items-center gap-4">
-        <input
-          type="text"
-          placeholder="Enter Coupon Code"
-          className="input input-bordered input-primary w-full"
-          value={couponCode}
-          onChange={(e) => setCouponCode(e.target.value)}
-        />
-        <button className="btn btn-primary" onClick={applyCoupon}>
-          Apply Coupon
-        </button>
-      </div>
-      {couponError && <p className="text-red-500 mx-5">{couponError}</p>}
+          <input
+            type="text"
+            placeholder="Enter Coupon Code"
+            className="input input-bordered input-primary w-full"
+            value={couponCode}
+            onChange={(e) => setCouponCode(e.target.value)}
+          />
+          <button className="btn btn-primary" onClick={applyCoupon}>
+            Apply Coupon
+          </button>
+        </div>
+        {couponError && <p className="text-red-500 mx-5">{couponError}</p>}
         {discount > 0 && (
           <div className="p-4 flex justify-between items-center">
             <p>Discount:</p>
@@ -61,9 +70,10 @@ function OrderSummary({ checkoutData, totalPrice, deliveryCharge, discount, tota
       </div>
       <button
         className="btn btn-primary w-full mt-5"
-        onClick={() => handlePlaceOrder()}
+        onClick={handleOrderButtonClick}
+        disabled={isPlacingOrder}
       >
-        Order Now
+        {isPlacingOrder ? 'Placing Order...' : 'Order Now'}
       </button>
     </div>
   );
