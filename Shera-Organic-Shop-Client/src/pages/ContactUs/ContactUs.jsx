@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom"
 import SectionTitle from "../../components/Pages/SectionTitle"
 import textureOverlay from './../../assets/images/bg/texture-overlay.png'
+import CustomerChat from "../../utilities/CustomerChat"
 function ContactUs() {
   return (
     <div className=" bg-gray-white">
       <SectionTitle title={"Contact Us"} />
+      <CustomerChat/>
       <section className="contact-us-section relative overflow-hidden pt-20 pb-32">
       <div className="container mx-auto">
         <div className="contact-box rounded-2 bg-white overflow-hidden mt-8">
