@@ -133,7 +133,7 @@ router.delete("/:userId/clear-cart", async (req, res) => {
       { _id: new ObjectId(userId) },
       { $set: { cart: [] } }
     );
-
+console.log(result)
     res.json({ success: result.modifiedCount > 0 });
   } catch (error) {
     console.error("Error clearing user's cart:", error);
