@@ -121,4 +121,25 @@ router.delete("/:userId/delete-cart/:itemId", async (req, res) => {
   }
 });
 
+// Clear the user's cart
+router.delete("/:userId/clear-cart", async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    await connectMongoClient();
+    const usersCollection = client.db('sheraorganicshopdb').collection('users');
+
+    const result = await usersCollection.updateOne(
+      { _id: new ObjectId(userId) },
+      { $set: { cart: [] } }
+    );
+
+    res.json({ success: result.modifiedCount > 0 });
+  } catch (error) {
+    console.error("Error clearing user's cart:", error);
+    res.status(500).json({ error: `Internal Server Error: ${error.message}` });
+  }
+});
+
+
 module.exports = router;

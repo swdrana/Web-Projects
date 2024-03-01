@@ -19,6 +19,25 @@ router.get("/", async (_req, res) => {
     res.status(500).send(`Internal Server Error: ${error.message}`);
   }
 });
+// Get products by category
+router.get("/by-category", async (req, res) => {
+  try {
+    await connectMongoClient();
+    const productsCollection = client.db('sheraorganicshopdb').collection('products');
+    
+    const category = req.query.category;
+
+    // Add additional filtering based on category
+    const filter = category ? { category } : {};
+    
+    const cursor = productsCollection.find(filter);
+    const result = await cursor.toArray();
+    res.send(result);
+  } catch (error) {
+    console.error("Error getting products by category:", error);
+    res.status(500).send(`Internal Server Error: ${error.message}`);
+  }
+});
 
 // Get a specific product by ID
 router.get("/:id", async (req, res) => {

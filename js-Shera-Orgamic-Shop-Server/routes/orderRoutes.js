@@ -23,7 +23,7 @@ router.get("/", async (_req, res) => {
   }
 });
 
-// Add a new route to get orders by user email
+// get orders by user email in descending order of createdAt
 router.get("/user/:email", async (req, res) => {
   const userEmail = req.params.email;
 
@@ -31,8 +31,10 @@ router.get("/user/:email", async (req, res) => {
     await connectMongoClient();
     const ordersCollection = client.db('sheraorganicshopdb').collection('orders');
 
-    // Find orders for the specified user email
-    const userOrders = await ordersCollection.find({ 'personalInformation.email': userEmail }).toArray();
+    // Find orders for the specified user email and sort by createdAt in descending order
+    const userOrders = await ordersCollection.find({ 'personalInformation.email': userEmail })
+      .sort({ createdAt: -1 })
+      .toArray();
 
     res.send(userOrders);
   } catch (error) {
@@ -41,13 +43,14 @@ router.get("/user/:email", async (req, res) => {
   }
 });
 
+
 // Get a specific order by ID
 router.get("/:id", async (req, res) => {
   const orderId = req.params.id;
   try {
     await connectMongoClient();
     const ordersCollection = client.db('sheraorganicshopdb').collection('orders');
-    const order = await ordersCollection.findOne({ _id: new ObjectId(orderId) });
+    const order = await ordersCollection.findOne({ _id: parseInt(orderId) });
 
     if (order) {
       res.send(order);
@@ -60,6 +63,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+
 // Create a new order
 router.post("/", async (req, res) => {
   try {
@@ -67,15 +71,23 @@ router.post("/", async (req, res) => {
 
     // Add createdAt and updatedAt timestamps
     orderData.createdAt = new Date();
-    orderData.updatedAt = new Date();
-    orderData.status = "Order Placed";
 
     await connectMongoClient();
     const ordersCollection = client.db('sheraorganicshopdb').collection('orders');
 
-    const result = await ordersCollection.insertOne(orderData);
+    // Fetch the latest order to get the last used _id value
+    const latestOrder = await ordersCollection.findOne({}, { sort: { _id: -1 } });
 
-    console.log('Insert result:', result);
+    // Calculate the next _id value
+    const nextId = latestOrder ? latestOrder._id + 1 : 0;
+
+    // Set the _id and updatedAt fields
+    orderData._id = nextId;
+    orderData.updatedAt = new Date();
+    orderData.status = "pending";
+
+    // Insert the new order
+    const result = await ordersCollection.insertOne(orderData);
 
     if (result.insertedId) {
       console.log('Order created successfully:', result.insertedId);
@@ -97,6 +109,7 @@ router.post("/", async (req, res) => {
   }
 });
 
+
 // Update an order by ID
 router.put("/:id", async (req, res) => {
   const orderId = req.params.id;
@@ -110,7 +123,7 @@ router.put("/:id", async (req, res) => {
     const ordersCollection = client.db('sheraorganicshopdb').collection('orders');
 
     const result = await ordersCollection.updateOne(
-      { _id: new ObjectId(orderId) },
+      { _id: parseInt(orderId) },
       { $set: updatedOrderData }
     );
 
@@ -132,7 +145,7 @@ router.delete("/:id", isAdminMiddleware, async (req, res) => {
     await connectMongoClient();
     const ordersCollection = client.db('sheraorganicshopdb').collection('orders');
 
-    const result = await ordersCollection.deleteOne({ _id: new ObjectId(orderId) });
+    const result = await ordersCollection.deleteOne({ _id: parseInt(orderId) });
 
     if (result.deletedCount > 0) {
       res.send({ success: true, message: 'Order deleted successfully' });
@@ -144,5 +157,6 @@ router.delete("/:id", isAdminMiddleware, async (req, res) => {
     res.status(500).send(`Internal Server Error: ${error.message}`);
   }
 });
+
 
 module.exports = router;

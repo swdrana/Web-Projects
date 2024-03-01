@@ -132,11 +132,36 @@ router.post("/", async (req, res) => {
 //   res.send({ success: result.modifiedCount > 0 });
 // });
 
+router.put("/user/:id", async (req, res) => {
+  const userId = req.params.id;
+  const updatedUserData = req.body;
+
+  // Remove the _id field from the updatedUserData
+  delete updatedUserData._id;
+
+  try {
+    await connectMongoClient();
+    const usersCollection = client.db('sheraorganicshopdb').collection('users');
+    
+    const result = await usersCollection.updateOne(
+      { _id: new ObjectId(userId) },
+      { $set: updatedUserData }
+    );
+    
+    res.send({ success: result.modifiedCount > 0 });
+  } catch (error) {
+    console.error("Error updating user:", error);
+    res.status(500).send(`Internal Server Error: ${error.message}`);
+  }
+});
+
+
 
 // Update user by ID for make admin
 router.put("/:id", async (req, res) => {
     const userId = req.params.id;
     const updatedUserData = req.body;
+    console.log("Updated User Data:", updatedUserData);  // Add this line
 
     try {
       await connectMongoClient();
