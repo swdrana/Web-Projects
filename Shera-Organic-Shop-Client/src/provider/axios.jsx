@@ -7,7 +7,7 @@ import axios from "axios";
 // });
 
 const instance = axios.create({
-  baseURL: "https://js-shera-orgamic-shop-server-cgafr4a19.vercel.app/api",
+  baseURL: "https://js-shera-orgamic-shop-server.vercel.app/api",
 });
 
 // Function to determine the content type based on data type

@@ -15,14 +15,12 @@ function Carts() {
   const fetchProductDetails = async (productId) => {
     try {
       const response = await instance.get(`/products/${productId}`);
-  
       return response.data;
     } catch (error) {
       console.error("Error fetching product details:", error);
       return null;
     }
   };
-
 
   const fetchCartItems = async () => {
     try {
@@ -190,13 +188,32 @@ function Carts() {
 
   const { setCheckoutData } = useContext(CheckoutContext);
   const navigate = useNavigate();
-  const handleCheckout = () => {
-    // Assuming your checkoutData structure is an array of cart items
-    setCheckoutData(cartItems);
-
-    // Navigate to the checkout page
-    navigate("/checkout");
+  const handleCheckout = async () => {
+    try {
+      // Assuming your checkoutData structure is an array of cart items
+      setCheckoutData(cartItems);
+      // Clear the user's cart in the database
+      await instance.delete(`/carts/${userInfo._id}/clear-cart`);
+      
+      // Empty the cart items in the local state
+      setCartItems([]);
+      
+      // Show success message
+      toast.success("Cart cleared successfully", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      
+      // Navigate to the checkout page
+      navigate("/checkout");
+    } catch (error) {
+      console.error("Error clearing cart:", error);
+      // Show error message
+      toast.error("Error clearing cart. Please try again later.", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
   };
+  
 
   if (loading) {
     return <LoadingProgress />;
