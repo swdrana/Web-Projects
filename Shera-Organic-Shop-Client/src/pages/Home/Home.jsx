@@ -14,10 +14,6 @@ const Home = () => {
   PageView();
   return (
     <div>
-      <MessengerCustomerChat
-        pageId="105274921383668"
-        appId="1184899329559971"
-      ></MessengerCustomerChat>
       <Slider />
       <OurTopCategory></OurTopCategory>
       <OurFeaturedProducts></OurFeaturedProducts>

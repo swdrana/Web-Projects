@@ -18,7 +18,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <AuthProvider>
             <ToastProvider>
               {/* <RouterProvider router={router}/> Object Format */}
-              <AllRoutes />
+              {/* <AllRoutes /> */}
+      sd
+      <MessengerCustomerChat
+        pageId="105274921383668"
+        appId="1184899329559971"
+      ></MessengerCustomerChat>
+      sd
             </ToastProvider>
           </AuthProvider>
         </QueryClientProvider>
