@@ -46,6 +46,22 @@ router.post('/', upload.fields([
   }
 });
 
+// Retrieve a single product by ID
+router.get('/:id', async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    console.log(product)
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    res.status(200).json(product);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 // New GET route to fetch all products
 router.get('/', async (req, res) => {
   try {
@@ -57,21 +73,60 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', upload.fields([
+  { name: 'productThumbnail', maxCount: 1 },
+  { name: 'productGallery', maxCount: 10 }
+]), async (req, res) => {
   try {
     const productId = req.params.id;
-    const updatedProduct = await Product.findByIdAndUpdate(productId, req.body, { new: true });
+    const files = req.files as { [fieldname: string]: Express.Multer.File[] };
 
-    if (!updatedProduct) {
+    const oldProduct = await Product.findById(productId);
+
+    if (!oldProduct) {
       return res.status(404).send('Product not found');
     }
 
+    const productData = {
+      ...req.body,
+      productThumbnail: files.productThumbnail ? files.productThumbnail[0].path : oldProduct.productThumbnail,
+      productGallery: files.productGallery ? files.productGallery.map(file => file.path) : oldProduct.productGallery,
+      variants: req.body.variants ? JSON.parse(req.body.variants) : [],
+      isPublished: req.body.isPublished === 'true',
+    };
+
+    // Remove old files if new ones are uploaded
+    if (files.productThumbnail && oldProduct.productThumbnail) {
+      fs.unlink(oldProduct.productThumbnail, (err) => {
+        if (err) console.error("Error deleting old thumbnail:", err);
+      });
+    }
+
+    if (files.productGallery && oldProduct.productGallery) {
+      oldProduct.productGallery.forEach(oldFilePath => {
+        fs.unlink(oldFilePath, (err) => {
+          if (err) console.error("Error deleting old gallery image:", err);
+        });
+      });
+    }
+
+    const updatedProduct = await Product.findByIdAndUpdate(productId, productData, { new: true });
+
     res.status(200).json(updatedProduct);
   } catch (error) {
-    console.error(error);
-    res.status(500).send('Internal Server Error');
+    if (error instanceof Error) {
+      console.error('Error:', error);
+      res.status(500).send(`Internal Server Error: ${error.message}`);
+    } else {
+      console.error('An unknown error occurred');
+      res.status(500).send('Internal Server Error');
+    }
   }
+  
 });
+
+
+
 
 
 
