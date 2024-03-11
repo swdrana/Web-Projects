@@ -51,21 +51,28 @@ function AuthProvider({ children }) {
       throw new Error("Error fetching user data: " + error.message);
     }
   });
-  const sendUserInfoToServer = (user) => {
-    const minifyUserData = {
-      email : user.email,
-      displayName : user.displayName,
-      phoneNumber : user.phoneNumber,
-      role : user.role,
-      photoURL : user.photoURL,
-    }
-    instance.post("/users", minifyUserData).then((response) => {
+  
+  const sendUserInfoToServer = async (user) => {
+    try {
+      // Check if the user already exists in the database
+      const response = await instance.get(`/users/${user.email}`);
+  
+      // If the user exists, update the existing record
+      if (response.status === 200) {
+        await instance.put(`/users/${user.email}`, user);
+        console.log("User information updated in the server:", response.data);
+        setUserInfo(response.data);
+      } else {
+        // If the user doesn't exist, create a new record
+        await instance.post("/users", user);
         console.log("User information sent to the server:", response.data);
-        setUserInfo(response.data)
-      }).catch((error) => {
-        console.error("Error sending user information:", error);
-      });
+        setUserInfo(response.data);
+      }
+    } catch (error) {
+      console.error("Error sending user information:", error);
+    }
   };
+  
   const getCurrentUserFromServer = async (user) => {
     await instance.get(`/users/${user?.email}`).then((response) => {
         // console.log("User information get from server:", response.data);

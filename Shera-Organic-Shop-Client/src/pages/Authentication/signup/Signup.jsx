@@ -93,13 +93,14 @@ const Signup = () => {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Phone</span>
+                  <span className="label-text">Phone<span className=" text-red-500">*</span></span>
                 </label>
                 <input
                   {...register("phone")}
                   type="tel"
+                  required
                   placeholder="+8801220000000"
-                  className="input input-bordered"
+                  className="input input-bordered input-secondary"
                 />
               </div>
               <div className="form-control">
