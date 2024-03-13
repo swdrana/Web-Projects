@@ -13,36 +13,28 @@ const ShippingAddress = ({
     console.log("Street Address Changed:", e.target.value);
     setStreetAddress(e.target.value);
   };
-// console.log(selectedDistrict)
+  // console.log(selectedDistrict)
   const handleApartmentChange = (e) => {
     console.log("Apartment Changed:", e.target.value);
     setApartment(e.target.value);
   };
 
   const getDefaultDistrictValue = () => {
-    return selectedDistrict?.name || userInfo?.shippingAddress?.district?.name || "";
+    return (
+      selectedDistrict?.name || userInfo?.shippingAddress?.district?.name || ""
+    );
   };
 
   const getDefaultThanaValue = () => {
-    return (
-      selectedThana?.name ||
-      userInfo?.shippingAddress?.thana?.name ||
-      ""
-    );
+    return selectedThana?.name || userInfo?.shippingAddress?.thana?.name || "";
   };
 
   const getDefaultStreetAddressValue = () => {
-    return (
-      userInfo?.shippingAddress?.streetAddress ||
-      ""
-    );
+    return userInfo?.shippingAddress?.streetAddress || "";
   };
 
   const getDefaultApartmentValue = () => {
-    return (
-      userInfo?.shippingAddress?.apartment ||
-      ""
-    );
+    return userInfo?.shippingAddress?.apartment || "";
   };
 
   return (
@@ -50,14 +42,11 @@ const ShippingAddress = ({
       <h1 className="text-2xl font-bold p-5 py-7">Shipping Address</h1>
       <div className="flex flex-col gap-5 mx-5">
         <div className="flex flex-col md:flex-row justify-between gap-5">
-          <select
-            className="select select-primary w-full"
-            disabled
-          >
+          <select className="select select-primary w-full hidden" disabled>
             <option>Bangladesh</option>
           </select>
           <select
-            className="select select-primary w-full"
+            className="select select-primary w-full hidden"
             onChange={(event) => {
               const selectedId = event.target.value;
               const foundDistrict = districts.find(
@@ -68,7 +57,6 @@ const ShippingAddress = ({
               setSelectedThana(null);
             }}
             defaultValue={getDefaultDistrictValue()}
-            required
           >
             <option disabled value="">
               District
@@ -82,7 +70,7 @@ const ShippingAddress = ({
               ))}
           </select>
           <select
-            className="select select-primary w-full"
+            className="select select-primary w-full hidden"
             onChange={(event) => {
               const selectedId = event.target.value;
               const foundThana = thanas.find(
@@ -91,7 +79,6 @@ const ShippingAddress = ({
               setSelectedThana(foundThana);
             }}
             defaultValue={getDefaultThanaValue()}
-            required
           >
             <option disabled value="">
               {getDefaultThanaValue() || "Thana"}
@@ -112,9 +99,9 @@ const ShippingAddress = ({
         <div className="flex flex-col md:flex-row justify-between gap-5">
           <input
             type="text"
-            placeholder="Street Address"
+            placeholder="Full Address"
             onChange={handleStreetAddressChange}
-            className="input input-bordered input-primary w-full"
+            className="input input-bordered input-primary w-full -mt-5 py-10"
             defaultValue={getDefaultStreetAddressValue()}
             required
           />
@@ -122,7 +109,7 @@ const ShippingAddress = ({
             type="text"
             onChange={handleApartmentChange}
             placeholder="Apartment, suite, etc. (optional)"
-            className="input input-bordered input-primary w-full"
+            className="input input-bordered input-primary w-full hidden"
             defaultValue={getDefaultApartmentValue()}
           />
         </div>
