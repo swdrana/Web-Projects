@@ -172,16 +172,19 @@ function Checkout() {
         total: totalPriceWithDeliveryCharge,
       },
     };
-    if (!effectiveDistrict) {
-      console.log("Missing District");
-      toast.warning("Missing District");
-    } else if (!effectiveThana) {
-      console.log("Missing Thana");
-      toast.warning("Missing Thana");
-    } else if (!effectiveStreetAddress) {
+    // if (!effectiveDistrict) {
+    //   console.log("Missing District");
+    //   toast.warning("Missing District");
+    // } 
+    // else if (!effectiveThana) {
+    //   console.log("Missing Thana");
+    //   toast.warning("Missing Thana");
+    // } 
+    if (!effectiveStreetAddress) {
       console.log("Missing Street Address");
       toast.warning("Missing Street Address");
-    } else if (
+    } 
+    else if (
       paymentMethod === "paynow" &&
       paymentDetails.paymentProvider === "" &&
       paymentDetails.accountNo === ""
