@@ -54,20 +54,9 @@ function AuthProvider({ children }) {
   
   const sendUserInfoToServer = async (user) => {
     try {
-      // Check if the user already exists in the database
-      const response = await instance.get(`/users/${user.email}`);
-  
-      // If the user exists, update the existing record
-      if (response.status === 200) {
-        await instance.put(`/users/${user.email}`, user);
-        console.log("User information updated in the server:", response.data);
-        setUserInfo(response.data);
-      } else {
-        // If the user doesn't exist, create a new record
-        await instance.post("/users", user);
-        console.log("User information sent to the server:", response.data);
-        setUserInfo(response.data);
-      }
+      await instance.post("/users", user);
+      console.log("User information sent to the server:", user);
+      setUserInfo(user);
     } catch (error) {
       console.error("Error sending user information:", error);
     }
