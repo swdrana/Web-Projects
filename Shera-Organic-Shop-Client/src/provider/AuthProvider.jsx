@@ -91,6 +91,7 @@ function AuthProvider({ children }) {
     return signInWithPopup(auth, facebookProvider)
   }
   const googleLogin = ()=>{
+    setLoading(true);
     return signInWithPopup(auth, googleProvider)
   }
   const updateUserNamePhone = async (name, phoneNumber, photoFile) => {
