@@ -1,11 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
-import { BsGrid3X3GapFill } from "react-icons/bs";
 import { useContext } from "react";
-import { BsCartPlus } from "react-icons/bs";
+import { BsCartPlus, BsGrid3X3GapFill } from "react-icons/bs";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
+import logoBig from './../../../assets/images/logo/logo-big.png';
+import userIcon from './../../../assets/images/people/user-icon.png';
 import BottomNav from "./BottomNav";
-import userIcon from './../../../assets/images/people/user-icon.png'
-import logoBig from './../../../assets/images/logo/logo-big.png'
 import ThemeChange from "./ThemeChange";
 const NavBer = ({ isScrolled }) => {
   const navigate = useNavigate();
@@ -38,17 +37,26 @@ const NavBer = ({ isScrolled }) => {
       <li>
         <Link to={"/products"}>Products</Link>
       </li>
-      <li>
+      {/* <li>
         <Link to={"/campaigns"}>Campaigns</Link>
-      </li><li>
-              <Link to={"/blog"}>Blog</Link>
-            </li>
+      </li> */}
+      <li>
+          <Link to={"/blog"}>Blog</Link>
+      </li>
+      <li>
+        <Link to={"/about-us"}>About Us</Link>
+      </li>
       
-            {userInfo?.role=='admin'? <li>
-        <Link to={"/dashboard"}>Dashboard</Link>
-      </li>: <li>
-              <Link to={"/contact-us"}>Contact Us</Link>
-            </li>}
+      {userInfo?.role=='admin'?( 
+        <li>
+          <Link to={"/dashboard"}>Dashboard</Link>
+        </li>
+      ): (
+        <li>
+            <Link to={"/contact-us"}>Contact Us</Link>
+        </li>
+        )
+      }
       <li tabIndex={0}>
         <details>
           <summary>Pages</summary>
@@ -61,9 +69,6 @@ const NavBer = ({ isScrolled }) => {
       </li>: <li>
               <Link to={"/contact-us"}>Contact Us</Link>
             </li>}
-            <li>
-              <Link to={"/about-us"}>About Us</Link>
-            </li>
             <li>
               <Link to={"/terms-conditions"}>Terms & Conditions</Link>
             </li>
