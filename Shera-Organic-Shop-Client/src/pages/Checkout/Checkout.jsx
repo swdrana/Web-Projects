@@ -184,6 +184,10 @@ function Checkout() {
       console.log("Missing Street Address");
       toast.warning("Missing Street Address");
     } 
+    else if (!userInfo.phoneNumber) {
+      console.log("Missing Phone No");
+      toast.warning("Missing Phone No");
+    } 
     else if (
       paymentMethod === "paynow" &&
       paymentDetails.paymentProvider === "" &&
