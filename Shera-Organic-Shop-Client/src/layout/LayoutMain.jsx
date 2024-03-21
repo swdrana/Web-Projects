@@ -16,7 +16,7 @@ const LayoutMain = () => {
         <div>
           <Link
             target="_blank"
-            to={"https://m.me/sheraorganicshop"}
+            to={"https://m.me/sheraorganicshop?text=Hello! I'm coming form your Website."}
           >
             <FaFacebookMessenger size={30} color="#1877F2" />
           </Link>
