@@ -4,6 +4,7 @@ import ghee from "../../../assets/images/categories/Oil_Ghee.png";
 import Honey from "../../../assets/images/categories/Honey.png";
 import Nuts from "../../../assets/images/categories/Nuts _ Seeds.png";
 import Grocery from "../../../assets/images/categories/Grocery _ spices_.png";
+import NutritionsFood from "../../../assets/images/categories/Nutritious_food.png";
 import Herbal from "../../../assets/images/categories/Herbal _ powder.png";
 import Combo from "../../../assets/images/categories/Combo package_.png";
 import bsShape from "../../../assets/images/bg/bg-shape.png";
@@ -19,10 +20,10 @@ const OurTopCategory = () => {
   const [products] = useProducts();
   // console.log(products)
   const categoryCounts = products.reduce((acc, product) => {
-  const category = product.productCategory;
-  acc[category] = (acc[category] || 0) + 1;
-  return acc;
-}, {});
+    const category = product.productCategory;
+    acc[category] = (acc[category] || 0) + 1;
+    return acc;
+  }, {});
   const topCategory = [
     {
       catName: "Oil & Ghee",
@@ -42,22 +43,28 @@ const OurTopCategory = () => {
       catIcon: Nuts,
       dotColor: "#ff89c9",
     },
+    // {
+    //   catName: "Grocery & spices ",
+    //   catItemNo: categoryCounts["Grocery & spices"] || 0,
+    //   catIcon: Grocery,
+    //   dotColor: "#6eb356",
+    // },
     {
-      catName: "Grocery & spices ",
-      catItemNo: categoryCounts["Grocery & spices"] || 0,
-      catIcon: Grocery,
+      catName: "Nutritious food ",
+      catItemNo: categoryCounts["Nutritious food"] || 0,
+      catIcon: NutritionsFood,
       dotColor: "#6eb356",
     },
     {
       catName: "Herbal & Power",
       catItemNo: categoryCounts["Herbal & Power"] || 0,
-      catIcon:Herbal,
+      catIcon: Herbal,
       dotColor: "#ff89c9",
     },
     {
-      catName: "Combo package",    
+      catName: "Combo package",
       catItemNo: categoryCounts["Combo package"] || 0,
-      catIcon:Combo,
+      catIcon: Combo,
       dotColor: "#6eb356",
     },
   ];
@@ -83,11 +90,7 @@ const OurTopCategory = () => {
         </CatBorder>
       </div>
 
-      <img
-        className="absolute bottom-0 -z-10"
-        src={bsShape}
-        alt={bsShape}
-      />
+      <img className="absolute bottom-0 -z-10" src={bsShape} alt={bsShape} />
     </div>
   );
 };
