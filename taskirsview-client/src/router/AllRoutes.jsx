@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { LayoutMain, Home, Advertisers, Publishers, Blogs, Contact, AboutUs } from "./RouteImport";
+import { AboutUs, Advertisers, Announcement, Blogs, Contact, Events, Financials, Governance, Home, IROverview, LayoutInvestorRelations, LayoutMain, Publishers } from "./RouteImport";
 function AllRoutes() {
   return (
     <BrowserRouter>
@@ -11,6 +11,14 @@ function AllRoutes() {
           <Route path="blogs" element={<Blogs />} />
           <Route path="contact" element={<Contact />} />
           <Route path="about-us" element={<AboutUs />} />
+          <Route path="inverstor-relations" element={<LayoutInvestorRelations />}> 
+            <Route index element={<IROverview />} />
+            <Route path="governance" element={<Governance />} />
+            <Route path="announcement" element={<Announcement/>} />
+            <Route path="financials" element={<Financials/>} />
+            <Route path="events" element={<Events/>} />
+            <Route path="contact" element={<Contact/>} />
+          </Route>
           {/* <Route path="login" element={<Login />} /> */}
           {/* <Route path="signup" element={<Signup />} />
 

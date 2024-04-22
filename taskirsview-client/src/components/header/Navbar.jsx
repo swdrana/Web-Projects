@@ -3,23 +3,74 @@ function Navbar() {
   const LinkItems = (
     <>
       <li>
-        <Link to="/">Home</Link>
-      </li>
-      <li>
-        <Link to="/advertisers">Advertisers</Link>
-      </li>
-      <li>
-        <Link to="/publishers">Publishers</Link>
-      </li>
-      <li>
-        <Link to="/blogs">Blogs</Link>
+        <details>
+          <summary>Products & Services</summary>
+          <ul class="p-2">
+            <li>
+              User Acquisition & Monetization
+              <Link to="/blogs">Mintegral</Link>
+            </li>
+            <li>
+              <Link to="/advertisers">Data Analytics GameAnalytics</Link>
+            </li>
+            <li>
+              <Link to="/publishers">Performance Marketing Nativex</Link>
+            </li>
+            <li>
+              <Link to="/blogs">Ad Creative Mindworks Production</Link>
+            </li>
+            <li>
+              <Link to="/blogs">Playturbo Automation</Link>
+            </li>
+            <li>
+              <Link to="/blogs">
+                Optimization XMP Cross-channel Marketing Management
+              </Link>
+            </li>
+          </ul>
+        </details>
       </li>
       <li>
         <details>
-          <summary>Parent</summary>
+          <summary>Community</summary>
           <ul class="p-2">
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
+            <li>
+              <Link to="/blogs">Blogs</Link>
+            </li>
+            <li>
+              <Link to="/advertisers">Advertisers</Link>
+            </li>
+            <li>
+              <Link to="/publishers">Publishers</Link>
+            </li>
+            <li>
+              <Link to="/blogs">Financial Report</Link>
+            </li>
+            <li>
+              <Link to="/blogs">Investor Event</Link>
+            </li>
+            <li>
+              <Link to="/blogs">Announcement</Link>
+            </li>
+          </ul>
+        </details>
+      </li>
+      <li>
+        <details>
+          <summary>Investor Relations</summary>
+          <ul class="p-2">
+            <li>
+              <Link to="/inverstor-relations/governance">Governance</Link>
+            </li>
+            <li>
+              <Link to="/inverstor-relations/announcement">Announcement</Link>
+            </li>
+            <li>
+              <Link to="/inverstor-relations/financials">Financial Report</Link>
+            </li>
+            <li>
+              <Link to="/inverstor-relations/events">Investor Event</Link>
+            </li>
           </ul>
         </details>
       </li>
@@ -34,7 +85,15 @@ function Navbar() {
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
-        <div className="dropdown">
+        <Link to="/" className="btn btn-ghost text-xl">
+          TaskirsView
+        </Link>
+      </div>
+      <div className="navbar-center">
+        <ul className=" hidden lg:flex menu menu-horizontal px-1">
+          {LinkItems}
+        </ul>
+        <div className=" lg:hidden flex dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -55,23 +114,10 @@ function Navbar() {
             tabIndex={0}
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
-            <li>
-              <Link to="/advertisers">Advertisers</Link>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
             {LinkItems}
           </ul>
         </div>
-        <Link to="/" className="btn btn-ghost text-xl">
-          TaskirsView
-        </Link>
       </div>
-      <div className="navbar-end hidden lg:flex">
-      <ul className="menu menu-horizontal px-1">{LinkItems}
-        </ul>
-        </div>
     </div>
   );
 }
