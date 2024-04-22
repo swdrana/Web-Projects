@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 function Navbar() {
   const LinkItems = (
-    <ul className="menu menu-horizontal px-1">
+    <>
       <li>
         <Link to="/">Home</Link>
       </li>
@@ -15,12 +15,21 @@ function Navbar() {
         <Link to="/blogs">Blogs</Link>
       </li>
       <li>
+        <details>
+          <summary>Parent</summary>
+          <ul class="p-2">
+            <li><a>Submenu 1</a></li>
+            <li><a>Submenu 2</a></li>
+          </ul>
+        </details>
+      </li>
+      <li>
         <Link to="/about-us">About Us</Link>
       </li>
       <li>
         <Link to="/contact">Contact</Link>
       </li>
-    </ul>
+    </>
   );
   return (
     <div className="navbar bg-base-100">
@@ -50,29 +59,19 @@ function Navbar() {
               <Link to="/advertisers">Advertisers</Link>
             </li>
             <li>
-              <a>Parent</a>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </li>
-            <li>
               <a>Item 3</a>
             </li>
+            {LinkItems}
           </ul>
         </div>
         <Link to="/" className="btn btn-ghost text-xl">
           TaskirsView
         </Link>
       </div>
-      <div className="navbar-center hidden lg:flex">{LinkItems}</div>
-      <div className="navbar-end">
-        <a className="btn">Login</a>
-      </div>
+      <div className="navbar-end hidden lg:flex">
+      <ul className="menu menu-horizontal px-1">{LinkItems}
+        </ul>
+        </div>
     </div>
   );
 }
