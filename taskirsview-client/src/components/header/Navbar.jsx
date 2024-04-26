@@ -93,7 +93,9 @@ function Navbar() {
         <ul className=" hidden lg:flex menu menu-horizontal px-1">
           {LinkItems}
         </ul>
-        <div className=" lg:hidden flex dropdown">
+      </div>
+      <div className="navbar-end lg:hidden ">
+        <div className=" lg:hidden flex dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -3,8 +3,8 @@ import SectionTitle from "../../../components/SectionTitle";
 function Governance() {
   return (
     <div className=" container mx-auto py-16">
-
-        {/* COMPANY INTRODUCTION */}
+        
+      {/* COMPANY INTRODUCTION */}
       <>
         <SectionTitle title="COMPANY INTRODUCTION" position="text-start" />
         <section>
@@ -55,7 +55,18 @@ function Governance() {
               bis_skin_checked="1"
             >
               <p className="mt-6 mb-4 text-lg sm:mb-12">
-              The Company is committed to achieving and maintaining high standards of corporate governance by focusing on the principles of integrity, accountability, transparency, independence, responsibility and fairness. The Company has developed and implemented sound corporate governance policies and measures, and the Board is responsible for performing such corporate governance of the Company, as well as various internal policies and procedures with reference to the Corporate Governance Code and Corporate Governance Report set out in Appendix 14 to the Listing Rules and other applicable legal and regulatory requirement so as to maintain a high standard of corporate governance of the Company.
+                The Company is committed to achieving and maintaining high
+                standards of corporate governance by focusing on the principles
+                of integrity, accountability, transparency, independence,
+                responsibility and fairness. The Company has developed and
+                implemented sound corporate governance policies and measures,
+                and the Board is responsible for performing such corporate
+                governance of the Company, as well as various internal policies
+                and procedures with reference to the Corporate Governance Code
+                and Corporate Governance Report set out in Appendix 14 to the
+                Listing Rules and other applicable legal and regulatory
+                requirement so as to maintain a high standard of corporate
+                governance of the Company.
               </p>
             </div>
             <div

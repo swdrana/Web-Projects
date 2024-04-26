@@ -5,7 +5,7 @@ function LayoutInvestorRelations() {
   return (
     <>
     <PageTitle title={"INVESTOR RELATIONS"} />
-      <div role="tablist" className="tabs tabs-lifted px-6 w-full  md:w-1/2 mx-auto">
+      <div role="tablist" className="tabs tabs-lifted  max-w-screen-sm overflow-scroll mx-auto">
         <Link to='/inverstor-relations' role="tab" className="tab">Overview</Link>
         <Link to='/inverstor-relations/governance' role="tab" className="tab tab-active">Governance</Link>
         <Link to='/inverstor-relations/announcement' role="tab" className="tab">Announcement</Link>
