@@ -10,7 +10,7 @@ function LayoutCommunity() {
         <Link to='/community/blogs' role="tab" className="tab tab-active">Blogs</Link>
         <Link to='/community/ebook' role="tab" className="tab">eBook</Link>
         <Link to='/community/case' role="tab" className="tab">Case Studies</Link>
-        <Link to='/community/videos' role="tab" className="tab">Videos</Link>
+        <Link to='/community/videos' role="tab" className="tab">Gallery</Link>
       </div> 
       <Outlet />
     </>

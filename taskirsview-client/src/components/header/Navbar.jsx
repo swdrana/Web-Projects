@@ -5,26 +5,41 @@ function Navbar() {
       <li>
         <details>
           <summary>Products & Services</summary>
-          <ul class="p-2">
+          <ul class="p-2 z-10 border">
+            <p className=" font-bold text-primary">User Acquisition & Monetization</p>
             <li>
-              User Acquisition & Monetization
-              <Link to="/blogs">Mintegral</Link>
+              <Link to="https://www.mintegral.com/en/">Mintegral</Link>
+            </li>
+            <hr className=" border-t-primary mt-1" />
+
+            <p className=" font-bold text-primary pt-2">Data Analytics</p>
+            <li>
+              <Link to="/https://gameanalytics.com/">Game Analytics</Link>
+            </li>
+            <hr className=" border-t-primary mt-1" />
+
+
+            <p className=" font-bold text-primary pt-2">Performance Marketing</p>
+            <li>
+              <Link to="https://www.nativex.com/en/">Nativex</Link>
+            </li>
+            <hr className=" border-t-primary mt-1" />
+
+
+            <p className=" font-bold text-primary pt-2">Ad Creative</p>
+            <li>
+              <Link to="https://www.mindworks-creative.com/">Mindworks Production</Link>
             </li>
             <li>
-              <Link to="/advertisers">Data Analytics GameAnalytics</Link>
+              <Link to="https://www.mindworks-creative.com/services/#Playturbo">Playturbo Automation</Link>
             </li>
+            <hr className=" border-t-primary mt-1" />
+
+
+            <p className=" font-bold text-primary pt-1">Optimization</p>
             <li>
-              <Link to="/publishers">Performance Marketing Nativex</Link>
-            </li>
-            <li>
-              <Link to="/blogs">Ad Creative Mindworks Production</Link>
-            </li>
-            <li>
-              <Link to="/blogs">Playturbo Automation</Link>
-            </li>
-            <li>
-              <Link to="/blogs">
-                Optimization XMP Cross-channel Marketing Management
+              <Link to="https://xmp.mobvista.com/en/">
+              XMP Cross-channel Marketing Management
               </Link>
             </li>
           </ul>
@@ -33,7 +48,7 @@ function Navbar() {
       <li>
         <details>
           <summary>Community</summary>
-          <ul class="p-2">
+          <ul class="p-2 z-10 ">
             <li>
               <Link to="/community/blogs">Blogs</Link>
             </li>
@@ -44,7 +59,7 @@ function Navbar() {
               <Link to="/community/case">Case Studies</Link>
             </li>
             <li>
-              <Link to="/community/videos">Videos</Link>
+              <Link to="/community/videos">Gallery</Link>
             </li>
           </ul>
         </details>
@@ -52,7 +67,7 @@ function Navbar() {
       <li>
         <details>
           <summary>Investor Relations</summary>
-          <ul class="p-2">
+          <ul class="p-2 z-10 ">
             <li>
               <Link to="/inverstor-relations/governance">Governance</Link>
             </li>
@@ -108,7 +123,7 @@ function Navbar() {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-72"
           >
             {LinkItems}
           </ul>
