@@ -5,7 +5,7 @@ function Navbar() {
       <li>
         <details>
           <summary>Products & Services</summary>
-          <ul class="p-2 z-10 border">
+          <ul class="p-2 z-[3] border">
             <p className=" font-bold text-primary">User Acquisition & Monetization</p>
             <li>
               <Link to="https://www.mintegral.com/en/">Mintegral</Link>
@@ -48,7 +48,7 @@ function Navbar() {
       <li>
         <details>
           <summary>Community</summary>
-          <ul class="p-2 z-10 ">
+          <ul class="p-2 z-[2] ">
             <li>
               <Link to="/community/blogs">Blogs</Link>
             </li>
