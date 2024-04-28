@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { AboutUs, Advertisers, Announcement, Blogs, Contact, Events, Financials, Governance, Home, IROverview, LayoutInvestorRelations, LayoutMain, Publishers } from "./RouteImport";
+import { AboutUs, Advertisers, Announcement, Blogs, CaseStudies, CommunityAll, Contact, Ebook, Events, Financials, Governance, Home, IROverview, LayoutCommunity, LayoutInvestorRelations, LayoutMain, Publishers, Videos } from "./RouteImport";
 function AllRoutes() {
   return (
     <BrowserRouter>
@@ -11,6 +11,7 @@ function AllRoutes() {
           <Route path="blogs" element={<Blogs />} />
           <Route path="contact" element={<Contact />} />
           <Route path="about-us" element={<AboutUs />} />
+
           <Route path="inverstor-relations" element={<LayoutInvestorRelations />}> 
             <Route index element={<IROverview />} />
             <Route path="governance" element={<Governance />} />
@@ -18,6 +19,14 @@ function AllRoutes() {
             <Route path="financials" element={<Financials/>} />
             <Route path="events" element={<Events/>} />
             <Route path="contact" element={<Contact/>} />
+          </Route>
+
+          <Route path="community" element={<LayoutCommunity />}> 
+            <Route index element={<CommunityAll />} />
+            <Route path="blogs" element={<Blogs />} />
+            <Route path="ebook" element={<Ebook/>} />
+            <Route path="case" element={<CaseStudies/>} />
+            <Route path="videos" element={<Videos/>} />
           </Route>
           {/* <Route path="login" element={<Login />} /> */}
           {/* <Route path="signup" element={<Signup />} />

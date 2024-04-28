@@ -35,22 +35,16 @@ function Navbar() {
           <summary>Community</summary>
           <ul class="p-2">
             <li>
-              <Link to="/blogs">Blogs</Link>
+              <Link to="/community/blogs">Blogs</Link>
             </li>
             <li>
-              <Link to="/advertisers">Advertisers</Link>
+              <Link to="/community/ebook">eBook</Link>
             </li>
             <li>
-              <Link to="/publishers">Publishers</Link>
+              <Link to="/community/case">Case Studies</Link>
             </li>
             <li>
-              <Link to="/blogs">Financial Report</Link>
-            </li>
-            <li>
-              <Link to="/blogs">Investor Event</Link>
-            </li>
-            <li>
-              <Link to="/blogs">Announcement</Link>
+              <Link to="/community/videos">Videos</Link>
             </li>
           </ul>
         </details>
