@@ -13,9 +13,8 @@ const sectionInfo = [
     link2: "/",
     linkText2: "Speed up production with Playturbo",
     imgLink1:
-      "https://cdn.pixabay.com/photo/2024/03/13/07/41/digital-marketing-8630397_1280.png",
-    imgLink2:
-      "https://cdn.pixabay.com/photo/2021/10/11/17/54/technology-6701504_1280.jpg",
+      "https://cdn.pixabay.com/photo/2018/05/18/15/30/web-design-3411373_1280.jpg",
+    imgLink2: "https://www.mobvista.com/_nuxt/img/en_img_0.3752cf6.png",
   },
   {
     id: 2,
@@ -28,10 +27,8 @@ const sectionInfo = [
     linkText1: "Scale with Mintegral",
     link2: "/",
     linkText2: "Simplify UA with XMP",
-    imgLink1:
-      "https://cdn.pixabay.com/photo/2018/05/18/15/30/web-design-3411373_1280.jpg",
-    imgLink2:
-      "https://cdn.pixabay.com/photo/2018/08/18/13/26/interface-3614766_1280.png",
+    imgLink1: "https://www.mobvista.com/_nuxt/img/en_img_1.0e4612a.png",
+    imgLink2: "https://www.mobvista.com/_nuxt/img/en_img_2.86d7767.png",
   },
   {
     id: 3,
@@ -44,10 +41,8 @@ const sectionInfo = [
     linkText1: "Monetize with Mintegral",
     link2: "/",
     linkText2: "Monetize with Mintegral",
-    imgLink1:
-      "https://cdn.pixabay.com/photo/2023/04/24/08/36/floor-7947584_1280.jpg",
-    imgLink2:
-      "https://cdn.pixabay.com/photo/2021/10/11/17/54/technology-6701504_1280.jpg",
+    imgLink1: "https://www.mobvista.com/_nuxt/img/en_img_3.ff5add6.png",
+    imgLink2: "https://www.mobvista.com/_nuxt/img/en_img_2.86d7767.png",
   },
   {
     id: 4,
@@ -60,10 +55,8 @@ const sectionInfo = [
     linkText1: "Optimize with GameAnalytics",
     link2: "/",
     linkText2: "Optimize with GameAnalytics",
-    imgLink1:
-      "https://cdn.pixabay.com/photo/2017/11/27/21/31/computer-2982270_1280.jpg",
-    imgLink2:
-      "https://cdn.pixabay.com/photo/2021/10/11/17/54/technology-6701504_1280.jpg",
+    imgLink1: "https://www.mobvista.com/_nuxt/img/en_img_3.ff5add6.png",
+    imgLink2: "https://www.mobvista.com/_nuxt/img/en_img_4.429cf0e.png",
   },
 ];
 

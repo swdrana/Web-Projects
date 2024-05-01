@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Slider() {
   return (
     <div
@@ -12,7 +14,7 @@ function Slider() {
         <div className="max-w-md">
           <h1 className="mb-5 text-5xl font-bold">WELCOME</h1>
           <p className="mb-5">THE GROWTH HUB FOR DEVELOPERS</p>
-          <button className="btn btn-primary">Get Started</button>
+          <Link to='/contact' className="btn btn-primary">Get Started</Link>
         </div>
       </div>
     </div>
