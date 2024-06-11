@@ -18,3 +18,5 @@ export { default as Blogs}  from "../pages/community/blogs/Blogs";
 export { default as Ebook}  from "../pages/community/eBook/Ebook";
 export { default as CaseStudies}  from "../pages/community/case-studies/CaseStudies";
 export { default as Videos}  from "../pages/community/video/Videos";
+
+export { default as NotFound}  from "../pages/404/NotFound";

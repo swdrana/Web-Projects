@@ -1,5 +1,25 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { AboutUs, Advertisers, Announcement, Blogs, CaseStudies, CommunityAll, Contact, Ebook, Events, Financials, Governance, Home, IROverview, LayoutCommunity, LayoutInvestorRelations, LayoutMain, Publishers, Videos } from "./RouteImport";
+import {
+  AboutUs,
+  Advertisers,
+  Announcement,
+  Blogs,
+  CaseStudies,
+  CommunityAll,
+  Contact,
+  Ebook,
+  Events,
+  Financials,
+  Governance,
+  Home,
+  IROverview,
+  LayoutCommunity,
+  LayoutInvestorRelations,
+  LayoutMain,
+  NotFound,
+  Publishers,
+  Videos,
+} from "./RouteImport";
 function AllRoutes() {
   return (
     <BrowserRouter>
@@ -12,21 +32,24 @@ function AllRoutes() {
           <Route path="contact" element={<Contact />} />
           <Route path="about-us" element={<AboutUs />} />
 
-          <Route path="inverstor-relations" element={<LayoutInvestorRelations />}> 
+          <Route
+            path="inverstor-relations"
+            element={<LayoutInvestorRelations />}
+          >
             <Route index element={<IROverview />} />
             <Route path="governance" element={<Governance />} />
-            <Route path="announcement" element={<Announcement/>} />
-            <Route path="financials" element={<Financials/>} />
-            <Route path="events" element={<Events/>} />
-            <Route path="contact" element={<Contact/>} />
+            <Route path="announcement" element={<Announcement />} />
+            <Route path="financials" element={<Financials />} />
+            <Route path="events" element={<Events />} />
+            <Route path="contact" element={<Contact />} />
           </Route>
 
-          <Route path="community" element={<LayoutCommunity />}> 
+          <Route path="community" element={<LayoutCommunity />}>
             <Route index element={<CommunityAll />} />
             <Route path="blogs" element={<Blogs />} />
-            <Route path="ebook" element={<Ebook/>} />
-            <Route path="case" element={<CaseStudies/>} />
-            <Route path="videos" element={<Videos/>} />
+            <Route path="ebook" element={<Ebook />} />
+            <Route path="case" element={<CaseStudies />} />
+            <Route path="videos" element={<Videos />} />
           </Route>
           {/* <Route path="login" element={<Login />} /> */}
           {/* <Route path="signup" element={<Signup />} />
@@ -90,10 +113,11 @@ function AllRoutes() {
           <Route path="edit-profile" element={<EditProfile />} />
           <Route path="address" element={<AddressBook />} />
           <Route path="add-address" element={<AddAddress />} />
-        </Route>
+        </Route> */}
+
         <Route path="*" element={<LayoutMain />}>
           <Route path="*" element={<NotFound />} />
-        </Route> */}
+        </Route>
       </Routes>
     </BrowserRouter>
   );
