@@ -84,7 +84,10 @@ const Login = () => {
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-primary">Login</button>
+                <button className="btn btn-primary text-gray-900">Login</button>
+              </div>
+              <div className="form-control mt-6">
+                <Link to="/signup" className="btn btn-warning">নতুন অ্যাকাউন্ট তৈরি করুন</Link>
               </div>
               <div className="divider">OR</div>
               <div className=" flex items-center justify-around gap-10">
